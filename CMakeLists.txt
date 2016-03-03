@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-set(PROJECT_NAME postfix)
+set(PROJECT_NAME lab4)
 project(${PROJECT_NAME})
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
@@ -21,7 +21,7 @@ include_directories("${MP2_INCLUDE}" gtest)
 
 # BUILD
 add_subdirectory(src)
-add_subdirectory(samples)
+add_subdirectory(sample)
 add_subdirectory(gtest)
 add_subdirectory(test)
 
