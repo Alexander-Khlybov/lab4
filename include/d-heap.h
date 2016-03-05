@@ -5,21 +5,22 @@
 #include <iostream>
 #include "excp.h"
 
-#define ALLOW_MEMORY_REALLOCATION true
-#define PROHIBIT_MEMORY_REALLOCATION false
+#define ALLOW_MEMORY_REALLOCATION_WYV 2 // with your value
+#define ALLOW_MEMORY_REALLOCATION_WCV 1 // with calculated value
+#define PROHIBIT_MEMORY_REALLOCATION 0
 
 using namespace std;
 
 typedef int KeyType;
-typedef bool mem_rc;
+typedef unsigned short mem_rc;
 
 
 class D_HEAP{
 private:
 	KeyType*    tree_;
-    int      sizeTree_;
-	int      size_;
-	int      d_;
+    int      	sizeTree_;
+	int      	size_;
+	int      	d_;
 
 	int  minKeyIndex 	(int a, int b) const { return (tree_[a] <= tree_[b]) ? a : b; }
     int  min      		(int a, int b) const { return (a < b) ? a : b; }
@@ -31,9 +32,11 @@ private:
 public:
 
 	D_HEAP 	(int, int);
-	D_HEAP 	(const KeyType*, int, int, int);
 	D_HEAP 	(const D_HEAP&);
 	~D_HEAP (void);
+
+	int operator==(const D_HEAP&)const;
+	int operator!=(const D_HEAP&)const;
 
 	int 	getSizeTree	(void) const { return sizeTree_;}
 	KeyType getNodeKey	(int) const;
@@ -43,8 +46,8 @@ public:
 	void 	siftDown 	(int);
 	void 	siftUp 		(int);
 
-	void    insert 		    (const KeyType&, mem_rc);
-	KeyType deleteMinElem 	(void);
+	void    insert 		    (const KeyType&, mem_rc flag = ALLOW_MEMORY_REALLOCATION_WCV, int size = 0);
+	void	deleteMinElem 	(void);
 	void    deleteElem 	    (int);
 	void    heapify 		(void);
 
@@ -52,7 +55,7 @@ public:
 
 	friend ostream& operator<< (ostream& out, const D_HEAP& heap){
     	for (int i = 0; i < heap.sizeTree_; i++)
-      	out << heap.tree_[i] << "\t";
+      		out << heap.tree_[i] << "\t";
     	return out;
   	}
 };

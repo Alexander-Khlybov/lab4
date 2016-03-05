@@ -1,8 +1,7 @@
 #include "d-heap.h"
 
 
-int D_HEAP::getParentIndex(int child) const
-{
+int D_HEAP::getParentIndex(int child) const{
     if (child == 0)
         return -1;
 
@@ -29,7 +28,7 @@ int D_HEAP::minChild(int parent) const{
 }
 
 void D_HEAP::swap(int first, int second){
-	if ((first >= sizeTree_) || (second >= sizeTree_))
+	if ((first >= sizeTree_) || (second >= sizeTree_) || (first < 0) || (second < 0))
 		throw myExcp("Out of range.");
 
 	KeyType tmp = tree_[first];
@@ -38,7 +37,7 @@ void D_HEAP::swap(int first, int second){
 }
 
 void D_HEAP::siftDown(int idx){
-	if (idx >= sizeTree_)
+	if ((idx >= sizeTree_) || (idx < 0))
 		throw myExcp("Out of range.");
 
     int c = minChild(idx);
@@ -50,10 +49,9 @@ void D_HEAP::siftDown(int idx){
 }
 
 void D_HEAP::siftUp(int idx){
-	if (idx >= sizeTree_)
+	if ((idx >= sizeTree_) || (idx < 0))
 		throw myExcp("Out of range.");
-
-	if (idx = 0) return;
+	if (idx == 0) return;
 
 	int parent = getParentIndex(idx);
 
@@ -65,36 +63,20 @@ void D_HEAP::siftUp(int idx){
 }
 
 D_HEAP::D_HEAP(int size, int d){
-	if (d == 0)
+	if (d <= 0)
 		throw myExcp("'d' must be greater than 0.");
+
+	if (size < 0)
+		throw myExcp("Size must be >= 0");
+
 
 	size_ = size;
 	d_ = d;
 	sizeTree_ = 0;
 	tree_ = new KeyType[size_];
 
-	if (tree_ = 0)
-		throw myExcp("Memory allocation error.");
-}
-
-D_HEAP::D_HEAP(	const 	KeyType* 	tree, 
-						int 		size, 
-						int 		sizeTree, 
-						int 		d){
-
-	if (d == 0)
-		throw myExcp("'d' must be greater than 0.");
-	size_ = size;
-	d_ = d;
-	sizeTree_ = sizeTree;
-
-	tree_ = new KeyType[size];
 	if (tree_ == 0)
 		throw myExcp("Memory allocation error.");
-	for (int i = 0; i < sizeTree_; i++){
-		tree_[i] = tree[i];
-	}
-	heapify();
 }
 
 D_HEAP::D_HEAP(const D_HEAP& tree){
@@ -103,7 +85,7 @@ D_HEAP::D_HEAP(const D_HEAP& tree){
 	d_ = tree.d_;
 
 	tree_ = new KeyType[size_];
-	if (tree_ = 0)
+	if (tree_ == 0)
 		throw myExcp("Memory allocation error.");
 
 	for(int i = 0; i < sizeTree_; i++){
@@ -112,38 +94,53 @@ D_HEAP::D_HEAP(const D_HEAP& tree){
 }
 
 D_HEAP::~D_HEAP(void){
+
 	delete []tree_;
 }
 
-void D_HEAP::insert(const KeyType& node, mem_rc flag){
-	if(sizeTree_ == size_){
-		if (!flag){
-			throw myExcp("No memory for insert node.");
-		} else{
-			size_ = getReallocSize();
-			tree_ = (KeyType*) realloc(tree_, size_ * sizeof(KeyType));
-			if (tree_ = 0)
-				throw myExcp("Memory allocation error.");
-		}
-	}
+void D_HEAP::insert(const KeyType& node, mem_rc flag, int size){
 
-	tree_[sizeTree_] = node;
-	siftUp(sizeTree_++);
+    switch (flag) {
+    	case PROHIBIT_MEMORY_REALLOCATION:
+        	break;
+    	case ALLOW_MEMORY_REALLOCATION_WCV:
+            if (size_ == sizeTree_) {
+                size_ += getReallocSize();
+                tree_ = (KeyType*)realloc(tree_, size_ * sizeof(KeyType));
+                if (tree_ == 0)
+                    throw myExcp("Memory allocation error.");
+            }
+        	break;
+    	case ALLOW_MEMORY_REALLOCATION_WYV:
+            if (size < 0)
+                throw("Size must be >= 0");
+            size_ += size;
+            tree_ = (KeyType*)realloc(tree_, size_ * sizeof(KeyType));
+            if (tree_ == 0)
+                throw myExcp("Memory allocation error.");
+            break;
+        default:
+            throw myExcp("Incorrect flag value");
+    }
+
+    if (size_ == sizeTree_)
+        throw myExcp("No memory for insert node.");
+    sizeTree_++;
+	tree_[sizeTree_ - 1] = node;
+	siftUp(sizeTree_ - 1);
 }
 
-KeyType D_HEAP::deleteMinElem(void){
+void D_HEAP::deleteMinElem(void){
 	if (sizeTree_ == 0){
-		throw myExcp("Tree is empty.");
+		throw myExcp("Heap is empty.");
 	}
 
-	KeyType minKey = tree_[0];
 	tree_[0] = tree_[--sizeTree_];
 	siftDown(0);
-    return minKey;
 }
 
 void D_HEAP::deleteElem(int idx){
-	if (idx >= sizeTree_)
+	if ((idx >= sizeTree_) || (idx < 0))
 		throw myExcp("Out of range.");
 
 	swap(idx, sizeTree_ - 1);
@@ -175,8 +172,25 @@ void D_HEAP::sort(void){
 }
 
 KeyType D_HEAP::getNodeKey(int idx) const{
-	if (idx >= sizeTree_)
-		throw myExcp("Out of range.");
+	if ((idx >= sizeTree_) || (idx < 0))
+			throw myExcp("Out of range.");
 
 	return tree_[idx];
+}
+
+int D_HEAP::operator== (const D_HEAP& heap)const{
+	if (sizeTree_ != heap.sizeTree_)
+		return 0;
+
+	for (int i = 0; i < sizeTree_; i++){
+		if(tree_[i] != heap.tree_[i])
+			return 0;
+	}
+
+	return 1;
+}
+
+int D_HEAP::operator!= (const D_HEAP& heap)const{
+
+	return !(*this == heap);
 }

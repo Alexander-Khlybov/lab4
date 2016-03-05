@@ -1,15 +1,14 @@
 #include <ctime>
 #include "d-heap.h"
 
-void start(KeyType*&, int);
-
 int main(void) {
-	KeyType* tree;
-	int size = 20;
-
-	start(tree, size);
-
-	D_HEAP heap(tree, size, size, 3);
+	int size = 10;
+	D_HEAP heap(size, 3);
+    srand(time(NULL));
+    for (int i = 0; i < size; i++) {
+        heap.insert(rand(), PROHIBIT_MEMORY_REALLOCATION);
+    }
+    heap.heapify();
 	cout << heap << endl;
 
     heap.sort();
@@ -17,12 +16,4 @@ int main(void) {
 	cout << heap << endl;
     system("pause");
     return 1;
-}
-
-void start(KeyType*& m, int size){
-	srand(time(NULL));
-	m = new KeyType[size];
-	for (int i = 0; i < size; i++){
-		m[i] = rand();
-	}
 }
