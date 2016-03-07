@@ -171,6 +171,15 @@ void D_HEAP::sort(void){
     sizeTree_ = tmp;
 }
 
+TVector D_HEAP::getTree(void) const{
+    TVector v(sizeTree_);
+    for (int i = 0; i < sizeTree_; i++) {
+        v[i] = tree_[i];
+    }
+
+    return v;
+}
+
 KeyType D_HEAP::getNodeKey(int idx) const{
 	if ((idx >= sizeTree_) || (idx < 0))
 			throw myExcp("Out of range.");

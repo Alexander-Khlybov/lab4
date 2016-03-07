@@ -2,18 +2,26 @@
 #define __D_HEAP__
 
 #include <cstdlib>
-#include <iostream>
+
+#ifndef __TVECTOR_H__
+#include "tvector.h"
+#endif
+
+#ifndef __EXCP_H__
 #include "excp.h"
+#endif
+
+#ifndef __TVECTOR_H__
+#include <iostream>
+using namespace std;
+typedef int KeyType;
+#endif
 
 #define ALLOW_MEMORY_REALLOCATION_WYV 2 // with your value
 #define ALLOW_MEMORY_REALLOCATION_WCV 1 // with calculated value
 #define PROHIBIT_MEMORY_REALLOCATION 0
 
-using namespace std;
-
-typedef int KeyType;
 typedef unsigned short mem_rc;
-
 
 class D_HEAP{
 private:
@@ -52,6 +60,8 @@ public:
 	void    heapify 		(void);
 
     void    sort    (void);
+
+    TVector    getTree(void) const;
 
 	friend ostream& operator<< (ostream& out, const D_HEAP& heap){
     	for (int i = 0; i < heap.sizeTree_; i++)
