@@ -55,7 +55,7 @@ void D_HEAP::siftUp(int idx){
 
 	int parent = getParentIndex(idx);
 
-	while ((parent > 0) && (tree_[parent] > tree_[idx])){
+	while ((parent != -1) && (tree_[parent] > tree_[idx])){
 		swap(parent, idx);
 		idx = parent;
 		parent = getParentIndex(idx);

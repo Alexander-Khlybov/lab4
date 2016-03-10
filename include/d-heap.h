@@ -48,9 +48,10 @@ public:
 	int operator==(const D_HEAP&)const;
 	int operator!=(const D_HEAP&)const;
 
-	int 	getSizeTree		(void) const { return sizeTree_;}
-	KeyType getNodeKey		(int) const;
-	int 	getSizeBufMem	(void) const { return size_ - sizeTree_;}
+	int 	getSizeTree			(void) const { return sizeTree_;}
+	KeyType getNodeKey			(int) const;
+	int 	getSizeReservedMem	(void) const { return size_ - sizeTree_;}
+	int 	getD 				(void) const { return d_;}
 
 	void 	swap 		(int, int);
 	void 	siftDown 	(int);
