@@ -245,7 +245,7 @@ TEST(D_HEAP, siftUp_throws_when_index_less_than_0){
 	}
 
 	a.swap(0, 9);
-	ASSERT_NO_THROW(a.siftUp(-1));
+	ASSERT_ANY_THROW(a.siftUp(-1));
 }
 
 TEST(D_HEAP, siftUp_throws_when_index_is_too_large){
@@ -257,7 +257,7 @@ TEST(D_HEAP, siftUp_throws_when_index_is_too_large){
 	}
 
 	a.swap(0, 9);
-	ASSERT_NO_THROW(a.siftUp(10));
+	ASSERT_ANY_THROW(a.siftUp(10));
 }
 
 TEST(D_HEAP, siftUp_works_properly){
@@ -299,7 +299,7 @@ TEST(D_HEAP, siftDown_throws_when_index_less_than_0){
 	}
 
 	a.swap(0, 9);
-	ASSERT_NO_THROW(a.siftDown(-1));
+	ASSERT_ANY_THROW(a.siftDown(-1));
 }
 
 TEST(D_HEAP, siftDown_throws_when_index_is_too_large){
@@ -311,7 +311,7 @@ TEST(D_HEAP, siftDown_throws_when_index_is_too_large){
 	}
 
 	a.swap(0, 9);
-	ASSERT_NO_THROW(a.siftDown(10));
+	ASSERT_ANY_THROW(a.siftDown(10));
 }
 
 TEST(D_HEAP, siftDown_works_properly){
