@@ -35,7 +35,9 @@ private:
 
 	int  getMaxChildIndex	(int parent) const { return parent * d_ + d_; }
 	int  getMinChildIndex	(int parent) const { return parent * d_ + 1; }
-    int  getParentIndex		(int child) const;
+    int  getParentIndex		(int) const;
+	int  minChild 			(int) const;
+
 	int  getReallocSize		(void) const;
 public:
 
@@ -46,10 +48,10 @@ public:
 	int operator==(const D_HEAP&)const;
 	int operator!=(const D_HEAP&)const;
 
-	int 	getSizeTree	(void) const { return sizeTree_;}
-	KeyType getNodeKey	(int) const;
+	int 	getSizeTree		(void) const { return sizeTree_;}
+	KeyType getNodeKey		(int) const;
+	int 	getSizeBufMem	(void) const { return size_ - sizeTree_;}
 
-	int 	minChild 	(int) const;
 	void 	swap 		(int, int);
 	void 	siftDown 	(int);
 	void 	siftUp 		(int);

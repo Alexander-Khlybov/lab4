@@ -15,5 +15,5 @@ int main(void) {
 
 	cout << heap << endl;
     system("pause");
-    return 1;
+    return 0;
 }

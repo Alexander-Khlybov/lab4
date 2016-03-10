@@ -110,36 +110,6 @@ TEST(D_HEAP, throws_when_get_node_key_with_too_large_index){
 	ASSERT_ANY_THROW(a.getNodeKey(10));
 }
 
-TEST(D_HEAP, can_get_minChild_number){
-	D_HEAP a(10, 3);
-
-	for(int i = 0; i < 10; i++){
-		a.insert(i);
-	}
-
-	ASSERT_NO_THROW(a.getMinChild(3));
-}
-
-TEST(D_HEAP, throws_when_get_minChild_number_with_argument_less_than_0){
-	D_HEAP a(10, 3);
-
-	for(int i = 0; i < 10; i++){
-		a.insert(i);
-	}
-
-	ASSERT_NO_THROW(a.getMinChild(-1));
-}
-
-TEST(D_HEAP, throws_when_get_minChild_number_with_too_large_argument){
-	D_HEAP a(10, 3);
-
-	for(int i = 0; i < 10; i++){
-		a.insert(i);
-	}
-
-	ASSERT_NO_THROW(a.getMinChild(10));
-}
-
 TEST(D_HEAP, can_swap_two_nodes){
 	D_HEAP a(10, 3);
 
