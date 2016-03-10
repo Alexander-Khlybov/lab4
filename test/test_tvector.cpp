@@ -1,5 +1,8 @@
 #include "tvector.h"
+
+#ifndef GTEST_INCLUDE_GTEST_GTEST_H_
 #include <gtest.h>
+#endif
 
 TEST(TVector, can_create_vector_with_positive_length){
   ASSERT_NO_THROW(TVector v(5));

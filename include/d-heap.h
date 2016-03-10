@@ -1,7 +1,9 @@
 #ifndef __D_HEAP__
 #define __D_HEAP__
 
+#ifndef _CSTDLIB_
 #include <cstdlib>
+#endif
 
 #ifndef __TVECTOR_H__
 #include "tvector.h"

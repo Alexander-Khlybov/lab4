@@ -417,7 +417,7 @@ TEST(D_HEAP, cant_delete_min_elem_from_empty_tree){
 
 TEST(D_HEAP, deleteMinElem_works_properly){
 	D_HEAP a(10, 3);
-	TVector temp[9];
+	TVector temp(9);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 	}
@@ -432,8 +432,7 @@ TEST(D_HEAP, deleteMinElem_works_properly){
 	temp[6] = 6;
 	temp[7] = 7;
 	temp[8] = 8;
-
-	EXPECT_EQ(tree, a.getTree());
+	EXPECT_EQ(temp, a.getTree());
 }
 
 TEST(D_HEAP, can_delete_elem){
@@ -450,9 +449,9 @@ TEST(D_HEAP, deleteElem_decreases_size_tree){
 		a.insert(i);
 	}
 	int tmp = a.getSizeTree();
-	a.deleteElem();
+	a.deleteElem(3);
 
-	EXPECT_EQ(tmp - 1, a.getSizeTree(2));
+	EXPECT_EQ(tmp - 1, a.getSizeTree());
 }
 
 TEST(D_HEAP, cant_delete_elem_from_empty_tree){
@@ -462,7 +461,7 @@ TEST(D_HEAP, cant_delete_elem_from_empty_tree){
 
 TEST(D_HEAP, deleteElem_works_properly){
 	D_HEAP a(10, 3);
-	TVector temp[9];
+	TVector temp(9);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 	}
@@ -478,7 +477,7 @@ TEST(D_HEAP, deleteElem_works_properly){
 	temp[7] = 9;
 	temp[8] = 8;
 
-	EXPECT_EQ(tree, a.getTree());
+	EXPECT_EQ(temp, a.getTree());
 }
 
 TEST(D_HEAP, throws_when_delete_elem_with_negative_index){
@@ -509,7 +508,7 @@ TEST(D_HEAP, heapify_works){
 			a.swap(i, 9 - i);
 	}
 
-	TVector treeExp[10];
+	TVector treeExp(10);
 	treeExp[0] = 0;
 	treeExp[1] = 1;
 	treeExp[2] = 3;
@@ -522,4 +521,64 @@ TEST(D_HEAP, heapify_works){
 	treeExp[9] = 5;
 
 	EXPECT_EQ(treeExp, a.getTree());
+}
+
+TEST(D_HEAP, swap_does_not_change_sizeTree){
+	D_HEAP a(10, 2);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+	int tmp = a.getSizeTree();
+	a.swap(0, 9);
+	EXPECT_EQ(tmp, a.getSizeTree());
+}
+
+TEST(D_HEAP, siftUp_does_not_change_sizeTree){
+	D_HEAP a(10, 2);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+	int tmp = a.getSizeTree();
+	a.swap(0, 9);
+	a.siftUp(9);
+	EXPECT_EQ(tmp, a.getSizeTree());
+}
+
+TEST(D_HEAP, siftDown_does_not_change_sizeTree){
+	D_HEAP a(10, 2);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+	int tmp = a.getSizeTree();
+	a.swap(0, 9);
+	a.siftDown(0);
+	EXPECT_EQ(tmp, a.getSizeTree());
+}
+
+TEST(D_HEAP, heapify_does_not_change_sizeTree){
+	D_HEAP a(10, 2);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+	int tmp = a.getSizeTree();
+	a.swap(0, 9);
+	a.heapify();
+	EXPECT_EQ(tmp, a.getSizeTree());
+}
+
+TEST(D_HEAP, sort_does_not_change_sizeTree){
+	D_HEAP a(10, 3);
+
+#ifndef _CSTDIO_
+#include <cstdio>
+#endif
+    srand(NULL);
+
+    for (int i = 0; i < 10; i++) {
+        a.insert(rand());
+    }
+    int tmp = a.getSizeTree();
+    a.sort();
+
+    EXPECT_EQ(tmp, a.getSizeTree());
 }

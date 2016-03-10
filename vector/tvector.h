@@ -1,7 +1,10 @@
 ﻿#ifndef __TVECTOR_H__
 #define __TVECTOR_H__
 
+#ifndef _IOSTREAM_
 #include <iostream>
+#endif
+
 #include "excp.h"
 
 using namespace std;
