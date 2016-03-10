@@ -338,7 +338,7 @@ TEST(D_HEAP, can_insert_node){
 	ASSERT_NO_THROW(a.insert(1));
 }
 
-TEST(D_HEAP, insert_increase_size_tree){
+TEST(D_HEAP, insert_increases_size_tree){
 	D_HEAP a(10, 3);
 	int tmp = a.getSizeTree();
 	a.insert(1);
@@ -389,4 +389,112 @@ TEST(D_HEAP, insert_works_properly){
 	treeExp[10] = 3;
 	a.insert(-1);
 	EXPECT_EQ(treeExp, a.getTree());
+}
+
+TEST(D_HEAP, can_delete_min_node){
+	D_HEAP a(10, 3);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+	ASSERT_NO_THROW(a.deleteMinElem());
+}
+
+TEST(D_HEAP, deleteMinElem_decreases_size_tree){
+	D_HEAP a(10, 3);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+	int tmp = a.getSizeTree();
+	a.deleteMinElem();
+
+	EXPECT_EQ(tmp - 1, a.getSizeTree());
+}
+
+TEST(D_HEAP, cant_delete_min_elem_from_empty_tree){
+	D_HEAP a(10, 3);
+	ASSERT_ANY_THROW(a.deleteMinElem());
+}
+
+TEST(D_HEAP, deleteMinElem_works_properly){
+	D_HEAP a(10, 3);
+	TVector temp[9];
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+
+	a.deleteMinElem();
+	temp[0] = 1;
+	temp[1] = 4;
+	temp[2] = 2;
+	temp[3] = 3;
+	temp[4] = 9;
+	temp[5] = 5;
+	temp[6] = 6;
+	temp[7] = 7;
+	temp[8] = 8;
+
+	EXPECT_EQ(tree, a.getTree());
+}
+
+TEST(D_HEAP, can_delete_elem){
+	D_HEAP a(10, 3);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+	ASSERT_NO_THROW(a.deleteElem(2));
+}
+
+TEST(D_HEAP, deleteElem_decreases_size_tree){
+	D_HEAP a(10, 3);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+	int tmp = a.getSizeTree();
+	a.deleteElem();
+
+	EXPECT_EQ(tmp - 1, a.getSizeTree(2));
+}
+
+TEST(D_HEAP, cant_delete_elem_from_empty_tree){
+	D_HEAP a(10, 3);
+	ASSERT_ANY_THROW(a.deleteElem(2));
+}
+
+TEST(D_HEAP, deleteElem_works_properly){
+	D_HEAP a(10, 3);
+	TVector temp[9];
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+
+	a.deleteElem(2);
+	temp[0] = 0;
+	temp[1] = 1;
+	temp[2] = 7;
+	temp[3] = 3;
+	temp[4] = 4;
+	temp[5] = 5;
+	temp[6] = 6;
+	temp[7] = 9;
+	temp[8] = 8;
+
+	EXPECT_EQ(tree, a.getTree());
+}
+
+TEST(D_HEAP, throws_when_delete_elem_with_negative_index){
+	D_HEAP a(10, 3);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+
+	ASSERT_ANY_THROW(a.deleteElem(-1));
+}
+
+TEST(D_HEAP, throws_when_delete_elem_with_too_large_index){
+	D_HEAP a(10, 3);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+
+	ASSERT_ANY_THROW(a.deleteElem(10));
 }
