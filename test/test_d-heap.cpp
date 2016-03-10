@@ -498,3 +498,28 @@ TEST(D_HEAP, throws_when_delete_elem_with_too_large_index){
 
 	ASSERT_ANY_THROW(a.deleteElem(10));
 }
+
+TEST(D_HEAP, heapify_works){
+	D_HEAP a(10, 2);
+	for(int i = 0; i < 10; i++){
+		a.insert(i);
+	}
+
+	for(int i = 0; i <= 5; i++){
+			a.swap(i, 9 - i);
+	}
+
+	TVector treeExp[10];
+	treeExp[0] = 0;
+	treeExp[1] = 1;
+	treeExp[2] = 3;
+	treeExp[3] = 6;
+	treeExp[4] = 2;
+	treeExp[5] = 4;
+	treeExp[6] = 7;
+	treeExp[7] = 8;
+	treeExp[8] = 9;
+	treeExp[9] = 5;
+
+	EXPECT_EQ(treeExp, a.getTree());
+}
