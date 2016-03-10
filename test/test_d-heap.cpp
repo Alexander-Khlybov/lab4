@@ -184,10 +184,9 @@ TEST(D_HEAP, getTree_works_properly){
 	TVector treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
-		treeExp[i];
+		treeExp[i] = i;
 	}
-	TVector tree = a.getTree();
-	EXPECT_EQ(treeExp, tree);
+	EXPECT_EQ(treeExp, a.getTree());
 }
 
 TEST(D_HEAP, swap_works_properly){
@@ -195,7 +194,7 @@ TEST(D_HEAP, swap_works_properly){
 	TVector treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
-		treeExp[i];
+		treeExp[i] = i;
 	}
 
 	treeExp[0] = 2;
@@ -246,7 +245,7 @@ TEST(D_HEAP, siftUp_throws_when_index_less_than_0){
 	}
 
 	a.swap(0, 9);
-	ASSERT_NO_THROW(a.siftUp(-1));
+	ASSERT_ANY_THROW(a.siftUp(-1));
 }
 
 TEST(D_HEAP, siftUp_throws_when_index_is_too_large){
@@ -258,7 +257,7 @@ TEST(D_HEAP, siftUp_throws_when_index_is_too_large){
 	}
 
 	a.swap(0, 9);
-	ASSERT_NO_THROW(a.siftUp(10));
+	ASSERT_ANY_THROW(a.siftUp(10));
 }
 
 TEST(D_HEAP, siftUp_works_properly){
@@ -266,7 +265,7 @@ TEST(D_HEAP, siftUp_works_properly){
 	TVector treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
-		treeExp[i];
+		treeExp[i] = i;
 	}
 
 	treeExp[2] = 9;
@@ -300,7 +299,7 @@ TEST(D_HEAP, siftDown_throws_when_index_less_than_0){
 	}
 
 	a.swap(0, 9);
-	ASSERT_NO_THROW(a.siftDown(-1));
+	ASSERT_ANY_THROW(a.siftDown(-1));
 }
 
 TEST(D_HEAP, siftDown_throws_when_index_is_too_large){
@@ -312,7 +311,7 @@ TEST(D_HEAP, siftDown_throws_when_index_is_too_large){
 	}
 
 	a.swap(0, 9);
-	ASSERT_NO_THROW(a.siftDown(10));
+	ASSERT_ANY_THROW(a.siftDown(10));
 }
 
 TEST(D_HEAP, siftDown_works_properly){
@@ -320,9 +319,8 @@ TEST(D_HEAP, siftDown_works_properly){
 	TVector treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
-		treeExp[i];
+		treeExp[i] = i;
 	}
-
 
 	a.swap(0, 4);
 	a.siftDown(0);
@@ -381,7 +379,7 @@ TEST(D_HEAP, insert_works_properly){
 	TVector treeExp(11);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
-		treeExp[i];
+		treeExp[i] = i;
 	}
 
 	treeExp[0] = -1;
@@ -512,13 +510,15 @@ TEST(D_HEAP, heapify_works){
 	treeExp[0] = 0;
 	treeExp[1] = 1;
 	treeExp[2] = 3;
-	treeExp[3] = 6;
-	treeExp[4] = 2;
-	treeExp[5] = 4;
+	treeExp[3] = 2;
+	treeExp[4] = 4;
+	treeExp[5] = 5;
 	treeExp[6] = 7;
-	treeExp[7] = 8;
-	treeExp[8] = 9;
-	treeExp[9] = 5;
+	treeExp[7] = 9;
+	treeExp[8] = 6;
+	treeExp[9] = 8;
+
+	a.heapify();
 
 	EXPECT_EQ(treeExp, a.getTree());
 }
@@ -569,9 +569,9 @@ TEST(D_HEAP, heapify_does_not_change_sizeTree){
 TEST(D_HEAP, sort_does_not_change_sizeTree){
 	D_HEAP a(10, 3);
 
-#ifndef _CSTDIO_
-#include <cstdio>
-#endif
+	#ifndef _CSTDIO_
+	#include <cstdio>
+	#endif
     srand(NULL);
 
     for (int i = 0; i < 10; i++) {
