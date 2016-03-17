@@ -31,21 +31,20 @@ public:
     PRIORITY_QUEUE  (const PRIORITY_QUEUE&);
 	~PRIORITY_QUEUE (void) { delete heap_;};
 
-    int     getSize (void) const;
-    int     getHeap     (void) const;
+    int     getSize 	(void) const { return heap_->getSizeTree();}
+    D_HEAP  getHeap     (void) const;
 
     int     operator==  (const PRIORITY_QUEUE&)const;
     int     operator!=  (const PRIORITY_QUEUE&)const;
 
-    int     isFull      (void) const;
     int     isEmpty     (void) const;
 
     void    pop         (void);
     void    push        (const KeyType&);
     KeyType back        (void) const;
 
-    friend ostream& operator<< (ostream& out, const PRIORITY_QUEUE& heap) {
-            out << heap.heap_;
+    friend ostream& operator<< (ostream& out, const PRIORITY_QUEUE& queue) {
+            out << queue.heap_;
         return out;
     }
 };
