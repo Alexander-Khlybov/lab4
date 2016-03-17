@@ -45,7 +45,7 @@ public:
     KeyType back        (void) const;
 
     friend ostream& operator<< (ostream& out, const PRIORITY_QUEUE& heap) {
-            out << heap;
+            out << heap.heap_;
         return out;
     }
 };
