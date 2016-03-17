@@ -1,15 +1,10 @@
 #include "priority_queue.h"
 
-PRIORITY_QUEUE::PRIORITY_QUEUE (int d){
-	if (d <= 0)
-		throw myExcp("'d' must be greater than 0.");
-	heap_ = new D_HEAP(0, d);
-
-	if (heap_ == NULL)
-		throw myExcp("Memory allocationn error.");
+PRIORITY_QUEUE::PRIORITY_QUEUE (void){
+	heap_ = new D_HEAP(0, 1);
 }
 
-PRIORITY_QUEUE::PRIORITY_QUEUE (const PRIORITY_QUEUE &queue){
+PRIORITY_QUEUE::PRIORITY_QUEUE (const PRIORITY_QUEUE& queue){
 	heap_ = new D_HEAP(*queue.heap_);
 	if (heap_ == NULL)
 		throw myExcp("Memory allocationn error.");
@@ -22,7 +17,7 @@ D_HEAP PRIORITY_QUEUE::getHeap (void) const{
 
 int PRIORITY_QUEUE::operator== (const PRIORITY_QUEUE& queue) const{
 
-    return heap_ == queue.heap_;
+    return *heap_ == *queue.heap_;
 }
 
 int PRIORITY_QUEUE::operator!= (const PRIORITY_QUEUE& queue) const{
