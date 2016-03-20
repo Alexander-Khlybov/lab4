@@ -2,6 +2,8 @@
 #define _DISJOINT_SET_H_
 
 #include "tvector.h"
+#include "priority_queue.h"
+#include <stack>
 
 using namespace std;
 
@@ -14,11 +16,9 @@ public:
     DISJOINT_SET    (const DISJOINT_SET& set) : U_(set.U_), count_(set.count_) {}
     ~DISJOINT_SET   (void) {}
 
-    int     createSet           (int);
-    void    removeSet           (int);
-    void    removeNodeFromSet   (int, int);
-    int     uniteSets           (int, int);
-    int     findSet             (int)const;
+    void    createSet           (int);
+    void    uniteSets           (int, int);
+    int     findSet             (int);
     int     getNumberOfSets     (void)const { return count_; }
 
     TVector getUniversalSet (void)const { return U_; }

@@ -21,7 +21,7 @@ public:
   TVector (const TVector &v);
   ~TVector(void);
 
-  int GetSize(void){ return size_; }
+  int GetSize(void)const{ return size_; }
 
   KeyType&  operator[](int pos);
   int       operator==(const TVector &v) const;
