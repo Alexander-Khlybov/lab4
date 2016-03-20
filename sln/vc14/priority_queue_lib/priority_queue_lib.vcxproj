@@ -129,9 +129,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\..\src\priority_queue.cpp" />
   </ItemGroup>
   <ItemGroup>

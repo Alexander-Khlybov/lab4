@@ -27,7 +27,7 @@ class PRIORITY_QUEUE{
 
 	D_HEAP* heap_;
 public:
-    PRIORITY_QUEUE  (void);
+    PRIORITY_QUEUE  (int d = 1);
     PRIORITY_QUEUE  (const PRIORITY_QUEUE&);
 	~PRIORITY_QUEUE (void) { delete heap_;};
 
