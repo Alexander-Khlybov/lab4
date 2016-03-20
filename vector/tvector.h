@@ -21,7 +21,7 @@ public:
   TVector (const TVector &v);
   ~TVector(void);
 
-  int GetSize(void){ return size_; }
+  int GetSize(void)const{ return size_; }
 
   KeyType&  operator[](int pos);
   int       operator==(const TVector &v) const;
@@ -34,8 +34,9 @@ public:
     return in;
   }
   friend ostream& operator<<(ostream &out, const TVector &v){
-    for (int i = 0; i < v.size_; i++)
-      out << v.pVector_[i] << "\t";
+    for (int i = 0; i < v.size_ - 1; i++)
+      out << v.pVector_[i] << ",\t";
+    if (v.size_ != 0) out << v.pVector_[v.size_ - 1];
     return out;
   }
 };
