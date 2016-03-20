@@ -128,9 +128,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\..\vector\excp.h" />
     <ClInclude Include="..\..\..\vector\tvector.h" />
   </ItemGroup>

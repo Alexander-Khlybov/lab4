@@ -34,8 +34,9 @@ public:
     return in;
   }
   friend ostream& operator<<(ostream &out, const TVector &v){
-    for (int i = 0; i < v.size_; i++)
-      out << v.pVector_[i] << "\t";
+    for (int i = 0; i < v.size_ - 1; i++)
+      out << v.pVector_[i] << ",\t";
+    if (v.size_ != 0) out << v.pVector_[v.size_ - 1];
     return out;
   }
 };
