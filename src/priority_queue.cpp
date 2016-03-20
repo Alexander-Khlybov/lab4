@@ -1,6 +1,9 @@
 #include "priority_queue.h"
 
-PRIORITY_QUEUE::PRIORITY_QUEUE (void){
+PRIORITY_QUEUE::PRIORITY_QUEUE (int d){
+	if (d <= 0)
+		throw myExcp("D must be > 0");
+
 	heap_ = new D_HEAP(0, 1);
 }
 
