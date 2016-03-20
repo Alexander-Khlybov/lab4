@@ -27,5 +27,8 @@
     <ClCompile Include="..\..\..\test\test_priority_queue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\test\test_disjoint-set.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
