@@ -38,26 +38,28 @@ int DISJOINT_SET::findSet(int key){
 TVector DISJOINT_SET::getSet(int root) const{
     if ((root < 0) || (root >= U_.GetSize()))
         throw myExcp("Out of range.");
-    DISJOINT_SET set(*this);
-    if (set.U_[root] != root)
+    TVector tmp = U_;
+    if (tmp[root] != root)
         throw myExcp("Argument is not root.");
-
     stack<int> st1;
     PRIORITY_QUEUE q(U_.GetSize() - count_ + 1);
     st1.push(root);
     while (!st1.empty()) {
         root = st1.top();
         st1.pop();
-        set.U_[root] = -1;
+        tmp[root] = -1;
         q.push(root);
         for (int i = 0; i < U_.GetSize(); i++) {
-            if (set.U_[i] == root)
+            if (tmp[i] == root)
                 st1.push(i);
         }
     }
+    
+
     TVector res(q.getSize());
-    for (int i = res.GetSize(); i >= 0; i--) {
-        res[i] = q.back();
+    int i = 0;
+    while (q.getSize() != 0) {
+        res[i++] = q.back();
         q.pop();
     }
     return res;

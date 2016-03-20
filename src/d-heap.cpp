@@ -136,7 +136,8 @@ void D_HEAP::deleteMinElem(void){
 	}
 
 	tree_[0] = tree_[--sizeTree_];
-	siftDown(0);
+    if(sizeTree_ != 0)
+	    siftDown(0);
 }
 
 void D_HEAP::deleteElem(int idx){
