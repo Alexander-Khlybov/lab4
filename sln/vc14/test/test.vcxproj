@@ -159,7 +159,7 @@
       <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
     </ProjectReference>
     <ProjectReference Include="..\disjoint-set_lib\disjoint-set_lib.vcxproj">
-      <Project>{854fde76-00ba-4b87-8bcb-34be19a8a750}</Project>
+      <Project>{c7b57ac5-4a52-4b25-887e-00fb3ad04167}</Project>
     </ProjectReference>
     <ProjectReference Include="..\gtest\gtest.vcxproj">
       <Project>{15ee3554-c1d4-4220-a0a4-98e5082f5954}</Project>

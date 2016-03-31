@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D3FA2C1D-0B5C-4B01-A8CD-44EFACF941C1}</ProjectGuid>
+    <ProjectGuid>{C7B57AC5-4A52-4B25-887E-00FB3AD04167}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>priority_queue_lib</RootNamespace>
+    <RootNamespace>disjointset_lib</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -77,7 +77,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\include; ..\..\..\vector</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\vector</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -104,7 +104,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\include; ..\..\..\vector</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\vector</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -129,18 +129,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\priority_queue.cpp" />
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
-      <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
+    <ClCompile Include="..\..\..\src\disjoint-set.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\priority_queue_lib\priority_queue_lib.vcxproj">
+      <Project>{d3fa2c1d-0b5c-4b01-a8cd-44efacf941c1}</Project>
     </ProjectReference>
     <ProjectReference Include="..\vector\vector.vcxproj">
       <Project>{a4284429-c274-4e1f-ab6b-318b846eb7bd}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\priority_queue.hpp" />
+    <ClInclude Include="..\..\..\include\disjoint-set.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
