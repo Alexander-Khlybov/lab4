@@ -15,12 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\gtest\gtest-all.cc">
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\disjoint-set.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\gtest\gtest.h">
+    <ClInclude Include="..\..\..\include\disjoint-set.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

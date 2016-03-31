@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\priority_queue.h">
+    <ClInclude Include="..\..\..\include\priority_queue.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

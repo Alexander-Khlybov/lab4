@@ -18,7 +18,7 @@
     <ClInclude Include="..\..\..\vector\excp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\vector\tvector.h">
+    <ClInclude Include="..\..\..\vector\tvector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
