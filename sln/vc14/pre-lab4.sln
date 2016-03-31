@@ -15,7 +15,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tvector", "vector\vector.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "priority_queue_lib", "priority_queue_lib\priority_queue_lib.vcxproj", "{D3FA2C1D-0B5C-4B01-A8CD-44EFACF941C1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "disjoint-set_lib", "disjoint-set_lib\disjoint-set_lib.vcxproj", "{854FDE76-00BA-4B87-8BCB-34BE19A8A750}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "disjoint-set_lib", "disjoint-set_lib\disjoint-set_lib.vcxproj", "{C7B57AC5-4A52-4B25-887E-00FB3AD04167}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sample_Dijkstra", "sample_Dijkstra\sample_Dijkstra.vcxproj", "{BEF25D9F-2BA2-4EE4-AB39-DD27F0A2FD24}"
 EndProject
@@ -75,6 +75,7 @@ Global
 		{D3FA2C1D-0B5C-4B01-A8CD-44EFACF941C1}.Release|x64.Build.0 = Release|x64
 		{D3FA2C1D-0B5C-4B01-A8CD-44EFACF941C1}.Release|x86.ActiveCfg = Release|Win32
 		{D3FA2C1D-0B5C-4B01-A8CD-44EFACF941C1}.Release|x86.Build.0 = Release|Win32
+<<<<<<< HEAD
 		{854FDE76-00BA-4B87-8BCB-34BE19A8A750}.Debug|x64.ActiveCfg = Debug|x64
 		{854FDE76-00BA-4B87-8BCB-34BE19A8A750}.Debug|x64.Build.0 = Debug|x64
 		{854FDE76-00BA-4B87-8BCB-34BE19A8A750}.Debug|x86.ActiveCfg = Debug|Win32
@@ -91,6 +92,16 @@ Global
 		{BEF25D9F-2BA2-4EE4-AB39-DD27F0A2FD24}.Release|x64.Build.0 = Release|x64
 		{BEF25D9F-2BA2-4EE4-AB39-DD27F0A2FD24}.Release|x86.ActiveCfg = Release|Win32
 		{BEF25D9F-2BA2-4EE4-AB39-DD27F0A2FD24}.Release|x86.Build.0 = Release|Win32
+=======
+		{C7B57AC5-4A52-4B25-887E-00FB3AD04167}.Debug|x64.ActiveCfg = Debug|x64
+		{C7B57AC5-4A52-4B25-887E-00FB3AD04167}.Debug|x64.Build.0 = Debug|x64
+		{C7B57AC5-4A52-4B25-887E-00FB3AD04167}.Debug|x86.ActiveCfg = Debug|Win32
+		{C7B57AC5-4A52-4B25-887E-00FB3AD04167}.Debug|x86.Build.0 = Debug|Win32
+		{C7B57AC5-4A52-4B25-887E-00FB3AD04167}.Release|x64.ActiveCfg = Release|x64
+		{C7B57AC5-4A52-4B25-887E-00FB3AD04167}.Release|x64.Build.0 = Release|x64
+		{C7B57AC5-4A52-4B25-887E-00FB3AD04167}.Release|x86.ActiveCfg = Release|Win32
+		{C7B57AC5-4A52-4B25-887E-00FB3AD04167}.Release|x86.Build.0 = Release|Win32
+>>>>>>> queue-ch
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

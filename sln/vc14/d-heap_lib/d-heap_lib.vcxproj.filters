@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\d-heap.h">
+    <ClInclude Include="..\..\..\include\d-heap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

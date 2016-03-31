@@ -132,12 +132,12 @@
     <ClCompile Include="..\..\..\src\d-heap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\d-heap.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\vector\vector.vcxproj">
       <Project>{a4284429-c274-4e1f-ab6b-318b846eb7bd}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\d-heap.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

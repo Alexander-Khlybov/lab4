@@ -129,7 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\vector\excp.h" />
-    <ClInclude Include="..\..\..\vector\tvector.h" />
+    <ClInclude Include="..\..\..\vector\tvector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\vector\tvector.cpp" />
