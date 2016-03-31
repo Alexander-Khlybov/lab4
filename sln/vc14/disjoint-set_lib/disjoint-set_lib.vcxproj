@@ -18,27 +18,8 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-<<<<<<< HEAD
-  <ItemGroup>
-    <ClInclude Include="..\..\..\include\disjoint-set.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\src\disjoint-set.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\priority_queue_lib\priority_queue_lib.vcxproj">
-      <Project>{d3fa2c1d-0b5c-4b01-a8cd-44efacf941c1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\vector\vector.vcxproj">
-      <Project>{a4284429-c274-4e1f-ab6b-318b846eb7bd}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{854FDE76-00BA-4B87-8BCB-34BE19A8A750}</ProjectGuid>
-=======
-  <PropertyGroup Label="Globals">
-    <ProjectGuid>{C7B57AC5-4A52-4B25-887E-00FB3AD04167}</ProjectGuid>
->>>>>>> queue-ch
+    <ProjectGuid>{D82A1328-589C-4321-BDF5-15C0CF800C73}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>disjointset_lib</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -147,15 +128,13 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-<<<<<<< HEAD
-=======
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <ClInclude Include="..\..\..\include\disjoint-set.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\disjoint-set.cpp" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
+      <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\priority_queue_lib\priority_queue_lib.vcxproj">
       <Project>{d3fa2c1d-0b5c-4b01-a8cd-44efacf941c1}</Project>
     </ProjectReference>
@@ -164,9 +143,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\disjoint-set.hpp" />
+    <ClCompile Include="..\..\..\src\disjoint-set.cpp" />
   </ItemGroup>
->>>>>>> queue-ch
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

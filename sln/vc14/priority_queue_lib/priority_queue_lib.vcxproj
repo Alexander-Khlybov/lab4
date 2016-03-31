@@ -129,9 +129,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\priority_queue.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
       <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
     </ProjectReference>
@@ -141,6 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\priority_queue.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\priority_queue.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

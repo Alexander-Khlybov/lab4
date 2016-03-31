@@ -2,13 +2,21 @@
 #define __GRAPH_H__
 #include <limits>
 #include <iostream>
-using namespace std;
+#include "priority_queue.hpp"
 const size_t MAX_VERTICE_NUM = 100;
+const double _INFINITY_ = std::numeric_limits<double>::infinity();
+
+
+class DISTANCE {
+public:
+	int vertex;
+	double distance;
+    DISTANCE(int v, double d) : vertex(v), distance(d) {}
+};
 
 class GRAPH{
 	double** dist_;
 	size_t vertices_;
-    const double _INFINITY_;
 public:
     GRAPH(size_t max_num_of_vert = 10);
 	GRAPH(const GRAPH&);
