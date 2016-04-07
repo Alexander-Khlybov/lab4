@@ -2,23 +2,22 @@
 #define __GRAPH_H__
 #include <limits>
 #include <iostream>
+#include <set>
 #include "priority_queue.hpp"
 const size_t MAX_VERTICE_NUM = 100;
 const double _INFINITY_ = std::numeric_limits<double>::infinity();
 
-
 class DISTANCE {
 public:
-	int vertex;
-	double distance;
-    DISTANCE(int v, double d) : vertex(v), distance(d) {}
+    int vertex;
+    int distance;
+    DISTANCE(int v = 0, double d = _INFINITY_) : vertex(v), distance(d) {}
     int operator==  (const DISTANCE& d)const { return (distance == d.distance) ? 1 : 0; }
     int operator!=  (const DISTANCE& d)const { return (distance != d.distance) ? 1 : 0; }
     int operator<   (const DISTANCE& d)const { return (distance < d.distance) ? 1 : 0; }
     int operator<=  (const DISTANCE& d)const { return (distance <= d.distance) ? 1 : 0; }
     int operator>   (const DISTANCE& d)const { return (distance > d.distance) ? 1 : 0; }
     int operator>=  (const DISTANCE& d)const { return (distance >= d.distance) ? 1 : 0; }
-    DISTANCE(size_t v = 0, double d = 0) : vertex(v), distance(d) {}
 };
 
 class GRAPH{
@@ -34,6 +33,8 @@ public:
     int     getNumOfVertices    (void)const { return vertices_; }
     double  getInf              (void)const { return _INFINITY_;}
     void    fillGraph           (void);
+
+    std::set<DISTANCE> getSetOfEdges(size_t)const;
 };
 
 #endif

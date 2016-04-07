@@ -69,7 +69,6 @@ double GRAPH::getDistance(size_t first, size_t second) const{
         throw std::out_of_range("Out of range.");
     return (first == second) ? 0 : ((first < second) ? 
         dist_[first][second] : dist_[second][first]);
-    
 }
 
 void GRAPH::fillGraph(void){
@@ -90,4 +89,22 @@ void GRAPH::fillGraph(void){
         if (s == 'e')
             break;
     }
+}
+
+std::set<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
+    if (currentVertex >= vertices_)
+        throw std::out_of_range("Out of range.");
+
+    std::set<DISTANCE> result;
+    for (size_t i = 0; i < vertices_ - currentVertex; i++){
+        if (dist_[currentVertex][i] != 0)
+            result.insert(DISTANCE(i, dist_[currentVertex][i]));
+    }
+
+    for (size_t i = 1; i < vertices_ - currentVertex; i++){
+        if(dist_[i][currentVertex] != 0)
+            result.insert(DISTANCE(i, dist_[i][currentVertex]));
+    }
+
+    return result;
 }
