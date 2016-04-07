@@ -9,9 +9,9 @@ const double _INFINITY_ = std::numeric_limits<double>::infinity();
 
 class DISTANCE {
 public:
-    int vertex;
-    int distance;
-    DISTANCE(int v = 0, double d = _INFINITY_) : vertex(v), distance(d) {}
+    size_t vertex;
+    double distance;
+    DISTANCE(size_t v = 0, double d = _INFINITY_) : vertex(v), distance(d) {}
     int operator==  (const DISTANCE& d)const { return (distance == d.distance) ? 1 : 0; }
     int operator!=  (const DISTANCE& d)const { return (distance != d.distance) ? 1 : 0; }
     int operator<   (const DISTANCE& d)const { return (distance < d.distance) ? 1 : 0; }
