@@ -70,6 +70,12 @@ std::set<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
 }
 
 void GRAPH::graphInfo(void)const{
+	std::cout << "\n======== THE NUMBER OF VERTICES ========\n\n"
+		<< vertices_ << std::endl;
+
+	std::cout << "\n======== THE NUMBER OF EDGES    ========\n\n"
+		<< graph_.size() << std::endl;
+
 	std::cout << "\n=========== EDGES ===========\n\n";
 	for (auto x : graph_) {
 		std::cout << x.first << "<-->" << x.second.vertex 
