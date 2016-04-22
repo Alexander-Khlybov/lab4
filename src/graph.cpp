@@ -28,6 +28,16 @@ double GRAPH::getDistance(size_t first, size_t second) const{
 	return dist;
 }
 
+void GRAPH::eraseEdge(size_t first, size_t second){
+	for (auto x : graph_) {
+		if (first == x.first && second == x.second.vertex ||
+			first == x.second.vertex && second == x.first) {
+			graph_.erase(x);
+			return;
+		}
+	}
+}
+
 void GRAPH::fillGraph(void){
     while (true) {
         size_t first = 0;
