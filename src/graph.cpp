@@ -8,6 +8,7 @@ GRAPH::GRAPH(const GRAPH& graph){
 void GRAPH::setDistance(size_t first, size_t second, double dist){
     if ((first >= vertices_) || (second >= vertices_))
         throw std::out_of_range("Out of range.");
+        if(first == second) return;
 	graph_.insert(pair<size_t, DISTANCE>(MIN(first, second), 
 					DISTANCE(MAX(first, second), dist)));
 }
@@ -15,6 +16,7 @@ void GRAPH::setDistance(size_t first, size_t second, double dist){
 double GRAPH::getDistance(size_t first, size_t second) const{
     if ((first >= vertices_) || (second >= vertices_))
         throw std::out_of_range("Out of range.");
+        if (first == second) return 0;
 	double dist = 0;
 	for (auto x : graph_) {
 		if (x.first == first && x.second.vertex == second ||
