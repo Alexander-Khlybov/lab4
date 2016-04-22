@@ -8,6 +8,7 @@ GRAPH::GRAPH(const GRAPH& graph){
 void GRAPH::setDistance(size_t first, size_t second, double dist){
     if ((first >= vertices_) || (second >= vertices_))
         throw std::out_of_range("Out of range.");
+        if(first == second) return;
 	graph_.insert(pair<size_t, DISTANCE>(MIN(first, second), 
 					DISTANCE(MAX(first, second), dist)));
 }
@@ -15,6 +16,7 @@ void GRAPH::setDistance(size_t first, size_t second, double dist){
 double GRAPH::getDistance(size_t first, size_t second) const{
     if ((first >= vertices_) || (second >= vertices_))
         throw std::out_of_range("Out of range.");
+        if (first == second) return 0;
 	double dist = 0;
 	for (auto x : graph_) {
 		if (x.first == first && x.second.vertex == second ||
@@ -24,6 +26,16 @@ double GRAPH::getDistance(size_t first, size_t second) const{
 		}
 	}
 	return dist;
+}
+
+void GRAPH::eraseEdge(size_t first, size_t second){
+	for (auto x : graph_) {
+		if (first == x.first && second == x.second.vertex ||
+			first == x.second.vertex && second == x.first) {
+			graph_.erase(x);
+			return;
+		}
+	}
 }
 
 void GRAPH::fillGraph(void){
@@ -58,6 +70,12 @@ std::set<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
 }
 
 void GRAPH::graphInfo(void)const{
+	std::cout << "\n======== THE NUMBER OF VERTICES ========\n\n"
+		<< vertices_ << std::endl;
+
+	std::cout << "\n======== THE NUMBER OF EDGES    ========\n\n"
+		<< graph_.size() << std::endl;
+
 	std::cout << "\n=========== EDGES ===========\n\n";
 	for (auto x : graph_) {
 		std::cout << x.first << "<-->" << x.second.vertex 

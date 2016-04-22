@@ -44,6 +44,7 @@ public:
 	double  getDistance         (size_t, size_t)const;
     int     getNumOfVertices    (void)const { return vertices_; }
     double  getInf              (void)const { return _INFINITY_;}
+	void	eraseEdge			(size_t, size_t);
     void    fillGraph           (void);
 
     std::set<DISTANCE> getSetOfEdges(size_t)const;
