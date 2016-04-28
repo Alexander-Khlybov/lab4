@@ -88,12 +88,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\gtest;..\..\..\vector</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\gtest;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;tvector.lib;priority_queue_lib.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;priority_queue_lib.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -119,7 +119,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\gtest;..\..\..\vector</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\gtest;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,7 +127,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;tvector.lib;priority_queue_lib.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;priority_queue_lib.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,7 +152,6 @@
     <ClCompile Include="..\..\..\test\test_disjoint-set.cpp" />
     <ClCompile Include="..\..\..\test\test_main.cpp" />
     <ClCompile Include="..\..\..\test\test_priority_queue.cpp" />
-    <ClCompile Include="..\..\..\test\test_tvector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
@@ -163,9 +162,6 @@
     </ProjectReference>
     <ProjectReference Include="..\priority_queue_lib\priority_queue_lib.vcxproj">
       <Project>{d3fa2c1d-0b5c-4b01-a8cd-44efacf941c1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\vector\vector.vcxproj">
-      <Project>{a4284429-c274-4e1f-ab6b-318b846eb7bd}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

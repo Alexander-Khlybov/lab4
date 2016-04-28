@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <cstdlib>
-#include "tvector.hpp"
 #include "excp.h"
+#include <vector>
 
 #define ALLOW_MEMORY_REALLOCATION_WYV 2 // with your value
 #define ALLOW_MEMORY_REALLOCATION_WCV 1 // with calculated value
@@ -53,7 +53,7 @@ public:
 
     void    sort    (void);
 
-    TVector<KeyType>    getTree(void) const;
+    vector<KeyType>    getTree(void) const;
 
 	friend std::ostream& operator<< (std::ostream& out, const D_HEAP<KeyType>& heap){
     	for (int i = 0; i < heap.sizeTree_; i++)
@@ -251,8 +251,8 @@ void D_HEAP<KeyType>::sort(void) {
 }
 
 template<class KeyType>
-TVector<KeyType> D_HEAP<KeyType>::getTree(void) const {
-    TVector<KeyType> v(sizeTree_);
+vector<KeyType> D_HEAP<KeyType>::getTree(void) const {
+    vector<KeyType> v(sizeTree_);
     for (int i = 0; i < sizeTree_; i++) {
         v[i] = tree_[i];
     }

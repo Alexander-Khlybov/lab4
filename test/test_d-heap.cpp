@@ -181,7 +181,7 @@ TEST(D_HEAP, can_get_tree){
 
 TEST(D_HEAP, getTree_works_properly){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i] = i;
@@ -191,7 +191,7 @@ TEST(D_HEAP, getTree_works_properly){
 
 TEST(D_HEAP, swap_works_properly){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i] = i;
@@ -201,7 +201,7 @@ TEST(D_HEAP, swap_works_properly){
 	treeExp[2] = 0;
 	a.swap(0, 2);
 
-	TVector<int> tree = a.getTree();
+	vector<int> tree = a.getTree();
 
 	EXPECT_EQ(treeExp, tree);
 }
@@ -226,7 +226,7 @@ TEST(D_HEAP, getSizeReservedMem_works_properly){
 
 TEST(D_HEAP, can_sift_up_node){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i];
@@ -238,7 +238,7 @@ TEST(D_HEAP, can_sift_up_node){
 
 TEST(D_HEAP, siftUp_throws_when_index_less_than_0){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i];
@@ -250,7 +250,7 @@ TEST(D_HEAP, siftUp_throws_when_index_less_than_0){
 
 TEST(D_HEAP, siftUp_throws_when_index_is_too_large){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i];
@@ -262,7 +262,7 @@ TEST(D_HEAP, siftUp_throws_when_index_is_too_large){
 
 TEST(D_HEAP, siftUp_works_properly){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i] = i;
@@ -279,7 +279,7 @@ TEST(D_HEAP, siftUp_works_properly){
 
 TEST(D_HEAP, can_sift_down_node){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i];
@@ -292,7 +292,7 @@ TEST(D_HEAP, can_sift_down_node){
 
 TEST(D_HEAP, siftDown_throws_when_index_less_than_0){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i];
@@ -304,7 +304,7 @@ TEST(D_HEAP, siftDown_throws_when_index_less_than_0){
 
 TEST(D_HEAP, siftDown_throws_when_index_is_too_large){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i];
@@ -316,7 +316,7 @@ TEST(D_HEAP, siftDown_throws_when_index_is_too_large){
 
 TEST(D_HEAP, siftDown_works_properly){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i] = i;
@@ -376,7 +376,7 @@ TEST(D_HEAP, throws_when_insert_in_full_heap_with_key_PROHIBIT_MEMORY_REALLOCATI
 
 TEST(D_HEAP, insert_works_properly){
 	D_HEAP<int> a(10, 3);
-	TVector<int> treeExp(11);
+	vector<int> treeExp(11);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 		treeExp[i] = i;
@@ -415,7 +415,7 @@ TEST(D_HEAP, cant_delete_min_elem_from_empty_tree){
 
 TEST(D_HEAP, deleteMinElem_works_properly){
 	D_HEAP<int> a(10, 3);
-	TVector<int> temp(9);
+	vector<int> temp(9);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 	}
@@ -459,7 +459,7 @@ TEST(D_HEAP, cant_delete_elem_from_empty_tree){
 
 TEST(D_HEAP, deleteElem_works_properly){
 	D_HEAP<int> a(10, 3);
-	TVector<int> temp(9);
+	vector<int> temp(9);
 	for(int i = 0; i < 10; i++){
 		a.insert(i);
 	}
@@ -506,7 +506,7 @@ TEST(D_HEAP, heapify_works){
 			a.swap(i, 9 - i);
 	}
 
-	TVector<int> treeExp(10);
+	vector<int> treeExp(10);
 	treeExp[0] = 0;
 	treeExp[1] = 1;
 	treeExp[2] = 3;
