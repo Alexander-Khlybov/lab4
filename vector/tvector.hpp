@@ -1,5 +1,4 @@
-﻿#ifndef __TVECTOR_H__
-#define __TVECTOR_H__
+﻿#pragma once
 
 #include <iostream>
 #include "excp.h"
@@ -110,5 +109,3 @@ TVector<ValType>& TVector<ValType>::operator=(const TVector &v) {
     }
     return *this;
 }
-
-#endif

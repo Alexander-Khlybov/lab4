@@ -1,5 +1,4 @@
-#ifndef _DISJOINT_SET_H_
-#define _DISJOINT_SET_H_
+#pragma once
 
 #include "tvector.hpp"
 #include "priority_queue.hpp"
@@ -100,5 +99,3 @@ TVector<KeyType> DISJOINT_SET<KeyType>::getSet(int root) const {
     }
     return res;
 }
-
-#endif

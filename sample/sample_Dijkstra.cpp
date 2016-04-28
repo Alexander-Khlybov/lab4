@@ -55,7 +55,7 @@ int main(void) {
 		DISTANCE d = queue.back();
 		queue.pop();
 		if (d.distance > dist[d.vertex].distance) continue;
-		std::set<DISTANCE> a = graph->getSetOfEdges(d.vertex);
+		std::multiset<DISTANCE> a = graph->getSetOfEdges(d.vertex);
 		for_each(a.begin(), a.end(), [&] (DISTANCE k) {
 			size_t tmp = k.vertex;
 			double len = k.distance;

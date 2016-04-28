@@ -1,5 +1,5 @@
-#ifndef __GRAPH_H__
-#define __GRAPH_H__
+#pragma once 
+
 #include <limits>
 #include <iostream>
 #include <set>
@@ -8,28 +8,44 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
-
 const size_t MAX_VERTICE_NUM = 100;
+
 const double _INFINITY_ = std::numeric_limits<double>::infinity();
 
 class DISTANCE {
 public:
 	size_t vertex;
-    double distance;
+	double distance;
 
-    DISTANCE(size_t v = 0, double d = _INFINITY_) : 
-					vertex(v), distance(d) {}
+	DISTANCE(size_t v = 0, double d = _INFINITY_) :
+		vertex(v), distance(d) {}
 
-    int operator==  (const DISTANCE& d)const { return (distance == d.distance) ? 1 : 0; }
-    int operator!=  (const DISTANCE& d)const { return (distance != d.distance) ? 1 : 0; }
-    int operator<   (const DISTANCE& d)const { return (distance < d.distance) ? 1 : 0; }
-    int operator<=  (const DISTANCE& d)const { return (distance <= d.distance) ? 1 : 0; }
-    int operator>   (const DISTANCE& d)const { return (distance > d.distance) ? 1 : 0; }
-    int operator>=  (const DISTANCE& d)const { return (distance >= d.distance) ? 1 : 0; }
+	int operator==  (const DISTANCE& d)const { return (distance == d.distance) ? 1 : 0; }
+	int operator!=  (const DISTANCE& d)const { return (distance != d.distance) ? 1 : 0; }
+	int operator<   (const DISTANCE& d)const { return (distance < d.distance) ? 1 : 0; }
+	int operator<=  (const DISTANCE& d)const { return (distance <= d.distance) ? 1 : 0; }
+	int operator>   (const DISTANCE& d)const { return (distance > d.distance) ? 1 : 0; }
+	int operator>=  (const DISTANCE& d)const { return (distance >= d.distance) ? 1 : 0; }
 };
 
+class EDGE {
+public:
+	size_t first;
+	size_t second;
+	double distance;
+	EDGE(size_t x = 0, size_t y = 0, double d = _INFINITY_) :
+						first(x), second(y), distance(d) {}
+	int operator==  (const EDGE& d)const { return (distance == d.distance) ? 1 : 0; }
+	int operator!=  (const EDGE& d)const { return (distance != d.distance) ? 1 : 0; }
+	int operator<   (const EDGE& d)const { return (distance < d.distance) ? 1 : 0; }
+	int operator<=  (const EDGE& d)const { return (distance <= d.distance) ? 1 : 0; }
+	int operator>   (const EDGE& d)const { return (distance > d.distance) ? 1 : 0; }
+	int operator>=  (const EDGE& d)const { return (distance >= d.distance) ? 1 : 0; }
+};
+
+
 class GRAPH{
-	std::set<pair<size_t, DISTANCE> > graph_;
+	std::multiset<EDGE> graph_;
 	size_t vertices_;
 
 public:
@@ -46,10 +62,9 @@ public:
     double  getInf              (void)const { return _INFINITY_;}
 	void	eraseEdge			(size_t, size_t);
     void    fillGraph           (void);
+	std::multiset<EDGE> getAllEdges(void)const { return graph_; }
 
-    std::set<DISTANCE> getSetOfEdges(size_t)const;
+    std::multiset<DISTANCE> getSetOfEdges(size_t)const;
 
 	void graphInfo(void)const;
 };
-
-#endif
