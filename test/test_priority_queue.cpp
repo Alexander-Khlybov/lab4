@@ -102,12 +102,12 @@ TEST(PRIORITY_QUEUE, push_works_properly){
 		a.push(i % 3);
 	}
 
-	TVector<int> b(10);
+	vector<int> b(10);
 	for (int i = 0; i < 10; i++){
 		b[i] = (i < 3) ? 0 : ((i < 7) ? 1 : 2);
 	}
 
-	TVector<int> c = a.getHeap().getTree();
+	vector<int> c = a.getHeap().getTree();
 
 	EXPECT_EQ(b, c);
 }

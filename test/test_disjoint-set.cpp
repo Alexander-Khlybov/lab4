@@ -16,9 +16,9 @@ TEST(DisjointSet, can_get_U) {
 
 TEST(DisjointSet, created_elem_is_empty) {
     DISJOINT_SET<int> a(10);
-    TVector<int> b = a.getUniversalSet();
+    vector<int> b = a.getUniversalSet();
     int i = 0;
-    for (i; i < b.GetSize(); i++)
+    for (i; i < b.size(); i++)
         if (b[i] != -1) break;
 
     EXPECT_EQ(10, i);
@@ -144,9 +144,9 @@ TEST(DisjointSet, can_get_set) {
     a.createSet(1);
     a.createSet(0);
     a.uniteSets(0, 2);
-    TVector<int> b;
+    vector<int> b;
     ASSERT_NO_THROW(b = a.getSet(0));
-    TVector<int> c(2);
+    vector<int> c(2);
     c[0] = 0; c[1] = 2;
     EXPECT_EQ(c, b);
 }
@@ -157,7 +157,7 @@ TEST(DisjointSet, throws_when_get_non_existing_set) {
     a.createSet(4);
     a.createSet(0);
     a.uniteSets(0, 7);
-    TVector<int> b;
+    vector<int> b;
     ASSERT_ANY_THROW(b = a.getSet(1));
 }
 
@@ -167,7 +167,7 @@ TEST(DisjointSet, throws_when_argument_of_getSet_is_not_root) {
     a.createSet(4);
     a.createSet(0);
     a.uniteSets(0, 7);
-    TVector<int> b;
+    vector<int> b;
     ASSERT_ANY_THROW(b = a.getSet(7));
 }
 
@@ -177,7 +177,7 @@ TEST(DisjointSet, throws_when_get_set_with_incorrect_argument) {
     a.createSet(4);
     a.createSet(0);
     a.uniteSets(0, 7);
-    TVector<int> b;
+    vector<int> b;
     ASSERT_ANY_THROW(b = a.getSet(-1));
     ASSERT_ANY_THROW(b = a.getSet(10));
 }
