@@ -1,5 +1,4 @@
-#ifndef __D_HEAP__
-#define __D_HEAP__
+#pragma once
 
 #include <iostream>
 #include <cstdlib>
@@ -287,4 +286,3 @@ int D_HEAP<KeyType>::operator!= (const D_HEAP<KeyType>& heap)const {
 
     return !(*this == heap);
 }
-#endif

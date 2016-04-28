@@ -8,22 +8,43 @@ GRAPH::GRAPH(const GRAPH& graph){
 void GRAPH::setDistance(size_t first, size_t second, double dist){
     if ((first >= vertices_) || (second >= vertices_))
         throw std::out_of_range("Out of range.");
-	graph_.insert(pair<size_t, DISTANCE>(MIN(first, second), 
-					DISTANCE(MAX(first, second), dist)));
+    if(first == second) 
+		return;
+
+	for (EDGE x : graph_) {
+		if (x.first == MIN(first, second) && x.second == MAX(first, second)) {
+			graph_.erase(x);
+			break;
+		}
+	}
+	
+	graph_.insert(EDGE(MIN(first, second),
+					MAX(first, second), dist));
 }
 
 double GRAPH::getDistance(size_t first, size_t second) const{
     if ((first >= vertices_) || (second >= vertices_))
         throw std::out_of_range("Out of range.");
+        if (first == second) return 0;
 	double dist = 0;
-	for (auto x : graph_) {
-		if (x.first == first && x.second.vertex == second ||
-			x.first == second && x.second.vertex == first) {
-			dist = x.second.distance;
+	for (EDGE x : graph_) {
+		if (x.first == first && x.second == second ||
+			x.first == second && x.second == first) {
+			dist = x.distance;
 			break;
 		}
 	}
 	return dist;
+}
+
+void GRAPH::eraseEdge(size_t first, size_t second){
+	for (auto x : graph_) {
+		if (first == x.first && second == x.second ||
+			first == x.second && second == x.first) {
+			graph_.erase(x);
+			return;
+		}
+	}
 }
 
 void GRAPH::fillGraph(void){
@@ -43,13 +64,14 @@ void GRAPH::fillGraph(void){
         std::cin >> s;
         if (s == 'e')
             break;
+
     }
 }
 
-std::set<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
+std::multiset<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
     if (currentVertex >= vertices_)
         throw std::out_of_range("Out of range.");
-	std::set<DISTANCE> result;
+	std::multiset<DISTANCE> result;
 	for (size_t i = 0; i < vertices_; i++) {
 		double dist = getDistance(i, currentVertex);
 		if (dist != 0) result.insert(DISTANCE(i, dist));
@@ -58,10 +80,18 @@ std::set<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
 }
 
 void GRAPH::graphInfo(void)const{
+	std::cout << "\n======== THE NUMBER OF VERTICES ========\n\n"
+		<< vertices_ << std::endl;
+
+	std::cout << "\n======== THE NUMBER OF EDGES    ========\n\n"
+		<< graph_.size() << std::endl;
+
 	std::cout << "\n=========== EDGES ===========\n\n";
+	size_t i = 0;
 	for (auto x : graph_) {
-		std::cout << x.first << "<-->" << x.second.vertex 
-			<< "  ::  " << x.second.distance << "\t|||\t";
+		std::cout << x.first << "<-->" << x.second
+			<< "  ::  " << x.distance << "\t|||\n";
 	}
+
 	std::cout << "\n\n";
 }

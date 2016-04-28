@@ -1,5 +1,4 @@
-#ifndef __PRIORITY_QUEUE__
-#define __PRIORITY_QUEUE__
+#pragma once
 
 #include <iostream>
 #include "d-heap.hpp"
@@ -90,5 +89,3 @@ KeyType PRIORITY_QUEUE<KeyType>::back(void) const {
     KeyType tmp = heap_->getNodeKey(0);
     return tmp;
 }
-
-#endif

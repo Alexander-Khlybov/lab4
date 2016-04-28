@@ -1,9 +1,4 @@
-#ifndef __EXCP_H__
-#define __EXCP_H__
-
-#ifndef _EXCEPTION_
-#include <exception>
-#endif
+#pragma once
 
 using namespace std;
 
@@ -17,5 +12,3 @@ public:
         return excp_;
     }
 };
-
-#endif
