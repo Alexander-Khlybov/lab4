@@ -19,7 +19,7 @@ public:
     int     operator!=  (const PRIORITY_QUEUE<KeyType>&)const;
 
     int     isEmpty     (void) const;
-	// todo int     isFull(void) const;
+	int     isFull		(void) const;
 
     void    pop         (void);
     void    push        (const KeyType&);
@@ -30,7 +30,6 @@ public:
         return out;
     }
 };
-
 
 template<class KeyType>
 PRIORITY_QUEUE<KeyType>::PRIORITY_QUEUE(int d) {
@@ -69,6 +68,18 @@ template<class KeyType>
 int PRIORITY_QUEUE<KeyType>::isEmpty(void) const {
 
     return (0 == heap_->getSizeTree()) ? 1 : 0;
+}
+
+template<class KeyType>
+int PRIORITY_QUEUE<KeyType>::isFull(void) const{
+	KeyType* tmp;
+	try {
+		tmp = new KeyType();
+	} catch(...) {
+		return 1;
+	}
+	delete tmp;
+	return 0;
 }
 
 template<class KeyType>
