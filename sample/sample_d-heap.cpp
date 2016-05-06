@@ -1,4 +1,5 @@
 #include "d-heap.hpp"
+#include <vector>
 
 #ifndef _CTIME_
 #include <ctime>
@@ -14,9 +15,18 @@ int main(void) {
     heap.heapify();
 	cout << heap << endl;
 
-    heap.sort();
+	vector<int> v(size);
 
-	cout << heap << endl;
+	for (int& x : v) {
+		x = heap.getNodeKey(0);
+		heap.deleteMinElem();
+	}
+
+	for (int x : v) {
+		cout << x << "\t";
+	}
+
+	cout << endl;
     system("pause");
     return 0;
 }

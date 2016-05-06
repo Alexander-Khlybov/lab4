@@ -93,7 +93,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;priority_queue_lib.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;priority_queue_lib.lib;gtest.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -127,7 +127,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;priority_queue_lib.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;priority_queue_lib.lib;gtest.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,12 +150,19 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\test\test_d-heap.cpp" />
     <ClCompile Include="..\..\..\test\test_disjoint-set.cpp" />
+    <ClCompile Include="..\..\..\test\test_graph.cpp" />
     <ClCompile Include="..\..\..\test\test_main.cpp" />
     <ClCompile Include="..\..\..\test\test_priority_queue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
       <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\disjoint-set_lib\disjoint-set_lib.vcxproj">
+      <Project>{d82a1328-589c-4321-bdf5-15c0cf800c73}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\graph_lib\graph_lib.vcxproj">
+      <Project>{dc0a4aa7-84a2-402e-bc26-185a6fb75ac0}</Project>
     </ProjectReference>
     <ProjectReference Include="..\gtest\gtest.vcxproj">
       <Project>{15ee3554-c1d4-4220-a0a4-98e5082f5954}</Project>

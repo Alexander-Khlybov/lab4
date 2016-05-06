@@ -3,13 +3,14 @@
 #include <limits>
 #include <iostream>
 #include <set>
-#include "priority_queue.hpp"
+#include <cstdlib>
+#include <ctime>
+#include "disjoint-set.hpp"
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
 const size_t MAX_VERTICE_NUM = 100;
-
 const double _INFINITY_ = std::numeric_limits<double>::infinity();
 
 class DISTANCE {
@@ -62,6 +63,7 @@ public:
     double  getInf              (void)const { return _INFINITY_;}
 	void	eraseEdge			(size_t, size_t);
     void    fillGraph           (void);
+	void	createGraph			(size_t, double, double);
 	std::multiset<EDGE> getAllEdges(void)const { return graph_; }
 
     std::multiset<DISTANCE> getSetOfEdges(size_t)const;
