@@ -19,6 +19,7 @@ public:
     int     operator!=  (const PRIORITY_QUEUE<KeyType>&)const;
 
     int     isEmpty     (void) const;
+	// todo int     isFull(void) const;
 
     void    pop         (void);
     void    push        (const KeyType&);

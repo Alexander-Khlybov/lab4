@@ -51,8 +51,6 @@ public:
 	void    deleteElem 	    (int);
 	void    heapify 		(void);
 
-    void    sort    (void);
-
     vector<KeyType>    getTree(void) const;
 
 	friend std::ostream& operator<< (std::ostream& out, const D_HEAP<KeyType>& heap){
@@ -239,15 +237,6 @@ void D_HEAP<KeyType>::heapify(void) {
     for (int i = sizeTree_ - 1; i >= 0; i--) {
         siftDown(i);
     }
-}
-
-template<class KeyType>
-void D_HEAP<KeyType>::sort(void) {
-    int tmp = sizeTree_;
-    for (int i = sizeTree_ - 1; i > 0; i--) {
-        deleteElem(0);
-    }
-    sizeTree_ = tmp;
 }
 
 template<class KeyType>
