@@ -68,6 +68,33 @@ void GRAPH::fillGraph(void){
     }
 }
 
+void GRAPH::createGraph(size_t numberOfEdges, double min, double max){
+	if (numberOfEdges < vertices_ - 1 || 
+		numberOfEdges > (vertices_*(vertices_ - 1)) / 2)
+		throw out_of_range("Out of rage.");
+	srand(size_t(time(NULL)));
+	DISJOINT_SET<size_t> d(vertices_);
+	for (size_t i = 0; i < vertices_; i++) {
+		d.createSet(i);
+	}
+
+	size_t tmp = 0;
+	while (d.getNumberOfSets() != 1) {
+		size_t first = (size_t)(rand() % vertices_);
+		size_t second = (size_t)(rand() % vertices_);
+		if (d.findSet(first) != d.findSet(second)) {
+			graph_.insert(EDGE(first, second, (double)((max - min)*rand())/RAND_MAX + min));
+			d.uniteSets(d.findSet(first), d.findSet(second));
+		}
+	}
+
+	while (graph_.size() != numberOfEdges) {
+		size_t first = (size_t)(rand() % vertices_);
+		size_t second = (size_t)(rand() % vertices_);
+		graph_.insert(EDGE(first, second, (double)((max - min)*rand()) / RAND_MAX + min));
+	}
+}
+
 std::multiset<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
     if (currentVertex >= vertices_)
         throw std::out_of_range("Out of range.");

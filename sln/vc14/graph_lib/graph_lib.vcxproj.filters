@@ -15,7 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\sample\sample_Kruskal.cpp">
+    <ClInclude Include="..\..\..\include\graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\graph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

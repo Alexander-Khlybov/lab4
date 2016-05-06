@@ -94,7 +94,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>disjoint-set_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>disjoint-set_lib.lib;priority_queue_lib.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -127,7 +127,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>disjoint-set_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>disjoint-set_lib.lib;priority_queue_lib.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -149,7 +149,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sample\sample_Kruskal.cpp" />
-    <ClCompile Include="..\..\..\src\graph.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
@@ -158,12 +157,12 @@
     <ProjectReference Include="..\disjoint-set_lib\disjoint-set_lib.vcxproj">
       <Project>{d82a1328-589c-4321-bdf5-15c0cf800c73}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\graph_lib\graph_lib.vcxproj">
+      <Project>{dc0a4aa7-84a2-402e-bc26-185a6fb75ac0}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\priority_queue_lib\priority_queue_lib.vcxproj">
       <Project>{d3fa2c1d-0b5c-4b01-a8cd-44efacf941c1}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\include\graph.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
