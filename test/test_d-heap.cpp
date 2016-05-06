@@ -565,20 +565,3 @@ TEST(D_HEAP, heapify_does_not_change_sizeTree){
 	a.heapify();
 	EXPECT_EQ(tmp, a.getSizeTree());
 }
-
-TEST(D_HEAP, sort_does_not_change_sizeTree){
-	D_HEAP<int> a(10, 3);
-
-	#ifndef _CSTDIO_
-	#include <cstdio>
-	#endif
-    srand(NULL);
-
-    for (int i = 0; i < 10; i++) {
-        a.insert(rand());
-    }
-    int tmp = a.getSizeTree();
-    a.sort();
-
-    EXPECT_EQ(tmp, a.getSizeTree());
-}
