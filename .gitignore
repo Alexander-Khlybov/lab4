@@ -30,8 +30,7 @@
 # Other
 *.sdf
 *.opensdf
-*.vcxproj.*
-*.vcxproj
+*.vcxprojResolveAssemblyReference.cache
 *.pdb
 *.ilk
 *.exe
