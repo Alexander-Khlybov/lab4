@@ -1,7 +1,7 @@
 #include <gtest.h>
 #include "bst.hpp"
 #include "avl-tree.hpp"
-/*
+
 TEST(BINARY_SEARCH_TREE, can_create_binary_tree) {
 	ASSERT_NO_THROW(BST<int> a);
 }
@@ -248,7 +248,7 @@ TEST(AVL_TREE, created_tree_is_empty) {
 	AVL_TREE<int> a;
 	EXPECT_EQ(0, a.getSize());
 }
-*/
+
 TEST(AVL_TREE, can_insert_key_to_tree) {
 	AVL_TREE<int> a;
 	ASSERT_NO_THROW(a.insert(3));
