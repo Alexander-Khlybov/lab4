@@ -21,49 +21,68 @@ public:
 
 template<class KeyType>
 class BST {
+	NODE<KeyType>*	getNodeForErasing(const KeyType&);
 protected:
 	NODE<KeyType>* root_;
-	size_t count;
 
 public:
-	BST(void) : root_(NULL), count(0) {}
+	BST(void) : root_(NULL) {}
 	BST(const BST<KeyType>&);
 	virtual ~BST(void);
 
-	virtual void 	insert	(const KeyType<KeyType>&);
-	virtual void 	erase	(const KeyType<KeyType>&);
+	virtual void 	insert	(const KeyType&);
+	virtual void 	erase	(const KeyType&);
 
-	NODE<KeyType>* 	find 	(const KeyType<KeyType>&)const;
-	NODE<KeyType>* 	findMin	(NODE<KeyType>* node = root_)const;
-	NODE<KeyType>* 	findMax	(NODE<KeyType>* node = root_)const;
+	NODE<KeyType>* 	find 	(const KeyType&)const;
+	NODE<KeyType>* 	findMin	(NODE<KeyType>* node = NULL)const;
+	NODE<KeyType>* 	findMax	(NODE<KeyType>* node = NULL)const;
 	NODE<KeyType>* 	findPrev(NODE<KeyType>*)const;
 	NODE<KeyType>* 	findNext(NODE<KeyType>*)const;
 
+	size_t	getSize	(void)const { return recPostOrder().size(); }
+
 	vector<NODE<KeyType>* > recPostOrder(void)const;
-	int getDepth(NODE<KeyType>* node = root_);
 };
 
+template<class KeyType>
+NODE<KeyType>* BST<KeyType>::getNodeForErasing(const KeyType& data){
+
+	NODE<KeyType>* tmp = 0;
+	NODE<KeyType>* tmp1 = 0;
+	NODE<KeyType>* tmp2 = find(data);
+
+	if	(tmp2->left_ != NULL && tmp2->right_ != NULL) tmp1 = findNext(tmp2);
+	else tmp1 = tmp2;
+	if	(tmp1->left_ != NULL) tmp = tmp1->left_;
+	else tmp = tmp1->right_;
+
+	if (tmp != NULL) tmp->parent_ = tmp1->parent_;
+	if (tmp1->parent_) {
+		if	(tmp1 == tmp1->parent_->left_) tmp1->parent_->left_ = tmp;
+		else tmp1->parent_->right_ = tmp;
+	}
+
+	tmp2->data_ = tmp1->data_;
+	return tmp1;
+}
 
 template<class KeyType>
-BST<KeyType>::BST(const BST<KeyType>& tree){
+BST<KeyType>::BST(const BST<KeyType>& tree) {
 	root_ = NULL;
-	count = tree.count;
 	vector<NODE<KeyType>* > v = tree.recPostOrder();
-	for (size_t i = 0; i < count; i++) insert(v[i-1]->data_);
+	for (size_t i = 0; i < v.size(); i++) insert(v[i]->data_);
 }
 
 template<class KeyType>
 BST<KeyType>::~BST(void){
 	vector<NODE<KeyType>* > v = recPostOrder();
-	for (size_t i = count; i > 0; i--) delete v[i - 1];
-	count_ = 0;
+	for (size_t i = v.size(); i > 0; i--) delete v[i - 1];
 }
 
 template<class KeyType>
 void BST<KeyType>::insert(const KeyType& data){
 	if (root_ == NULL){
 		root_ = new NODE<KeyType>(data, NULL, NULL, NULL);
-		count++;
 		return;
 	}
 
@@ -82,62 +101,7 @@ void BST<KeyType>::insert(const KeyType& data){
 
 template<class KeyType>
 void BST<KeyType>::erase(const KeyType& data){
-
-	NODE<KeyType>* tmp = find(data);
-	if (tmp == 0) return;
-	count--;
-	if (tmp->right_ == 0 && tmp->left_ == 0){
-		if	(tmp->parent_->left_ == tmp) tmp->parent_->left_ = 0;
-		else tmp->parent_->right_ = 0;
-		delete tmp;
-		return;
-	}
-
-	if (tmp->left_ == 0){
-		NODE<KeyType>* tmp1 = tmp->right_;
-		tmp1->parent_ = tmp->parent_;
-		if	(tmp->parent_->right_ == tmp) tmp->parent_->right_ = tmp1;
-		else tmp->parent_->left_ = tmp1;
-		delete tmp;
-		return;
-	}
-
-	if (tmp->right_ == 0){
-		NODE<KeyType>* tmp1 = tmp->left_;
-		tmp1->parent_ = tmp->parent_;
-		if	(tmp->parent_->left_ == tmp) tmp->parent_->left_ = tmp1;
-		else tmp->parent_->right_ = tmp1;
-		delete tmp;
-		return;
-	}
-
-	if (tmp == root_){
-		NODE<KeyType>* tmp1 = root_;
-
-		root_					= findMin(root->right_);
-		root_->parent_->left_	= root_->right_;
-		root_->parent_			= NULL;
-		root_->left_			= x->left_;
-		root_->right_			= x->right_;
-		delete tmp1;
-		return;
-	}
-
-	NODE<KeyType>* tmp1 = tmp;
-	if(tmp->parent_->left_ == tmp){
-		tmp1					= findMin(tmp->right_);
-		tmp->parent_->left_		= tmp1;
-		tmp1->parent->left_		= tmp1->right_;
-	}else{
-		tmp1					= findMin(tmp->left_);
-		tmp->parent_->right_	= tmp1;
-		tmp1->parent_->right_	= tmp1->right_;
-	}
-
-	tmp1->left_		= tmp->left_;
-	tmp1->right_	= tmp->right_;
-
-	delete tmp;
+	delete getNodeForErasing(data);
 }
 
 template<class KeyType>
@@ -146,7 +110,7 @@ NODE<KeyType>* BST<KeyType>::find(const KeyType& data) const{
 	if (root_ == NULL)
 		throw exception("Tree is empty;");
 
-	Node<KeyType> *tmp = root_;
+	NODE<KeyType> *tmp = root_;
 
 	while (tmp != NULL && tmp->data_ != data){
 		if (data < tmp->data_)
@@ -160,6 +124,8 @@ NODE<KeyType>* BST<KeyType>::find(const KeyType& data) const{
 template<class KeyType>
 NODE<KeyType>* BST<KeyType>::findMin(NODE<KeyType>* node) const{
 	if (node == NULL)
+		node = root_;
+	if (node == NULL)
 		throw exception("Start node is empty.");
 	NODE<KeyType>* minNode = node;
 	while (minNode->left_ != NULL)
@@ -170,10 +136,12 @@ NODE<KeyType>* BST<KeyType>::findMin(NODE<KeyType>* node) const{
 template<class KeyType>
 NODE<KeyType>* BST<KeyType>::findMax(NODE<KeyType>* node) const{
 	if (node == NULL)
+		node = root_;
+	if (node == NULL)
 		throw exception("Start node is empty.");
 	NODE<KeyType>* maxNode = node;
-	while (maxNode->left_ != NULL)
-		maxNode = maxNode->left_;
+	while (maxNode->right_ != NULL)
+		maxNode = maxNode->right_;
 	return maxNode;
 }
 
@@ -208,31 +176,24 @@ NODE<KeyType>* BST<KeyType>::findNext(NODE<KeyType>* node) const{
 }
 
 template<class KeyType>
-vector<NODE<KeyType>* > BST<KeyType>::recPostOrder(void) const{
+vector<NODE<KeyType>* > BST<KeyType>::recPostOrder(void) const {
 	if (root_ == 0)
 		return vector<NODE<KeyType>* >(0);
 
-	stack<NODE<KeyType>* > s;
+	stack<NODE<KeyType>* > s, res;
 	s.push(root_);
-	size_t i = 0;
-	vector<NODE<KeyType>* > v(count);
-	while (!s.empty()){
+	while (!s.empty()) {
 		NODE<KeyType> *tmp = s.top();
-		v[i++] = tmp;
+		res.push(tmp);
 		s.pop();
-		if (tmp->right_	!= 0) s.push(tmp->right_);
-		if (tmp->left_	!= 0) s.push(tmp->left_);
+		if (tmp->right_ != 0) s.push(tmp->right_);
+		if (tmp->left_ != 0) s.push(tmp->left_);
+	}
+	vector<NODE<KeyType>* > v(res.size());
+	while (!res.empty()) {
+		v[res.size() - 1] = res.top();
+		res.pop();
 	}
 
 	return v;
-}
-
-template<class KeyType>
-int BST<KeyType>::getDepth(NODE<KeyType>* node){
-	if (node == NULL)
-		return -1;
-	int left =	getDepth(node->left_);
-	int right = getDepth(node->right_);
-
-	return (right > left) ? (right + 1) : (left + 1);
 }
