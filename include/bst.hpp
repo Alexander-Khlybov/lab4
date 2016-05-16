@@ -25,8 +25,10 @@ class BST {
 protected:
 	NODE<KeyType>* root_;
 	void recursiveErase(NODE<KeyType>*&);
+	NODE<KeyType>* copy(NODE<KeyType>*, NODE<KeyType>*);
 public:
 	BST(void) : root_(NULL) {}
+	BST(const BST<KeyType>& tree) { root_ = copy(tree.root_, NULL); }
 	virtual ~BST(void);
 
 	virtual void 	insert	(const KeyType&);
@@ -73,6 +75,18 @@ void BST<KeyType>::recursiveErase(NODE<KeyType>*& node){
 	delete node;
 	node = NULL;
 }
+
+template<class KeyType>
+NODE<KeyType>* BST<KeyType>::copy(NODE<KeyType>* tree, NODE<KeyType>* parent){
+	if (tree == NULL) return NULL;
+
+	NODE<KeyType>* tmp = new NODE<KeyType>(tree->data_, parent);
+	tmp->left_ = copy(tree->left_, tmp);
+	tmp->right_ = copy(tree->right_, tmp);
+
+	return tmp;
+}
+
 
 template<class KeyType>
 BST<KeyType>::~BST(void){

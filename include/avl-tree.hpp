@@ -22,6 +22,7 @@ class AVL_TREE : public BST<KeyType> {
 	NODE<KeyType>* getNodeForRecursiveErasing(NODE<KeyType>*&, const KeyType&);
 public:
 	AVL_TREE(void) : BST() {}
+	AVL_TREE(const AVL_TREE<KeyType>& tree) : BST(tree) {}
 	AVL_TREE(const BST<KeyType>&);
 	virtual ~AVL_TREE(void);
 
