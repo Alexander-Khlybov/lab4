@@ -274,6 +274,7 @@ TEST(AVL_TREE, can_erase_node_from_tree) {
 	ASSERT_NO_THROW(a.erase(5));
 	ASSERT_NO_THROW(a.erase(7));
 	ASSERT_NO_THROW(a.erase(15));
+	cout << 1;
 }
 
 TEST(AVL_TREE, erasing_decreases_size_tree) {
@@ -286,7 +287,9 @@ TEST(AVL_TREE, erasing_decreases_size_tree) {
 	a.insert(15);
 	a.insert(25);
 	a.insert(10);
+
 	size_t tmp = a.getSize();
 	a.erase(7);
+
 	EXPECT_EQ(tmp - 1, a.getSize());
 }

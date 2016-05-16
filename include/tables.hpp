@@ -20,21 +20,21 @@ protected:
 public:
 	TABLE(size_t size) : size_(size), count_(0), cur_(0) {}
 
-	virtual TAB_RECORD<DataType>* find	(const DataType&)const = 0;
+	virtual TAB_RECORD<DataType>* find	(const DataType&) = 0;
 	virtual void		insert	(const TAB_RECORD<DataType>&) = 0;
-	virtual void		erase	(double) = 0;
+	virtual void		erase	(const DataType&) = 0;
 
 	int		isEmpty	(void)const { return count_ == 0; }
-	int		isFull	(void)const { return count_ == size_;}
+	int		isFull	(void)const { return count_ == size_; }
 	size_t	getCount(void)const { return count_; }
 
 	virtual void	reset		(void) { cur_ = 0; }
-	virtual int		goNext		(void) { cur_++; return isTabEnded() ? 1 : 0 * cur_++; }
+	virtual int		goNext		(void) { cur_++; return isTabEnded(); }
 	virtual int		isTabEnded	(void)const { return cur_ == count_; }
 };
 
 template<class DataType>
-class SCAN_TABLE : public TABLE {
+class SCAN_TABLE : public TABLE<DataType> {
 protected:
 	TAB_RECORD<DataType>** recs_;
 	void repackUp(void);
@@ -42,7 +42,7 @@ public:
 	SCAN_TABLE(size_t size);
 	virtual ~SCAN_TABLE(void);
 
-	virtual TAB_RECORD<DataType>* find(const DataType&)const;
+	virtual TAB_RECORD<DataType>* find(const DataType&);
 	virtual void		insert(const TAB_RECORD<DataType>&);
 	virtual void		erase(const DataType&);
 };
@@ -52,7 +52,7 @@ void SCAN_TABLE<DataType>::repackUp(void){
 	for (size_t i = cur_; i < count_ - 1; i++) {
 		recs_[i] = recs_[i + 1];
 	}
-	count--;
+	count_--;
 }
 
 template<class DataType>
@@ -72,7 +72,7 @@ SCAN_TABLE<DataType>::~SCAN_TABLE(void){
 }
 
 template<class DataType>
-TAB_RECORD<DataType>* SCAN_TABLE<DataType>::find(const DataType& key) const{
+TAB_RECORD<DataType>* SCAN_TABLE<DataType>::find(const DataType& key){
 	for (cur_ = 0; cur_ < count_; cur_++) {
 		if (recs_[cur_]->getKey() == key) return recs_[cur_];
 	}
@@ -89,11 +89,12 @@ void SCAN_TABLE<DataType>::insert(const TAB_RECORD<DataType>& rec){
 template<class DataType>
 void SCAN_TABLE<DataType>::erase(const DataType& key){
 	if (isEmpty()) return;
-	if (find(key) == NULL)
-		throw exception("Key was not found.");
-	delete recs_[cur_];
+	if (find(key) == NULL) return;
+	TAB_RECORD<DataType>* tmp = recs_[cur_];
+	recs_[cur_] = NULL;
+	delete tmp;
 	repackUp();
-	recs_[count + 1] = NULL;
+	recs_[count_ + 1] = NULL;
 }
 
 template<class DataType>
@@ -107,9 +108,10 @@ public:
 	SORT_TABLE(const SCAN_TABLE&) { sort(); }
 	virtual ~SORT_TABLE(void);
 
-	virtual TAB_RECORD<DataType>* find(const DataType&)const;
+	virtual TAB_RECORD<DataType>* find(const DataType&);
 	virtual void		insert(const TAB_RECORD<DataType>&);
 	virtual void		erase(const DataType&);
+	TAB_RECORD<DataType>* getCurrrentRecord(void)const;
 };
 
 template<class DataType>
@@ -134,7 +136,7 @@ void SORT_TABLE<DataType>::binSearch(const DataType& key){
 			cur_ = mid;
 			return;
 		}
-		cur_ = right_;
+		cur_ = right;
 	}
 }
 
@@ -162,7 +164,7 @@ SORT_TABLE<DataType>::~SORT_TABLE(void){
 }
 
 template<class DataType>
-TAB_RECORD<DataType>* SORT_TABLE<DataType>::find(const DataType& key) const{
+TAB_RECORD<DataType>* SORT_TABLE<DataType>::find(const DataType& key){
 	binSearch(key);
 	return recs_[cur_] ? recs_[cur_] : NULL;
 }
@@ -183,5 +185,11 @@ void SORT_TABLE<DataType>::erase(const DataType& key){
 		throw exception("Key was not found.");
 	delete recs_[cur_];
 	repackUp();
-	recs_[count + 1] = NULL;
+	recs_[count_ + 1] = NULL;
+}
+
+template<class DataType>
+TAB_RECORD<DataType>* SORT_TABLE<DataType>::getCurrrentRecord(void) const{
+	if (cur_ >= count_) return;
+	return recs_[cur_];
 }

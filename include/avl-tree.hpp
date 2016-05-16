@@ -15,12 +15,13 @@ class AVL_TREE : public BST<KeyType> {
 
 	void updateLeftTree	(NODE<KeyType>*&);
 	void updateRightTree(NODE<KeyType>*&);
+
+	void makeBalancing	(NODE<KeyType>*&);
 	
 	void doRecursiveInsertion	(NODE<KeyType>*&, NODE<KeyType>*);
-	void doRecursiveErasing		(NODE<KeyType>*&, const KeyType&);
+	NODE<KeyType>* getNodeForRecursiveErasing(NODE<KeyType>*&, const KeyType&);
 public:
 	AVL_TREE(void) : BST() {}
-	AVL_TREE(const AVL_TREE<KeyType>&);
 	AVL_TREE(const BST<KeyType>&);
 	virtual ~AVL_TREE(void);
 
@@ -34,72 +35,48 @@ int AVL_TREE<KeyType>::getDepth(NODE<KeyType>* node) const{
 		return -1;
 	int left = getDepth(node->left_);
 	int right = getDepth(node->right_);
-
+	node->balance_ = right - left;
 	return (right > left) ? (right + 1) : (left + 1);
 }
 
 template<class KeyType>
-void AVL_TREE<KeyType>::doSingleLeftRotation(NODE<KeyType>*& node){
-	NODE<KeyType>* tmp1 = node;
-	NODE<KeyType>* tmp2 = tmp1->right_;
-	NODE<KeyType>* a	= tmp2->left_;
-
-	tmp1->right_	= a;
-	tmp2->left_		= tmp1;
-	tmp2->parent_	= tmp1->parent_;
-	tmp1->parent_	= tmp2;
-
-	if (a != NULL) a->parent_ = tmp1;
-
-	tmp1->balance_ = getDepth(tmp1->left_) - getDepth(tmp1->right_);
-	tmp2->balance_ = getDepth(tmp2->left_) - getDepth(tmp2->right_);
-
-	node = tmp2;
-}
-
-template<class KeyType>
 void AVL_TREE<KeyType>::doSingleRightRotation(NODE<KeyType>*& node){
+
 	NODE<KeyType>* tmp1 = node;
 	NODE<KeyType>* tmp2 = tmp1->left_;
-	NODE<KeyType>* a	= tmp2->right_;
+	NODE<KeyType>* a = tmp2->right_;
 
-	tmp1->left_		= a;
-	tmp2->right_	= tmp1;
-	tmp2->parent_	= tmp1->parent_;
-	tmp1->parent_	= tmp2;
+	tmp1->left_ = a;
+	tmp2->right_ = tmp1;
+	tmp2->parent_ = tmp1->parent_;
+	tmp1->parent_ = tmp2;
 
 	if (a != NULL) a->parent_ = tmp1;
 
-	tmp1->balance_ = getDepth(tmp1->left_) - getDepth(tmp1->right_);
-	tmp2->balance_ = getDepth(tmp2->left_) - getDepth(tmp2->right_);
+	getDepth(tmp1);
+	getDepth(tmp2);
 
 	node = tmp2;
 }
 
 template<class KeyType>
-void AVL_TREE<KeyType>::doDoubleLeftRotation(NODE<KeyType>*& node){
+void AVL_TREE<KeyType>::doSingleLeftRotation(NODE<KeyType>*& node){
+
 	NODE<KeyType>* tmp1 = node;
 	NODE<KeyType>* tmp2 = tmp1->right_;
-	NODE<KeyType>* tmp3 = tmp2->left_;
-	NODE<KeyType>* a	= tmp3->left_;
-	NODE<KeyType>* b	= tmp3->right_;
+	NODE<KeyType>* a = tmp2->left_;
 
-	tmp3->left_		= tmp1;
-	tmp3->right_	= tmp2;
-	tmp3->parent_	= tmp1->parent_;
-	tmp1->parent_	= tmp3;
-	tmp2->parent_	= tmp3;
-	tmp2->left_		= b;
-	tmp1->right_	= a;
+	tmp1->right_ = a;
+	tmp2->left_ = tmp1;
+	tmp2->parent_ = tmp1->parent_;
+	tmp1->parent_ = tmp2;
 
 	if (a != NULL) a->parent_ = tmp1;
-	if (b != NULL) b->parent_ = tmp2;
 
-	tmp1->balance_ = getDepth(tmp1->left_) - getDepth(tmp1->right_);
-	tmp2->balance_ = getDepth(tmp2->left_) - getDepth(tmp2->right_);
-	tmp3->balance_ = getDepth(tmp3->left_) - getDepth(tmp3->right_);
+	getDepth(tmp1);
+	getDepth(tmp2);
 
-	node = tmp3;
+	node = tmp2;
 }
 
 template<class KeyType>
@@ -107,23 +84,51 @@ void AVL_TREE<KeyType>::doDoubleRightRotation(NODE<KeyType>*& node){
 	NODE<KeyType>* tmp1 = node;
 	NODE<KeyType>* tmp2 = tmp1->left_;
 	NODE<KeyType>* tmp3 = tmp2->right_;
-	NODE<KeyType>* a	= tmp3->left_;
-	NODE<KeyType>* b	= tmp3->right_;
+	NODE<KeyType>* a = tmp3->left_;
+	NODE<KeyType>* b = tmp3->right_;
 
-	tmp3->right_	= tmp1;
-	tmp3->left_		= tmp2;
-	tmp3->parent_	= tmp1->parent_;
-	tmp1->parent_	= tmp3;
-	tmp2->parent_	= tmp3;
-	tmp2->right_	= a;
-	tmp1->left_		= b;
+	tmp3->right_ = tmp1;
+	tmp3->left_ = tmp2;
+	tmp3->parent_ = tmp1->parent_;
+	tmp1->parent_ = tmp3;
+	tmp2->parent_ = tmp3;
+	tmp2->right_ = a;
+	tmp1->left_ = b;
 
 	if (a != NULL) a->parent_ = tmp2;
 	if (b != NULL) b->parent_ = tmp1;
 
-	tmp1->balance_ = getDepth(tmp1->left_) - getDepth(tmp1->right_);
-	tmp2->balance_ = getDepth(tmp2->left_) - getDepth(tmp2->right_);
-	tmp3->balance_ = getDepth(tmp3->left_) - getDepth(tmp3->right_);
+	getDepth(tmp1);
+	getDepth(tmp2);
+	getDepth(tmp3);
+
+	node = tmp3;
+
+
+}
+
+template<class KeyType>
+void AVL_TREE<KeyType>::doDoubleLeftRotation(NODE<KeyType>*& node){
+	NODE<KeyType>* tmp1 = node;
+	NODE<KeyType>* tmp2 = tmp1->right_;
+	NODE<KeyType>* tmp3 = tmp2->left_;
+	NODE<KeyType>* a = tmp3->left_;
+	NODE<KeyType>* b = tmp3->right_;
+
+	tmp3->left_ = tmp1;
+	tmp3->right_ = tmp2;
+	tmp3->parent_ = tmp1->parent_;
+	tmp1->parent_ = tmp3;
+	tmp2->parent_ = tmp3;
+	tmp2->left_ = b;
+	tmp1->right_ = a;
+
+	if (a != NULL) a->parent_ = tmp1;
+	if (b != NULL) b->parent_ = tmp2;
+
+	getDepth(tmp1);
+	getDepth(tmp2);
+	getDepth(tmp3);
 
 	node = tmp3;
 }
@@ -131,21 +136,30 @@ void AVL_TREE<KeyType>::doDoubleRightRotation(NODE<KeyType>*& node){
 template<class KeyType>
 void AVL_TREE<KeyType>::updateLeftTree(NODE<KeyType>*& node){
 	if (node == NULL) return;
-	NODE<KeyType> *tmp;
-	tmp = node->left_;
-	if (tmp == NULL) return;
-	if		(tmp->balance_ == leftSubtreeIsDeeper)	doSingleRightRotation(node);
-	else if (tmp->balance_ == rightSubtreeIsDeeper) doDoubleRightRotation(node);
+	if		(node->left_->balance_ == leftSubtreeIsDeeper)	doSingleRightRotation(node);
+	else if (node->left_->balance_ == rightSubtreeIsDeeper) doDoubleRightRotation(node);
 }
 
 template<class KeyType>
 void AVL_TREE<KeyType>::updateRightTree(NODE<KeyType>*& node){
 	if (node == NULL) return;
-	NODE<KeyType> *tmp;
-	tmp = node->right_;
-	if (tmp == NULL) return;
-	if		(tmp->balance_ == rightSubtreeIsDeeper) doSingleLeftRotation(node);
-	else if (tmp->balance_ == leftSubtreeIsDeeper)	doDoubleLeftRotation(node);
+	if		(node->right_->balance_ == rightSubtreeIsDeeper) doSingleLeftRotation(node);
+	else if (node->right_->balance_ == leftSubtreeIsDeeper)	doDoubleLeftRotation(node);
+}
+
+template<class KeyType>
+void AVL_TREE<KeyType>::makeBalancing(NODE<KeyType>*& node){
+	if (node == NULL)
+		return;
+	getDepth(node);
+	short balance = node->balance_;
+
+	switch (balance){
+		case 2:
+			updateRightTree(node);
+		case -2:
+			updateLeftTree(node);
+	}
 }
 
 template<class KeyType>
@@ -165,73 +179,67 @@ void AVL_TREE<KeyType>::doRecursiveInsertion(NODE<KeyType>*& tree, NODE<KeyType>
 			doRecursiveInsertion(tree->right_, node);
 	}
 
-	switch (getDepth(tree->left_) - getDepth(tree->right_)) {
-	case 2:
-		updateLeftTree(tree);
-		break;
-	case -2:
-		updateRightTree(tree);
-	}
+	makeBalancing(tree);
 }
 
 template<class KeyType>
-void AVL_TREE<KeyType>::doRecursiveErasing(NODE<KeyType>*& tree, const KeyType& data){
-	if (tree == NULL) return;
-	if (data < tree->data_) doRecursiveErasing(tree->left_, data);
-	if (data > tree->data_) doRecursiveErasing(tree->right_, data);
-	NODE<KeyType>* tmpNext;
-	NODE<KeyType>* tmp;
-	if (data == tree->data_) {
+NODE<KeyType>* AVL_TREE<KeyType>::getNodeForRecursiveErasing(NODE<KeyType>*& tree, const KeyType& data){
+	if (tree == NULL) return NULL;
+	NODE<KeyType>* nodeForAnnihilation = NULL;
+	if (data < tree->data_)
+		nodeForAnnihilation = getNodeForRecursiveErasing(tree->left_, data);
+	else if (data > tree->data_)
+		nodeForAnnihilation = getNodeForRecursiveErasing(tree->right_, data);
+	else {
 		if (tree->left_ == NULL && tree->right_ == NULL) {
 			if	(tree->parent_->left_ == tree) tree->parent_->left_ = NULL;
 			else tree->parent_->right_ = NULL;
-			delete tree;
+			return tree;
 		}else if (tree->right_ == NULL) {
-			if	(tree->parent_->left_ == tree) tree->parent_->left_ = tree->left_;
-			else tree->parent_->right_ = tree->left_;
-			tree->left_->parent_ = tree->parent_;
-			delete tree;
+			nodeForAnnihilation = tree;
+			NODE<KeyType>* tmp = tree->left_;
+			tmp->parent_ = tree->parent_;
+			if	(tree->parent_->left_ == tree) tree->parent_->left_ = tmp;
+			else tree->parent_->right_ = tmp;
+
+			return nodeForAnnihilation;
 		}else if (tree->left_ == NULL) {
-			if	(tree->parent_->left_ == tree) tree->parent_->left_ = tree->right_;
+			nodeForAnnihilation = tree;
+			NODE<KeyType>* tmp = tree->right_;
+			tmp->parent_ = tree->parent_;
+			if	(tree->parent_->left_ == tree) tree->parent_->left_ = tmp;
 			else tree->parent_->right_ = tree->right_;
-			tree->right_->parent_ = tree->parent_;
-			delete tree;
+
+			return nodeForAnnihilation;
 		} else{
-			tmpNext	= findNext(tree);
-			tmp		= tmpNext->parent_;
+			NODE<KeyType>* tmpNext	= findNext(tree);
+			NODE<KeyType>* tmp		= tmpNext->parent_;
 
-			tmpNext->right_->parent_ = tmpNext->parent_;
-
-			if	(tmpNext->parent_->left_ == tmpNext) tmpNext->parent_->left_ = tmpNext->right_;
-			else tmpNext->parent_->right_ = tmpNext->right_;
+			if (tmpNext->parent_->left_ == tmpNext)
+				tmp->left_ = tmpNext->right_;
+			else
+				tmp->right_ = tmpNext->right_;
 
 			tmpNext->parent_	= tree->parent_;
 			tmpNext->left_		= tree->left_;
 			tmpNext->right_		= tree->right_;
-			delete tree;
 
-			while (tmp != tmpNext) {
-				switch (getDepth(tmp->left_) - getDepth(tmp->right_)) {
-				case 2:
-					updateLeftTree(tmp);
-					break;
-				case -2:
-					updateRightTree(tmp);
-				}
-				tmp = tmp->parent_;
+			if (tmpNext->left_ != NULL)
+				tmpNext->left_->parent_ = tmpNext;
+			if (tmpNext->right_ != NULL)
+				tmpNext->right_->parent_ = tmpNext;
+
+			while (tmp != NULL && tmp != tmpNext) {
+				makeBalancing(tmp);
+				tmp = tmp->parent_;				
 			}
+			nodeForAnnihilation = tree;
+
+			tree = tmpNext;
 		}
 	}
-	updateLeftTree(tmp);
-	updateRightTree(tmp);
-}
-
-template<class KeyType>
-AVL_TREE<KeyType>::AVL_TREE(const AVL_TREE<KeyType>& tree){
-	root_ = NULL;
-	count = tree.count;
-	vector<NODE<KeyType>* > v = tree.recPostOrder();
-	for (size_t i = 0; i < count; i++) insert(v[i]->data_);
+	makeBalancing(tree);
+	return nodeForAnnihilation;
 }
 
 template<class KeyType>
@@ -244,16 +252,15 @@ AVL_TREE<KeyType>::AVL_TREE(const BST<KeyType>& tree){
 
 template<class KeyType>
 AVL_TREE<KeyType>::~AVL_TREE(void){
-	vector<NODE<KeyType>* > v = recPostOrder();
-	for (size_t i = v.size(); i > 0; i--) delete v[i - 1];
+	recursiveErase(root_);
 }
 
 template<class KeyType>
 void AVL_TREE<KeyType>::erase(const KeyType& data){
 	if (root_ == NULL) return;
-	NODE<KeyType>* treeRoot = root_;
-	doRecursiveErasing(treeRoot, data);
-	root_ = treeRoot;
+	NODE<KeyType>* tmp = root_;
+	delete getNodeForRecursiveErasing(tmp, data);
+	root_ = tmp;
 }
 
 template<class KeyType>
@@ -263,11 +270,9 @@ void AVL_TREE<KeyType>::insert(const KeyType& data){
 		throw exception("Bad memory allocation.");
 	if (root_ == NULL) {
 		root_ = node;
+		root_->parent_ = NULL;
 		return;
 	}
 
-	NODE<KeyType>* treeRoot = root_;
-
-	doRecursiveInsertion(treeRoot, node);
-	root_ = treeRoot;
+	doRecursiveInsertion(root_, node);
 }
