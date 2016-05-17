@@ -200,17 +200,21 @@ NODE<KeyType>* AVL_TREE<KeyType>::getNodeForErasing(NODE<KeyType>*& tree, const 
 			nodeForAnnihilation = tree;
 			NODE<KeyType>* tmp = tree->left_;
 			tmp->parent_ = tree->parent_;
-			if	(tree->parent_->left_ == tree) tree->parent_->left_ = tmp;
-			else tree->parent_->right_ = tmp;
-
+			if (tree->parent_ != NULL) {
+				if (tree->parent_->left_ == tree) tree->parent_->left_ = tmp;
+				else tree->parent_->right_ = tmp;
+			}
+			tree = tmp;
 			return nodeForAnnihilation;
 		}else if (tree->left_ == NULL) {
 			nodeForAnnihilation = tree;
 			NODE<KeyType>* tmp = tree->right_;
 			tmp->parent_ = tree->parent_;
-			if	(tree->parent_->left_ == tree) tree->parent_->left_ = tmp;
-			else tree->parent_->right_ = tree->right_;
-
+			if (tree->parent_ != NULL) {
+				if (tree->parent_->left_ == tree) tree->parent_->left_ = tmp;
+				else tree->parent_->right_ = tree->right_;
+			}
+			tree = tmp;
 			return nodeForAnnihilation;
 		} else{
 			NODE<KeyType>* tmpNext	= findNext(tree);

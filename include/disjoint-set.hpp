@@ -77,7 +77,7 @@ vector<KeyType> DISJOINT_SET<KeyType>::getSet(int root) const {
     if (tmp[root] != root)
         throw myExcp("Argument is not root.");
     stack<int> st1;
-    PRIORITY_QUEUE<KeyType> q(U_.size() - count_ + 1);
+    PRIORITY_QUEUE_ON_D_HEAP<KeyType> q(U_.size() - count_ + 1);
     st1.push(root);
     while (!st1.empty()) {
         root = st1.top();

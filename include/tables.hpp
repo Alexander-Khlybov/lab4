@@ -43,6 +43,11 @@ protected:
 	void repackUp(void);
 public:
 	SCAN_TABLE(size_t size);
+	SCAN_TABLE(const SCAN_TABLE<DataType>& table) : SCAN_TABLE<DataType>(table.size_) {
+		for (size_t i = 0; i < table.size_) {
+			recs_[i] = new TAB_RECORD<DataType>(table.recs_[i]->getKey());
+		}
+	}
 	virtual ~SCAN_TABLE(void);
 
 	virtual TAB_RECORD<DataType>* find(const DataType&);
@@ -124,6 +129,11 @@ protected:
 	void sort(void);
 public:
 	SORT_TABLE(size_t size) : SCAN_TABLE<DataType>(size) {}
+	SORT_TABLE(const SORT_TABLE<DataType>& table) : SCAN_TABLE<DataType>(table.size_){
+		for (size_t i = 0; i < table.size_; i++) {
+			recs_[i] = new TAB_RECORD<DataType>(table.recs_[i]->getKey());
+		}
+	}
 	SORT_TABLE(const SCAN_TABLE&) { sort(); }
 	virtual ~SORT_TABLE(void) {}
 
@@ -143,7 +153,7 @@ void SORT_TABLE<DataType>::repackDown(void){
 template<class DataType>
 void SORT_TABLE<DataType>::binSearch(const DataType& key){
 	size_t left = 0;
-	size_t right = count_;
+	size_t right = count_ - 1;
 	size_t mid;
 
 	while(left < right){
@@ -154,8 +164,8 @@ void SORT_TABLE<DataType>::binSearch(const DataType& key){
 			cur_ = mid;
 			return;
 		}
-		cur_ = right;
 	}
+	cur_ = right;
 }
 
 template<class DataType>
