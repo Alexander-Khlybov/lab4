@@ -130,7 +130,6 @@ public:
 	virtual TAB_RECORD<DataType>* find(const DataType&);
 	virtual void		insert(const TAB_RECORD<DataType>&);
 	virtual void		erase(const DataType&);
-	TAB_RECORD<DataType>* getCurrrentRecord(void)const;
 };
 
 template<class DataType>
@@ -200,10 +199,4 @@ void SORT_TABLE<DataType>::erase(const DataType& key){
 	delete recs_[cur_];
 	repackUp();
 	recs_[count_ + 1] = NULL;
-}
-
-template<class DataType>
-TAB_RECORD<DataType>* SORT_TABLE<DataType>::getCurrrentRecord(void) const{
-	if (cur_ >= count_) return;
-	return recs_[cur_];
 }
