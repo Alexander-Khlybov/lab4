@@ -64,6 +64,35 @@ TEST(SCAN_TABLE, cant_insert_record_to_table_when_table_is_full) {
 	ASSERT_ANY_THROW(a.insert(7));
 }
 
+TEST(SCAN_TABLE, can_get_current_record) {
+	SCAN_TABLE<int> a(5);
+	a.insert(1);
+	a.insert(2);
+	a.insert(3);
+	a.insert(4);
+	a.insert(6);
+	a.reset();
+	TAB_RECORD<int>* tmp;
+	ASSERT_NO_THROW(tmp = a.getCurrentRecord());
+	EXPECT_EQ(1, tmp->getKey());
+}
+
+TEST(SCAN_TABLE, can_erase_current_record) {
+	SCAN_TABLE<int> a(5);
+	a.insert(1);
+	a.insert(2);
+	a.insert(3);
+	a.insert(4);
+	a.insert(6);
+	a.reset();
+	size_t tmp = a.getCount();
+	ASSERT_NO_THROW(a.eraseCurrentRecord());
+	EXPECT_EQ(tmp - 1, a.getCount());
+	EXPECT_EQ(NULL, a.find(1));
+}
+
+//=============================================================
+
 TEST(SORT_TABLE, can_create_table) {
 	SORT_TABLE<int> a(1);
 	ASSERT_NO_THROW(a.getCount());

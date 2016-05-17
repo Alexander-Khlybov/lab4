@@ -19,7 +19,7 @@ class AVL_TREE : public BST<KeyType> {
 	void makeBalancing	(NODE<KeyType>*&);
 	
 	void doRecursiveInsertion	(NODE<KeyType>*&, NODE<KeyType>*);
-	NODE<KeyType>* getNodeForRecursiveErasing(NODE<KeyType>*&, const KeyType&);
+	NODE<KeyType>* getNodeForErasing(NODE<KeyType>*&, const KeyType&);
 public:
 	AVL_TREE(void) : BST() {}
 	AVL_TREE(const AVL_TREE<KeyType>& tree) : BST(tree) {}
@@ -184,13 +184,13 @@ void AVL_TREE<KeyType>::doRecursiveInsertion(NODE<KeyType>*& tree, NODE<KeyType>
 }
 
 template<class KeyType>
-NODE<KeyType>* AVL_TREE<KeyType>::getNodeForRecursiveErasing(NODE<KeyType>*& tree, const KeyType& data){
+NODE<KeyType>* AVL_TREE<KeyType>::getNodeForErasing(NODE<KeyType>*& tree, const KeyType& data){
 	if (tree == NULL) return NULL;
 	NODE<KeyType>* nodeForAnnihilation = NULL;
 	if (data < tree->data_)
-		nodeForAnnihilation = getNodeForRecursiveErasing(tree->left_, data);
+		nodeForAnnihilation = getNodeForErasing(tree->left_, data);
 	else if (data > tree->data_)
-		nodeForAnnihilation = getNodeForRecursiveErasing(tree->right_, data);
+		nodeForAnnihilation = getNodeForErasing(tree->right_, data);
 	else {
 		if (tree->left_ == NULL && tree->right_ == NULL) {
 			if	(tree->parent_->left_ == tree) tree->parent_->left_ = NULL;
@@ -260,7 +260,7 @@ template<class KeyType>
 void AVL_TREE<KeyType>::erase(const KeyType& data){
 	if (root_ == NULL) return;
 	NODE<KeyType>* tmp = root_;
-	delete getNodeForRecursiveErasing(tmp, data);
+	delete getNodeForErasing(tmp, data);
 	root_ = tmp;
 }
 

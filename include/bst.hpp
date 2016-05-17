@@ -87,7 +87,6 @@ NODE<KeyType>* BST<KeyType>::copy(NODE<KeyType>* tree, NODE<KeyType>* parent){
 	return tmp;
 }
 
-
 template<class KeyType>
 BST<KeyType>::~BST(void){
 	recursiveErase(root_);

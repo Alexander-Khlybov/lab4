@@ -31,6 +31,9 @@ public:
 	virtual void	reset		(void) { cur_ = 0; }
 	virtual int		goNext		(void) { cur_++; return isTabEnded(); }
 	virtual int		isTabEnded	(void)const { return cur_ == count_; }
+
+	virtual TAB_RECORD<DataType>*	getCurrentRecord(void)const = 0;
+	virtual void					eraseCurrentRecord(void)	= 0;
 };
 
 template<class DataType>
@@ -45,6 +48,9 @@ public:
 	virtual TAB_RECORD<DataType>* find(const DataType&);
 	virtual void		insert(const TAB_RECORD<DataType>&);
 	virtual void		erase(const DataType&);
+
+	virtual TAB_RECORD<DataType>*	getCurrentRecord(void)const;
+	virtual void					eraseCurrentRecord(void);
 };
 
 template<class DataType>
@@ -65,7 +71,7 @@ SCAN_TABLE<DataType>::SCAN_TABLE(size_t size) : TABLE<DataType>(size) {
 
 template<class DataType>
 SCAN_TABLE<DataType>::~SCAN_TABLE(void){
-	for (size_t i = 0; i < size_; i++) {
+	for (size_t i = 0; i < count_; i++) {
 		delete recs_[i];
 	}
 	delete[]recs_;
@@ -98,6 +104,19 @@ void SCAN_TABLE<DataType>::erase(const DataType& key){
 }
 
 template<class DataType>
+TAB_RECORD<DataType>* SCAN_TABLE<DataType>::getCurrentRecord(void) const{
+	if (isEmpty())return NULL;
+	return recs_[cur_];
+}
+
+template<class DataType>
+void SCAN_TABLE<DataType>::eraseCurrentRecord(void){
+	if (isEmpty()) return;
+	delete recs_[cur_];
+	repackUp();
+}
+
+template<class DataType>
 class SORT_TABLE : public SCAN_TABLE<DataType> {
 protected:
 	void repackDown(void);
@@ -106,7 +125,7 @@ protected:
 public:
 	SORT_TABLE(size_t size) : SCAN_TABLE<DataType>(size) {}
 	SORT_TABLE(const SCAN_TABLE&) { sort(); }
-	virtual ~SORT_TABLE(void);
+	virtual ~SORT_TABLE(void) {}
 
 	virtual TAB_RECORD<DataType>* find(const DataType&);
 	virtual void		insert(const TAB_RECORD<DataType>&);
@@ -128,7 +147,7 @@ void SORT_TABLE<DataType>::binSearch(const DataType& key){
 	size_t right = count_;
 	size_t mid;
 
-	while(left <= right){
+	while(left < right){
 		mid = left + (right - left) / 2;
 		if (key < recs_[mid]->getKey()) right = mid - 1;
 		else if (key > recs_[mid]->getKey()) left = mid + 1;
@@ -156,14 +175,6 @@ void SORT_TABLE<DataType>::sort(void){
 }
 
 template<class DataType>
-SORT_TABLE<DataType>::~SORT_TABLE(void){
-	for (size_t i = 0; i < size_; i++) {
-		delete recs_[i];
-	}
-	delete[]recs_;
-}
-
-template<class DataType>
 TAB_RECORD<DataType>* SORT_TABLE<DataType>::find(const DataType& key){
 	binSearch(key);
 	return recs_[cur_] ? recs_[cur_] : NULL;
@@ -173,6 +184,9 @@ template<class DataType>
 void SORT_TABLE<DataType>::insert(const TAB_RECORD<DataType>& rec){
 	if (isFull())
 		throw exception("Table is full.");
+	if (isEmpty()) {
+		recs_[0] = new TAB_RECORD<DataType>(rec.getKey());
+	}
 	find(rec.getKey());
 	repackDown();
 	recs_[cur_] = new TAB_RECORD<DataType>(rec.getKey());
