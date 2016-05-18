@@ -94,7 +94,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d-heap_lib.lib;priority_queue_lib.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>priority_queue_lib.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -127,7 +127,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d-heap_lib.lib;priority_queue_lib.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>priority_queue_lib.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,9 +151,6 @@
     <ClCompile Include="..\..\..\sample\sample_Dijkstra.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
-      <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\graph_lib\graph_lib.vcxproj">
       <Project>{dc0a4aa7-84a2-402e-bc26-185a6fb75ac0}</Project>
     </ProjectReference>
