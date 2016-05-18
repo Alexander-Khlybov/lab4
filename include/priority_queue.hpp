@@ -5,6 +5,7 @@
 #include "d-heap.hpp"
 #include "avl-tree.hpp"
 #include "tables.hpp"
+#include <map>
 
 template<class KeyType>
 class PRIORITY_QUEUE {
@@ -184,26 +185,6 @@ public:
 		return table_->getCurrentRecord()->getKey();
 	}
 };
-
-template <class KeyType>
-class MAKE_PRIORITY_QUEUE {
-public:
-	static PRIORITY_QUEUE<KeyType> makeQueueBasedOn(const string&, size_t size = 0);
-};
-
-template<class KeyType>
-PRIORITY_QUEUE<KeyType> MAKE_PRIORITY_QUEUE<KeyType>::makeQueueBasedOn(const string& s, size_t size){
-	switch (s) {
-	case "D_HEAP":
-		return PRIORITY_QUEUE_ON_D_HEAP<KeyType>(size);
-	case "AVL_TREE":
-		return PRIORITY_QUEUE_ON_AVL_TREE<KeyType>();
-	case "SORT_TABLE":
-		return PRIORITY_QUEUE_ON_SORT_TABLE<KeyType>(size);
-	default:
-		throw exception("Priority queue does not created");
-	}
-}
 
 template<class KeyType>
 SORT_TABLE<KeyType> PRIORITY_QUEUE_ON_SORT_TABLE<KeyType>::getTable(void) const{

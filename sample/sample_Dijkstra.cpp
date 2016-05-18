@@ -1,8 +1,6 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 #include "graph.h"
-#include "priority_queue.hpp"
+#include "algorithms.h"
 
 int main(void) {
 
@@ -40,33 +38,8 @@ int main(void) {
 		return 1;
 	}
 
-	//  *************|| INITIAL VECTOR OF DISTANCES AND VISITED VERTICES *************
-	std::vector<DISTANCE> dist(numVert);
-
-	dist[currentVertex].distance = 0;
-	dist[currentVertex].vertex = currentVertex;
-
-	//  *************|| INITIAL PRYORITY QUEUE *************
-	PRIORITY_QUEUE<DISTANCE> queue;
-	queue.push(dist[currentVertex]);
-
-	//  *************|| DIJKSTRA CYCLE *************
-	while (!queue.isEmpty()) {
-		DISTANCE d = queue.back();
-		queue.pop();
-		if (d.distance > dist[d.vertex].distance) continue;
-		std::multiset<DISTANCE> a = graph->getSetOfEdges(d.vertex);
-		for_each(a.begin(), a.end(), [&] (DISTANCE k) {
-			size_t tmp = k.vertex;
-			double len = k.distance;
-			if (dist[tmp].distance > dist[d.vertex].distance + len) {
-				dist[tmp].vertex = d.vertex;
-				dist[tmp].distance = dist[d.vertex].distance + len;
-				queue.push(DISTANCE(tmp, dist[tmp].distance));
-			}
-		});			
-	}
-
+	std::vector<DISTANCE> dist = ALGORITHM::dijkstra(*graph, currentVertex, "D_HEAP");
+	cout << 1;
 	//  *************|| RESULT OUTPUT *************
 	graph->graphInfo();
 
@@ -74,10 +47,13 @@ int main(void) {
 	std::cout << "Current vertex: " << currentVertex << "\n ===========================";
 	std::cout << "\nVertices:\t";
 	for (size_t i = 0; i < dist.size(); i++) std::cout << i << "\t";
+	cout << "\n\t\t";
+	for (auto x : dist) std::cout << x.vertex << "\t";
 	std::cout << "\nDistances:\t";
 	for (auto x : dist) std::cout << x.distance << "\t";
 	std::cout << "\n\n";
 
 	delete graph;
+	getchar();
 	return 0;
 }
