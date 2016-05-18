@@ -28,6 +28,9 @@
     <ProjectReference Include="..\disjoint-set_lib\disjoint-set_lib.vcxproj">
       <Project>{d82a1328-589c-4321-bdf5-15c0cf800c73}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\priority_queue_lib\priority_queue_lib.vcxproj">
+      <Project>{d3fa2c1d-0b5c-4b01-a8cd-44efacf941c1}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DC0A4AA7-84A2-402E-BC26-185A6FB75AC0}</ProjectGuid>

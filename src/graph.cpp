@@ -95,6 +95,18 @@ void GRAPH::createGraph(size_t numberOfEdges, double min, double max){
 	}
 }
 
+size_t GRAPH::getNumOfComponents(void) const{
+	DISJOINT_SET<size_t> d(vertices_);
+	for (size_t i = 0; i < vertices_; i++) {
+		d.createSet(i);
+	}
+	for (auto x : graph_) {
+		d.uniteSets(d.findSet(x.first), d.findSet(x.second));
+	}
+
+	return d.getNumberOfSets();
+}
+
 std::multiset<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
     if (currentVertex >= vertices_)
         throw std::out_of_range("Out of range.");
