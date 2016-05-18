@@ -181,7 +181,7 @@ public:
 		if (isEmpty())
 			throw exception("Is empty.");
 		table_->reset();
-		table_->getCurrentRecord();
+		return table_->getCurrentRecord()->getKey();
 	}
 };
 

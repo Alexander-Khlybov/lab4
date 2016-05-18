@@ -43,9 +43,14 @@ protected:
 	void repackUp(void);
 public:
 	SCAN_TABLE(size_t size);
-	SCAN_TABLE(const SCAN_TABLE<DataType>& table) : SCAN_TABLE<DataType>(table.size_) {
-		for (size_t i = 0; i < table.size_) {
+	SCAN_TABLE(const SCAN_TABLE<DataType>& table) : TABLE<DataType>(table.size_){
+		recs_ = new TAB_RECORD<DataType>*[size_];
+		count_ = table.count_;
+		for (size_t i = 0; i < count_; i++) {
 			recs_[i] = new TAB_RECORD<DataType>(table.recs_[i]->getKey());
+		}
+		for (size_t i = count_; i < size_; i++) {
+			recs_[i] = NULL;
 		}
 	}
 	virtual ~SCAN_TABLE(void);
@@ -129,12 +134,8 @@ protected:
 	void sort(void);
 public:
 	SORT_TABLE(size_t size) : SCAN_TABLE<DataType>(size) {}
-	SORT_TABLE(const SORT_TABLE<DataType>& table) : SCAN_TABLE<DataType>(table.size_){
-		for (size_t i = 0; i < table.size_; i++) {
-			recs_[i] = new TAB_RECORD<DataType>(table.recs_[i]->getKey());
-		}
-	}
-	SORT_TABLE(const SCAN_TABLE&) { sort(); }
+	SORT_TABLE(const SORT_TABLE<DataType>& table) : SCAN_TABLE<DataType>(table){}
+	SORT_TABLE(const SCAN_TABLE& table) : SCAN_TABLE<DataType>(table) {sort();}
 	virtual ~SORT_TABLE(void) {}
 
 	virtual TAB_RECORD<DataType>* find(const DataType&);
@@ -144,7 +145,7 @@ public:
 
 template<class DataType>
 void SORT_TABLE<DataType>::repackDown(void){
-	for (size_t i = count_; i > cur_; i--) {
+	for (int i = count_; i >= cur_; i--) {
 		recs_[i] = recs_[i - 1];
 	}
 	count_++;
@@ -154,18 +155,14 @@ template<class DataType>
 void SORT_TABLE<DataType>::binSearch(const DataType& key){
 	size_t left = 0;
 	size_t right = count_ - 1;
-	size_t mid;
-
-	while(left < right){
-		mid = left + (right - left) / 2;
-		if (key < recs_[mid]->getKey()) right = mid - 1;
-		else if (key > recs_[mid]->getKey()) left = mid + 1;
+	while(left <= right){
+		cur_ = left + (right - left) / 2;
+		if (key < recs_[cur_]->getKey()) right = cur_ - 1;
+		else if (key > recs_[cur_]->getKey()) left = cur_ + 1;
 		else {
-			cur_ = mid;
 			return;
 		}
 	}
-	cur_ = right;
 }
 
 template<class DataType>
@@ -185,20 +182,40 @@ void SORT_TABLE<DataType>::sort(void){
 
 template<class DataType>
 TAB_RECORD<DataType>* SORT_TABLE<DataType>::find(const DataType& key){
-	binSearch(key);
-	return recs_[cur_] ? recs_[cur_] : NULL;
+	int left = 0;
+	int right = count_ - 1;
+	int mid;
+	while (left <= right)
+	{
+		mid = left + (right - left) / 2;
+		if (key < recs_[mid]->getKey()) {
+			right = mid - 1;
+			cur_ = left;
+		}else if (key > recs_[mid]->getKey()) {
+			left = mid + 1;
+			cur_ = right;
+		}
+		else
+		{
+			cur_ = mid;
+			return recs_[mid];
+		}
+	}
+	return 0;
 }
 
 template<class DataType>
 void SORT_TABLE<DataType>::insert(const TAB_RECORD<DataType>& rec){
-	if (isFull())
-		throw exception("Table is full.");
-	if (isEmpty()) {
-		recs_[0] = new TAB_RECORD<DataType>(rec.getKey());
+	if (isFull()) {
+		throw exception("Table is FULL.");
 	}
+
 	find(rec.getKey());
-	repackDown();
-	recs_[cur_] = new TAB_RECORD<DataType>(rec.getKey());
+	for (int i = count_; i >= cur_ && i > 0; i--)
+		recs_[i] = recs_[i - 1];
+	count_++;
+	TAB_RECORD<DataType>* tmp = new TAB_RECORD<DataType>(rec.getKey());
+	recs_[cur_] = tmp;
 }
 
 template<class DataType>
