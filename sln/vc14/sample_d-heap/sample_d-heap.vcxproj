@@ -151,8 +151,8 @@
     <ClCompile Include="..\..\..\sample\sample_d-heap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
-      <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
+    <ProjectReference Include="..\algorithms\algorithms.vcxproj">
+      <Project>{320738a0-7e51-4609-8e4e-adb718618012}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
