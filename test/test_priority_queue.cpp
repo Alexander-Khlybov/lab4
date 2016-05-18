@@ -335,7 +335,7 @@ TEST(PRIORITY_QUEUE_ON_SORT_TABLE, can_copy_queue){
 }
 
 TEST(PRIORITY_QUEUE_ON_SORT_TABLE, copied_queue_is_equal_to_source_one){
-	PRIORITY_QUEUE_ON_SORT_TABLE<int> a(2);
+	PRIORITY_QUEUE_ON_SORT_TABLE<int> a(12);
 	for (int i = 0; i < 10; i++){
 		a.push(i);
 	}
