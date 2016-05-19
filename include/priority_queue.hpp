@@ -190,3 +190,26 @@ template<class KeyType>
 SORT_TABLE<KeyType> PRIORITY_QUEUE_ON_SORT_TABLE<KeyType>::getTable(void) const{
 	return SORT_TABLE<KeyType>(*table_);
 }
+
+template<class DataType>
+class MAKE_PRIORITY_QUEUE {
+public:
+	static bool makeQueueBasedOn(PRIORITY_QUEUE<DataType>*&, const string&, size_t);
+};
+
+template<class DataType>
+bool MAKE_PRIORITY_QUEUE<DataType>::makeQueueBasedOn(PRIORITY_QUEUE<DataType>*& q, const string& s, size_t size) {
+	if (s == "D_HEAP") {
+		q = new PRIORITY_QUEUE_ON_D_HEAP<DataType>(size);
+		return true;
+	}
+	if (s == "AVL_TREE") {
+		q = new PRIORITY_QUEUE_ON_AVL_TREE<DataType>();
+		return true;
+	}
+	if (s == "SORT_TABLE") {
+		q = new PRIORITY_QUEUE_ON_SORT_TABLE<DataType>(size);
+		return true;
+	}
+	return false;
+}

@@ -1,7 +1,6 @@
-#include "d-heap.hpp"
+#include "algorithms.h"
 #include <vector>
 #include <ctime>
-void sort(vector<int>&);
 int main(void) {
 	int size = 10;
 	srand((size_t)time(NULL));
@@ -15,7 +14,7 @@ int main(void) {
 		cout << x << "\t";
 	}
 
-	sort(v);
+	ALGORITHM::sort(v);
 
 	cout << "\nSorted vector:\t\t";
 	for (int x : v) {
@@ -24,17 +23,4 @@ int main(void) {
 	cout << endl;
 	getchar();
     return 0;
-}
-
-void sort(vector<int>& v) {
-	D_HEAP<int> heap(v.size(), 3);
-
-	for (int x : v) {
-		heap.insert(x, PROHIBIT_MEMORY_REALLOCATION);
-	}
-
-	for (size_t i = 0; i < v.size(); i++) {
-		v[i] = heap.getNodeKey(0);
-		heap.deleteMinElem();
-	}
 }

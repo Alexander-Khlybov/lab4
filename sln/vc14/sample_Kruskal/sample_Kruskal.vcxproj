@@ -94,7 +94,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>disjoint-set_lib.lib;priority_queue_lib.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>algorithms.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -127,7 +127,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>disjoint-set_lib.lib;priority_queue_lib.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>algorithms.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,14 +151,11 @@
     <ClCompile Include="..\..\..\sample\sample_Kruskal.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\disjoint-set_lib\disjoint-set_lib.vcxproj">
-      <Project>{d82a1328-589c-4321-bdf5-15c0cf800c73}</Project>
+    <ProjectReference Include="..\algorithms\algorithms.vcxproj">
+      <Project>{d2d68f36-fbf1-45eb-ad2d-46214dc61f57}</Project>
     </ProjectReference>
     <ProjectReference Include="..\graph_lib\graph_lib.vcxproj">
       <Project>{dc0a4aa7-84a2-402e-bc26-185a6fb75ac0}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\priority_queue_lib\priority_queue_lib.vcxproj">
-      <Project>{d3fa2c1d-0b5c-4b01-a8cd-44efacf941c1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
