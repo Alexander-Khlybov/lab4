@@ -1,7 +1,8 @@
 #include <iostream>
+#include <string>
 #include <algorithm>
 #include "graph.h"
-#include "disjoint-set.hpp"
+#include "algorithms.h"
 
 int main(void) {
 
@@ -10,60 +11,30 @@ int main(void) {
 	std::cin >> numVert;
 
 	//  *************|| FILLING OF GRAPH *************
-	GRAPH* graph;
+	GRAPH graph(numVert);
 	try {
-		graph = new GRAPH(numVert);
+		graph.fillGraph();
 	}
 	catch (exception& e) {
 		std::cout << e.what() << std::endl;
-		delete graph;
 		return 1;
 	}
 
-	try {
-		graph->fillGraph();
-	}
-	catch (exception& e) {
-		std::cout << e.what() << std::endl;
-		delete graph;
+	cout << "You can use priority queue based on D_HEAP, AVL_TREE, SORT_TABLE.\nWhich algorithm do you want to use ?\n";
+	string s;
+	cin >> s;
+	if (s != "D_HEAP" && s != "AVL_TREE" && s != "SORT_TABLE") {
+		cout << "Priority queue does not created.\n";
 		return 1;
 	}
-
-	DISJOINT_SET<int> g(numVert);
-	for (size_t i = 0; i < numVert; i++)
-		g.createSet(i);
-
-	PRIORITY_QUEUE<EDGE> queue;
-	for (auto x : graph->getAllEdges()) {
-		queue.push(x);
-	}
-
-	GRAPH* result;
-	try {
-		result = new GRAPH(numVert);
-	}
-	catch (exception& e) {
-		std::cout << e.what() << std::endl;
-		delete graph;
-		delete result;
-		return 1;
-	}
-
-	while (g.getNumberOfSets() != 1) {
-		auto x = queue.back();
-		queue.pop();
-		g.uniteSets(g.findSet(x.first), g.findSet(x.second));
-		result->setDistance(x.first, x.second, x.distance);
-	}
-
+	
 	//  *************|| RESULT OUTPUT *************
 	std::cout << "GRAPH: \n -------------------------";
-	graph->graphInfo();
+	graph.graphInfo();
 	std::cout << "Kruskal result: \n -------------------------";
-	result->graphInfo();
+	ALGORITHM::kruskal(graph, s).graphInfo();
 	std::cout << "\n\n";
 
-	delete graph;
-	delete result;
+	getchar();
 	return 0;
 }

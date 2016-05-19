@@ -22,14 +22,12 @@ public:
     vector<KeyType> getSet          (int)const;
 
     friend std::ostream& operator<< (std::ostream& out, const DISJOINT_SET<KeyType>& set) {
-
         for (int j = 0; j < set.getUniversalSet().GetSize(); j++) {
             if (set.getUniversalSet()[j] == j) out << "{" << set.getSet(j) << "}\n";
         }
         return out;
     }
 };
-
 
 template <class KeyType>
 void DISJOINT_SET<KeyType>::createSet(int root) {
@@ -44,7 +42,6 @@ void DISJOINT_SET<KeyType>::createSet(int root) {
 template <class KeyType>
 void DISJOINT_SET<KeyType>::uniteSets(int firstRoot, int secondRoot) {
     if (firstRoot == secondRoot) return;
-
     if ((firstRoot < 0) || (firstRoot >= U_.size()) ||
         (secondRoot < 0) || (secondRoot >= U_.size()))
         throw myExcp("Out of range.");
@@ -52,7 +49,6 @@ void DISJOINT_SET<KeyType>::uniteSets(int firstRoot, int secondRoot) {
         throw myExcp("One of sets is empty.");
     if ((U_[firstRoot] != firstRoot) || (U_[secondRoot] != secondRoot))
         throw myExcp("One of arguments is not root.");
-
     if (firstRoot < secondRoot) U_[secondRoot] = firstRoot;
     else U_[firstRoot] = secondRoot;
     --count_;
@@ -63,7 +59,6 @@ int DISJOINT_SET<KeyType>::findSet(int key) {
     if ((key < 0) || (key >= U_.size()))
         throw myExcp("Out of range.");
     if (U_[key] == -1) return -1;
-
     while (U_[key] != key)
         key = U_[key];
     return key;
@@ -77,7 +72,7 @@ vector<KeyType> DISJOINT_SET<KeyType>::getSet(int root) const {
     if (tmp[root] != root)
         throw myExcp("Argument is not root.");
     stack<int> st1;
-    PRIORITY_QUEUE<KeyType> q(U_.size() - count_ + 1);
+    PRIORITY_QUEUE_ON_D_HEAP<KeyType> q(U_.size() - count_ + 1);
     st1.push(root);
     while (!st1.empty()) {
         root = st1.top();
@@ -89,7 +84,6 @@ vector<KeyType> DISJOINT_SET<KeyType>::getSet(int root) const {
                 st1.push(i);
         }
     }
-
     vector<KeyType> res(q.getSize());
     int i = 0;
     while (q.getSize() != 0) {

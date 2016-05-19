@@ -10,14 +10,12 @@ void GRAPH::setDistance(size_t first, size_t second, double dist){
         throw std::out_of_range("Out of range.");
     if(first == second) 
 		return;
-
 	for (EDGE x : graph_) {
 		if (x.first == MIN(first, second) && x.second == MAX(first, second)) {
 			graph_.erase(x);
 			break;
 		}
 	}
-	
 	graph_.insert(EDGE(MIN(first, second),
 					MAX(first, second), dist));
 }
@@ -64,7 +62,6 @@ void GRAPH::fillGraph(void){
         std::cin >> s;
         if (s == 'e')
             break;
-
     }
 }
 
@@ -77,22 +74,31 @@ void GRAPH::createGraph(size_t numberOfEdges, double min, double max){
 	for (size_t i = 0; i < vertices_; i++) {
 		d.createSet(i);
 	}
-
 	size_t tmp = 0;
 	while (d.getNumberOfSets() != 1) {
 		size_t first = (size_t)(rand() % vertices_);
 		size_t second = (size_t)(rand() % vertices_);
 		if (d.findSet(first) != d.findSet(second)) {
-			graph_.insert(EDGE(first, second, (double)((max - min)*rand())/RAND_MAX + min));
+			graph_.insert(EDGE(first, second, (double)((max - min)*rand()) / RAND_MAX + min));
 			d.uniteSets(d.findSet(first), d.findSet(second));
 		}
 	}
-
 	while (graph_.size() != numberOfEdges) {
 		size_t first = (size_t)(rand() % vertices_);
 		size_t second = (size_t)(rand() % vertices_);
 		graph_.insert(EDGE(first, second, (double)((max - min)*rand()) / RAND_MAX + min));
 	}
+}
+
+size_t GRAPH::getNumOfComponents(void) const{
+	DISJOINT_SET<size_t> d(vertices_);
+	for (size_t i = 0; i < vertices_; i++) {
+		d.createSet(i);
+	}
+	for (auto x : graph_) {
+		d.uniteSets(d.findSet(x.first), d.findSet(x.second));
+	}
+	return d.getNumberOfSets();
 }
 
 std::multiset<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
@@ -109,16 +115,13 @@ std::multiset<DISTANCE> GRAPH::getSetOfEdges(size_t currentVertex)const{
 void GRAPH::graphInfo(void)const{
 	std::cout << "\n======== THE NUMBER OF VERTICES ========\n\n"
 		<< vertices_ << std::endl;
-
 	std::cout << "\n======== THE NUMBER OF EDGES    ========\n\n"
 		<< graph_.size() << std::endl;
-
 	std::cout << "\n=========== EDGES ===========\n\n";
 	size_t i = 0;
 	for (auto x : graph_) {
 		std::cout << x.first << "<-->" << x.second
 			<< "  ::  " << x.distance << "\t|||\n";
 	}
-
 	std::cout << "\n\n";
 }

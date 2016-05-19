@@ -2,12 +2,10 @@
 #include "graph.h"
 
 TEST(GRAPH, can_create_graph){
-
 	ASSERT_NO_THROW(GRAPH(3));
 }
 
 TEST(GRAPH, throws_when_created_graph_with_number_of_vertices_bigger_than_MAX_VERTICE_NUM){
-
 	ASSERT_ANY_THROW(GRAPH(101));
 }
 
@@ -112,10 +110,9 @@ TEST(GRAPH, can_erase_edge){
 TEST(GRAPH, can_get_set_of_edges_from_vertex){
 	GRAPH g(10);
 	g.createGraph(10, -100, 100);
-	for (size_t i = 1; i < 10; i++){
+	for (size_t i = 1; i < 10; i++) {
 		g.eraseEdge(0, i);
 	}
-
 	g.setDistance(0, 1, 1);
 	g.setDistance(0, 3, 4);
 	g.setDistance(0, 4, 5);
@@ -123,39 +120,4 @@ TEST(GRAPH, can_get_set_of_edges_from_vertex){
 	g.setDistance(0, 9, 2);
 
 	ASSERT_NO_THROW(g.getSetOfEdges(0));
-}
-
-TEST(GRAPH, getSetOfEdges_works_properly){
-	GRAPH g(10);
-	g.createGraph(10, -100, 100);
-	for (size_t i = 1; i < 10; i++){
-		g.eraseEdge(0, i);
-	}
-
-	g.setDistance(0, 1, 1);
-	g.setDistance(0, 3, 4);
-	g.setDistance(0, 4, 5);
-	g.setDistance(0, 6, 3);
-	g.setDistance(0, 9, 2);
-
-	multiset<DISTANCE> s = g.getSetOfEdges(0);
-	vector<pair<DISTANCE, DISTANCE> > v(5);
-
-	size_t i = 0;
-	for(auto x : g.getSetOfEdges(0)){
-		v[i].first = x;
-		v[i].second.distance = i + 1;
-		i++;
-	}
-
-	v[0].second.vertex = 1;
-	v[1].second.vertex = 9;
-	v[2].second.vertex = 6;
-	v[3].second.vertex = 3;
-	v[4].second.vertex = 4;
-
-	for(auto x : v){
-		EXPECT_EQ(1,	x.first.vertex == x.second.vertex &&
-						x.first.distance == x.second.distance);
-	}
 }

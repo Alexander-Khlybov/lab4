@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include <ctime>
 #include "disjoint-set.hpp"
+#include "priority_queue.hpp"
+
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
@@ -64,6 +66,7 @@ public:
 	void	eraseEdge			(size_t, size_t);
     void    fillGraph           (void);
 	void	createGraph			(size_t, double, double);
+	size_t	getNumOfComponents	(void)const;
 	std::multiset<EDGE> getAllEdges(void)const { return graph_; }
 
     std::multiset<DISTANCE> getSetOfEdges(size_t)const;

@@ -20,7 +20,6 @@ TEST(DisjointSet, created_elem_is_empty) {
     int i = 0;
     for (i; i < b.size(); i++)
         if (b[i] != -1) break;
-
     EXPECT_EQ(10, i);
 }
 
@@ -74,7 +73,6 @@ TEST(DisjointSet, throws_when_created_existing_set) {
     a.createSet(7);
     a.createSet(4);
     a.createSet(0);
-
     ASSERT_ANY_THROW(a.createSet(0));
 }
 
@@ -91,7 +89,6 @@ TEST(DisjointSet, throws_when_unite_sets_with_invalid_arguments) {
     a.createSet(7);
     a.createSet(4);
     a.createSet(0);
-
     ASSERT_ANY_THROW(a.uniteSets(-1, 0));
     ASSERT_ANY_THROW(a.uniteSets(10, 0));
     ASSERT_ANY_THROW(a.uniteSets(0, 10));
