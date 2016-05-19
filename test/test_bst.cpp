@@ -287,9 +287,7 @@ TEST(AVL_TREE, erasing_decreases_size_tree) {
 	a.insert(15);
 	a.insert(25);
 	a.insert(10);
-
 	size_t tmp = a.getSize();
 	a.erase(7);
-
 	EXPECT_EQ(tmp - 1, a.getSize());
 }

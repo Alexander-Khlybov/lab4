@@ -2,12 +2,10 @@
 #include "graph.h"
 
 TEST(GRAPH, can_create_graph){
-
 	ASSERT_NO_THROW(GRAPH(3));
 }
 
 TEST(GRAPH, throws_when_created_graph_with_number_of_vertices_bigger_than_MAX_VERTICE_NUM){
-
 	ASSERT_ANY_THROW(GRAPH(101));
 }
 
@@ -112,10 +110,9 @@ TEST(GRAPH, can_erase_edge){
 TEST(GRAPH, can_get_set_of_edges_from_vertex){
 	GRAPH g(10);
 	g.createGraph(10, -100, 100);
-	for (size_t i = 1; i < 10; i++){
+	for (size_t i = 1; i < 10; i++) {
 		g.eraseEdge(0, i);
 	}
-
 	g.setDistance(0, 1, 1);
 	g.setDistance(0, 3, 4);
 	g.setDistance(0, 4, 5);

@@ -47,22 +47,18 @@ public:
 
 template<class KeyType>
 NODE<KeyType>* BST<KeyType>::getNodeForErasing(const KeyType& data){
-
 	NODE<KeyType>* tmp = NULL;
 	NODE<KeyType>* tmp1 = NULL;
 	NODE<KeyType>* tmp2 = find(data);
-
 	if	(tmp2->left_ != NULL && tmp2->right_ != NULL) tmp1 = findNext(tmp2);
 	else tmp1 = tmp2;
 	if	(tmp1->left_ != NULL) tmp = tmp1->left_;
 	else tmp = tmp1->right_;
-
 	if (tmp != NULL) tmp->parent_ = tmp1->parent_;
 	if (tmp1->parent_) {
 		if	(tmp1 == tmp1->parent_->left_) tmp1->parent_->left_ = tmp;
 		else tmp1->parent_->right_ = tmp;
 	}
-
 	tmp2->data_ = tmp1->data_;
 	return tmp1;
 }
@@ -79,11 +75,9 @@ void BST<KeyType>::recursiveErase(NODE<KeyType>*& node){
 template<class KeyType>
 NODE<KeyType>* BST<KeyType>::copy(NODE<KeyType>* tree, NODE<KeyType>* parent){
 	if (tree == NULL) return NULL;
-
 	NODE<KeyType>* tmp = new NODE<KeyType>(tree->data_, parent);
 	tmp->left_ = copy(tree->left_, tmp);
 	tmp->right_ = copy(tree->right_, tmp);
-
 	return tmp;
 }
 
@@ -98,16 +92,13 @@ void BST<KeyType>::insert(const KeyType& data){
 		root_ = new NODE<KeyType>(data, NULL, NULL, NULL);
 		return;
 	}
-
 	NODE<KeyType>* tmp = root_;
 	NODE<KeyType>* prev;
-
 	while(tmp != NULL){
 		prev = tmp;
 		if	(tmp->data_ < data) tmp = tmp->right_;
 		else tmp = tmp->left_;
 	}
-
 	if	(prev->data_ <= data) prev->right_ = new NODE<KeyType>(data, prev);
 	else prev->left_ = new NODE<KeyType>(data, prev);
 }
@@ -119,12 +110,9 @@ void BST<KeyType>::erase(const KeyType& data){
 
 template<class KeyType>
 NODE<KeyType>* BST<KeyType>::find(const KeyType& data) const{
-
 	if (root_ == NULL)
 		throw exception("Tree is empty;");
-
 	NODE<KeyType> *tmp = root_;
-
 	while (tmp != NULL && tmp->data_ != data){
 		if (data < tmp->data_)
 			tmp = tmp->left_;
@@ -165,9 +153,7 @@ NODE<KeyType>* BST<KeyType>::findPrev(NODE<KeyType>* node) const{
 	KeyType data = node->data_;
 	if (node->left_ != 0)
 		return findMax(node->left_);
-
 	while (node->parent_ != NULL && node->parent_->left_ == node) node = node->parent_;
-
 	if (node->parent_ == NULL)
 		throw exception("Previous node does not exist");
 	return node->parent_;
@@ -180,9 +166,7 @@ NODE<KeyType>* BST<KeyType>::findNext(NODE<KeyType>* node) const{
 	KeyType data = node->data_;
 	if (node->right_ != 0)
 		return findMin(node->right_);
-
 	while (node->parent_ != NULL && node->parent_->right_ == node) node = node->parent_;
-	
 	if (node->parent_ == NULL)
 		throw exception("Next node does not exist");
 	return node->parent_;
@@ -192,12 +176,10 @@ template<class KeyType>
 vector<NODE<KeyType>* > BST<KeyType>::recPostOrder(void) const {
 	if (root_ == 0)
 		return vector<NODE<KeyType>* >(0);
-
 	stack<NODE<KeyType>* > s, res;
 	s.push(root_);
 	while (!s.empty()) {
 		NODE<KeyType> *tmp = s.top();
-
 		s.pop();
 		if (tmp != NULL) {
 			res.push(tmp);
@@ -210,6 +192,5 @@ vector<NODE<KeyType>* > BST<KeyType>::recPostOrder(void) const {
 		v[res.size() - 1] = res.top();
 		res.pop();
 	}
-
 	return v;
 }

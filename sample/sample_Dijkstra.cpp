@@ -29,6 +29,11 @@ int main(void) {
 		return 1;
 	}
 
+	if (graph->getNumOfComponents() > 1) {
+		cout << "\nIncorrect graph.\n";
+		return 1;
+	}
+
 	//  *************|| LABEL *************
 	size_t currentVertex = 0;
 	std::cout << "\nEnter the current vertex: ";

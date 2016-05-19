@@ -6,7 +6,6 @@ GRAPH ALGORITHM::kruskal(const GRAPH& graph, const string& s) {
 	DISJOINT_SET<int> g(graph.getNumOfVertices());
 	for (size_t i = 0; i < graph.getNumOfVertices(); i++)
 		g.createSet(i);
-	cout << 1;
 	PRIORITY_QUEUE<EDGE>* queue;
 	MAKE_PRIORITY_QUEUE<EDGE>::makeQueueBasedOn(queue, s, (s == "SORT_TABLE") ? graph.getAllEdges().size() + 1 : 3);
 	for (auto x : graph.getAllEdges()) {
@@ -23,8 +22,6 @@ GRAPH ALGORITHM::kruskal(const GRAPH& graph, const string& s) {
 		g.uniteSets(first, second);
 		result.setDistance(x.first, x.second, x.distance);
 	}
-
-	cout << result.getNumOfVertices();
 	delete queue;
 	return result;
 }
@@ -56,11 +53,9 @@ vector<DISTANCE> ALGORITHM::dijkstra(const GRAPH& graph, size_t currentVertex){
 
 void ALGORITHM::sort(vector<int>& v){
 	D_HEAP<int> heap(v.size(), 3);
-
 	for (int x : v) {
 		heap.insert(x, PROHIBIT_MEMORY_REALLOCATION);
 	}
-
 	for (size_t i = 0; i < v.size(); i++) {
 		v[i] = heap.getNodeKey(0);
 		heap.deleteMinElem();
