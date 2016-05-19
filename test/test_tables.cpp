@@ -2,7 +2,6 @@
 #include "tables.hpp"
 
 TEST(SCAN_TABLE, can_create_table) {
-
 	ASSERT_NO_THROW(SCAN_TABLE<int> a(5));
 }
 

@@ -185,18 +185,16 @@ TAB_RECORD<DataType>* SORT_TABLE<DataType>::find(const DataType& key){
 	int left = 0;
 	int right = count_ - 1;
 	int mid;
-	while (left <= right)
-	{
+	while (left <= right){
 		mid = left + (right - left) / 2;
 		if (key < recs_[mid]->getKey()) {
 			right = mid - 1;
 			cur_ = left;
 		}else if (key > recs_[mid]->getKey()) {
 			left = mid + 1;
-			cur_ = right;
+			cur_ = left;
 		}
-		else
-		{
+		else{
 			cur_ = mid;
 			return recs_[mid];
 		}
@@ -209,7 +207,6 @@ void SORT_TABLE<DataType>::insert(const TAB_RECORD<DataType>& rec){
 	if (isFull()) {
 		throw exception("Table is FULL.");
 	}
-
 	find(rec.getKey());
 	for (int i = count_; i >= cur_ && i > 0; i--)
 		recs_[i] = recs_[i - 1];

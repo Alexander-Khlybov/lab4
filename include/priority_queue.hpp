@@ -25,7 +25,6 @@ public:
 
 template<class KeyType>
 class PRIORITY_QUEUE_ON_D_HEAP : public PRIORITY_QUEUE<KeyType>{
-
 	D_HEAP<KeyType>* heap_;
 public:
 	PRIORITY_QUEUE_ON_D_HEAP(int d = 3);
@@ -36,7 +35,6 @@ public:
     D_HEAP<KeyType>     getHeap     (void) const;
     int     isEmpty     (void) const;
 	int     isFull		(void) const;
-
     void    pop         (void);
     void    push        (const KeyType&);
     KeyType back        (void) const;
@@ -51,7 +49,6 @@ template<class KeyType>
 PRIORITY_QUEUE_ON_D_HEAP<KeyType>::PRIORITY_QUEUE_ON_D_HEAP(int d) {
     if (d <= 0)
         throw myExcp("D must be > 0");
-
     heap_ = new D_HEAP<KeyType>(0, 1);
 }
 
@@ -70,7 +67,6 @@ D_HEAP<KeyType> PRIORITY_QUEUE_ON_D_HEAP<KeyType>::getHeap(void) const {
 
 template<class KeyType>
 int PRIORITY_QUEUE_ON_D_HEAP<KeyType>::isEmpty(void) const {
-
     return (0 == heap_->getSizeTree()) ? 1 : 0;
 }
 
@@ -189,4 +185,27 @@ public:
 template<class KeyType>
 SORT_TABLE<KeyType> PRIORITY_QUEUE_ON_SORT_TABLE<KeyType>::getTable(void) const{
 	return SORT_TABLE<KeyType>(*table_);
+}
+
+template<class DataType>
+class MAKE_PRIORITY_QUEUE {
+public:
+	static bool makeQueueBasedOn(PRIORITY_QUEUE<DataType>*&, const string&, size_t);
+};
+
+template<class DataType>
+bool MAKE_PRIORITY_QUEUE<DataType>::makeQueueBasedOn(PRIORITY_QUEUE<DataType>*& q, const string& s, size_t size) {
+	if (s == "D_HEAP") {
+		q = new PRIORITY_QUEUE_ON_D_HEAP<DataType>(size);
+		return true;
+	}
+	if (s == "AVL_TREE") {
+		q = new PRIORITY_QUEUE_ON_AVL_TREE<DataType>();
+		return true;
+	}
+	if (s == "SORT_TABLE") {
+		q = new PRIORITY_QUEUE_ON_SORT_TABLE<DataType>(size);
+		return true;
+	}
+	return false;
 }

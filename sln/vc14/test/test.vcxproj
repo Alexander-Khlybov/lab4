@@ -93,7 +93,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;priority_queue_lib.lib;gtest.lib;graph_lib.lib;binary_search_tree_lib.lib;avl-tree_lib.lib;tables_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>disjoint-set_lib.lib;priority_queue_lib.lib;gtest.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -127,7 +127,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>disjoint-set_lib.lib;d-heap_lib.lib;priority_queue_lib.lib;gtest.lib;graph_lib.lib;binary_search_tree_lib.lib;avl-tree_lib.lib;tables_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>disjoint-set_lib.lib;priority_queue_lib.lib;gtest.lib;graph_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -157,15 +157,6 @@
     <ClCompile Include="..\..\..\test\test_tables.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\avl-tree_lib\avl-tree_lib.vcxproj">
-      <Project>{2ecce033-9a73-48fe-9e81-c1d2806ad625}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\binary_search_tree_lib\binary_search_tree_lib.vcxproj">
-      <Project>{b66ff591-f64a-4c47-be45-1e16dde908d7}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
-      <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\disjoint-set_lib\disjoint-set_lib.vcxproj">
       <Project>{d82a1328-589c-4321-bdf5-15c0cf800c73}</Project>
     </ProjectReference>
@@ -177,9 +168,6 @@
     </ProjectReference>
     <ProjectReference Include="..\priority_queue_lib\priority_queue_lib.vcxproj">
       <Project>{d3fa2c1d-0b5c-4b01-a8cd-44efacf941c1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\tables_lib\tables_lib.vcxproj">
-      <Project>{06fb1c59-e521-4d39-87f8-1257cc440868}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

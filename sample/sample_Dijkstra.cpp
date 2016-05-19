@@ -1,9 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include "graph.h"
-#include "priority_queue.hpp"
-#include "graph.h"
-vector<DISTANCE> dijkstra(const GRAPH&, size_t, const string&);
+#include "algorithms.h"
 
 int main(void) {
 
@@ -31,6 +29,11 @@ int main(void) {
 		return 1;
 	}
 
+	if (graph->getNumOfComponents() > 1) {
+		cout << "\nIncorrect graph.\n";
+		return 1;
+	}
+
 	//  *************|| LABEL *************
 	size_t currentVertex = 0;
 	std::cout << "\nEnter the current vertex: ";
@@ -41,8 +44,7 @@ int main(void) {
 		return 1;
 	}
 
-	std::vector<DISTANCE> dist = dijkstra(*graph, currentVertex, "D_HEAP");
-	cout << 1;
+	std::vector<DISTANCE> dist = ALGORITHM::dijkstra(*graph, currentVertex);
 	//  *************|| RESULT OUTPUT *************
 	graph->graphInfo();
 
@@ -61,26 +63,3 @@ int main(void) {
 	return 0;
 }
 
-vector<DISTANCE> dijkstra(const GRAPH& graph, size_t currentVertex, const string& s) {
-	vector<DISTANCE> dist(graph.getNumOfVertices());
-	dist[currentVertex].distance = 0;
-	dist[currentVertex].vertex = currentVertex;
-	PRIORITY_QUEUE<DISTANCE>* queue = new PRIORITY_QUEUE_ON_D_HEAP<DISTANCE>(3);
-	queue->push(dist[currentVertex]);
-	while (!queue->isEmpty()) {
-		DISTANCE d = queue->back();
-		queue->pop();
-		if (d.distance > dist[d.vertex].distance) continue;
-		std::multiset<DISTANCE> a = graph.getSetOfEdges(d.vertex);
-		for_each(a.begin(), a.end(), [&](DISTANCE k) {
-			size_t tmp = k.vertex;
-			double len = k.distance;
-			if (dist[tmp].distance > dist[d.vertex].distance + len) {
-				dist[tmp].vertex = d.vertex;
-				dist[tmp].distance = dist[d.vertex].distance + len;
-				queue->push(DISTANCE(tmp, dist[tmp].distance));
-			}
-		});
-	}
-	return dist;
-}

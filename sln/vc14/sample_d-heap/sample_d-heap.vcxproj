@@ -94,7 +94,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d-heap_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>algorithms.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -126,7 +126,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d-heap_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>algorithms.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Release</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -151,8 +151,8 @@
     <ClCompile Include="..\..\..\sample\sample_d-heap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
-      <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
+    <ProjectReference Include="..\algorithms\algorithms.vcxproj">
+      <Project>{d2d68f36-fbf1-45eb-ad2d-46214dc61f57}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -133,9 +133,6 @@
     <ClInclude Include="..\..\..\include\excp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
-      <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\priority_queue_lib\priority_queue_lib.vcxproj">
       <Project>{d3fa2c1d-0b5c-4b01-a8cd-44efacf941c1}</Project>
     </ProjectReference>
