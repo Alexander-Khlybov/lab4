@@ -123,7 +123,7 @@ public:
 	virtual int isFull(void) const;
 	AVL_TREE<KeyType> getTree(void)const;
 
-	virtual void pop(void) { tree_->erase(tree_->findMin()->data_); }
+	virtual void pop(void) { tree_->eraseMin(); }
 	virtual void push(const KeyType& key) { tree_->insert(key); }
 	virtual KeyType back(void) const { return tree_->findMin()->data_; }
 };
