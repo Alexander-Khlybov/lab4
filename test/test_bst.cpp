@@ -291,3 +291,31 @@ TEST(AVL_TREE, erasing_decreases_size_tree) {
 	a.erase(7);
 	EXPECT_EQ(tmp - 1, a.getSize());
 }
+
+TEST(AVL_TREE, can_erase_min_node_from_tree) {
+	AVL_TREE<int> a;
+	a.insert(7);
+	a.insert(2);
+	a.insert(3);
+	a.insert(8);
+	a.insert(5);
+	a.insert(15);
+	a.insert(25);
+	a.insert(10);
+	ASSERT_NO_THROW(a.eraseMin());
+}
+
+TEST(AVL_TREE, erasing_min_node_decreases_size_tree) {
+	AVL_TREE<int> a;
+	a.insert(7);
+	a.insert(2);
+	a.insert(3);
+	a.insert(8);
+	a.insert(5);
+	a.insert(15);
+	a.insert(25);
+	a.insert(10);
+	size_t tmp = a.getSize();
+	a.eraseMin();
+	EXPECT_EQ(tmp - 1, a.getSize());
+}

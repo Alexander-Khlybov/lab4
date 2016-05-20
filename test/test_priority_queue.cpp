@@ -147,8 +147,9 @@ TEST(PRIORITY_QUEUE_ON_AVL_TREE, push_increases_size){
 
 TEST(PRIORITY_QUEUE_ON_AVL_TREE, can_pop_elem){
 	PRIORITY_QUEUE_ON_AVL_TREE<int> a;
-	a.push(1);
 	a.push(2);
+	a.push(1);
+	a.push(3);
 	ASSERT_NO_THROW(a.pop());
 }
 
@@ -159,8 +160,9 @@ TEST(PRIORITY_QUEUE_ON_AVL_TREE, throws_when_pop_from_empty){
 
 TEST(PRIORITY_QUEUE_ON_AVL_TREE, pop_decreases_size){
 	PRIORITY_QUEUE_ON_AVL_TREE<int> a;
-	a.push(1);
 	a.push(2);
+	a.push(1);
+	a.push(3);
 	int tmp = a.getSize();
 	a.pop();
 	EXPECT_EQ(tmp - 1, a.getSize());
