@@ -1,0 +1,815 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Lab4 by Alexander-Khlybov</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Lab4</h1>
+        <p class="header"></p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Alexander-Khlybov/lab4/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Alexander-Khlybov/lab4/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Alexander-Khlybov/lab4">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Alexander-Khlybov">Alexander-Khlybov</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a id="Реализация-приоритетной-очереди-на-основе-различных-структур-данных-и-ее-применение-для-построения-остовного-дерева-графа-с-помощью-алгоритма-Крускала" class="anchor" href="#%D0%A0%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF%D1%80%D0%B8%D0%BE%D1%80%D0%B8%D1%82%D0%B5%D1%82%D0%BD%D0%BE%D0%B9-%D0%BE%D1%87%D0%B5%D1%80%D0%B5%D0%B4%D0%B8-%D0%BD%D0%B0-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B5-%D1%80%D0%B0%D0%B7%D0%BB%D0%B8%D1%87%D0%BD%D1%8B%D1%85-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D0%B8-%D0%B5%D0%B5-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B4%D0%BB%D1%8F-%D0%BF%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BE%D1%81%D1%82%D0%BE%D0%B2%D0%BD%D0%BE%D0%B3%D0%BE-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%B0-%D0%B3%D1%80%D0%B0%D1%84%D0%B0-%D1%81-%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%B0-%D0%9A%D1%80%D1%83%D1%81%D0%BA%D0%B0%D0%BB%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Реализация приоритетной очереди на основе различных структур данных и ее применение для построения остовного дерева графа с помощью алгоритма Крускала</h1>
+
+<hr>
+
+<h2>
+<a id="Содержание" class="anchor" href="#%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Содержание</h2>
+
+<ul>
+<li><a href="#%D0%9F%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8">Постановка задачи</a></li>
+<li>
+<a href="#%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F">Руководство пользователя</a>
+
+<ul>
+<li><a href="#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%B0-%D0%94%D0%B5%D0%B9%D0%BA%D1%81%D1%82%D1%80%D1%8B">Использование реализации алгоритма Дейкстры</a></li>
+<li><a href="#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%B0-%D0%9A%D1%80%D1%83%D1%81%D0%BA%D0%B0%D0%BB%D0%B0">Использование реализации алгоритма Крускала</a></li>
+</ul>
+</li>
+<li>
+<a href="#%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE-%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82%D0%B0">Руководство программиста</a>
+
+<ul>
+<li><a href="#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D1%83%D0%B5%D0%BC%D1%8B%D0%B5-%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8">Используемые технологии</a></li>
+<li><a href="#%D0%9E%D0%B1%D1%89%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F">Общая структура репозитория</a></li>
+<li><a href="#%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F">Описание структуры решения</a></li>
+<li>
+<a href="#%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85">Описание структур данных</a>
+
+<ul>
+<li><a href="#D-%D0%BA%D1%83%D1%87%D0%B0">D-куча</a></li>
+<li>
+<a href="#%D0%91%D0%B8%D0%BD%D0%B0%D1%80%D0%BD%D0%BE%D0%B5-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE">Бинарное дерево</a>
+
+<ul>
+<li><a href="#%D0%91%D0%B8%D0%BD%D0%B0%D1%80%D0%BD%D0%BE%D0%B5-%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%BE%D0%B5-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE">Бинарное поисковое дерево</a></li>
+<li><a href="#%D0%90%D0%92%D0%9B-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE">АВЛ-дерево</a></li>
+</ul>
+</li>
+<li>
+<a href="#%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B">Таблицы</a>
+
+<ul>
+<li><a href="#%D0%9F%D1%80%D0%BE%D1%81%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC%D1%8B%D0%B5-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B">Просматриваемые таблицы</a></li>
+<li><a href="#%D0%A3%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D1%87%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B">Упорядоченные таблицы</a></li>
+</ul>
+</li>
+<li><a href="#%D0%9F%D1%80%D0%B8%D0%BE%D1%80%D0%B8%D1%82%D0%B5%D1%82%D0%BD%D0%B0%D1%8F-%D0%BE%D1%87%D0%B5%D1%80%D0%B5%D0%B4%D1%8C">Приоритетная очередь</a></li>
+<li><a href="#%D0%A0%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BC%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B0">Разделенные множества</a></li>
+</ul>
+</li>
+<li>
+<a href="#%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%BE%D0%B2">Описание алгоритмов</a>
+
+<ul>
+<li><a href="#%D0%9F%D0%B8%D1%80%D0%B0%D0%BC%D0%B8%D0%B4%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D1%81%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0">Пирамидальная сортировка</a></li>
+<li><a href="#%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC-%D0%94%D0%B5%D0%B9%D0%BA%D1%81%D1%82%D1%80%D1%8B">Алгоритм Дейкстры</a></li>
+<li><a href="#%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC-%D0%9A%D1%80%D1%83%D1%81%D0%BA%D0%B0%D0%BB%D0%B0">Алгоритм Крускала</a></li>
+</ul>
+</li>
+<li>
+<a href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85">Программная реализация структур данных</a>
+
+<ul>
+<li><a href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-d-%D0%BA%D1%83%D1%87%D0%B8">Программная реализация d-кучи</a></li>
+<li><a href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%B1%D0%B8%D0%BD%D0%B0%D1%80%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%B0">Программая реализация бинарного поискового дерева</a></li>
+<li><a href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%90%D0%92%D0%9B-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%B0">Программая реализация АВЛ-дерева</a></li>
+<li><a href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D1%81%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC%D1%8B%D1%85-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86">Программая реализация просматриваемых таблиц</a></li>
+<li><a href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D1%83%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D1%87%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86">Программая реализация упорядоченных таблиц</a></li>
+<li><a href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF%D1%80%D0%B8%D0%BE%D1%80%D0%B8%D1%82%D0%B5%D1%82%D0%BD%D0%BE%D0%B9-%D0%BE%D1%87%D0%B5%D1%80%D0%B5%D0%B4%D0%B8">Программая реализация приоритетной очереди</a></li>
+<li><a href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%BC%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2">Программая реализация разделенных множеств</a></li>
+</ul>
+</li>
+<li><a href="#%D0%9F%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B3%D1%80%D0%B0%D1%84%D0%B0">Представление графа</a></li>
+</ul>
+</li>
+<li><a href="#%D0%97%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5">Заключение</a></li>
+<li><a href="#%D0%9B%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D0%B0">Литература</a></li>
+</ul>
+
+<h2>
+<a id="Постановка-задачи" class="anchor" href="#%D0%9F%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Постановка задачи</h2>
+
+<ol>
+<li>Разработать статичесие библиотеки, реализующие слудующие структуры данных:
+
+<ul>
+<li>d-куча;</li>
+<li>бинарное поисковое дерево;</li>
+<li>авл-сбалансированное дерево;</li>
+<li>просматриваемая таблица;</li>
+<li>упорядоченная таблица;</li>
+<li>приоритетная очередь, основанная на d-куче;</li>
+<li>приоритетная очередь, основанная на бинарном сбалансированном дереве;</li>
+<li>приоритетная очередь, основанная на упорядоченной таблице;</li>
+<li>разделенные множества.</li>
+</ul>
+</li>
+<li>Написать тестирующую программу для каждой структуры данных с помощью Google C++ Testing Framework.</li>
+<li>Написать приложение для демонстрации работы d-кучи (пирамидальная сортировка).</li>
+<li>Написать приложение для демонстрации работы приоритетной очереди, основанной на d-куче (алгоритм Дейкстры):
+
+<ul>
+<li>входные данные - связный неориентированный взвешенный граф без петель со стартовой вершиной;</li>
+<li>выходные данные - список расстояний до каждой вершины графа;</li>
+</ul>
+</li>
+<li>Написать приложение для демонстрации работы каждой приоритетной очереди и разделенных множеств (алгоритм Крускала):
+
+<ul>
+<li>входные данные - связный неориентированный взвешенный граф без петель;</li>
+<li>выходные данные - граф, представляющий минимальное остовное дерево для исходного графа.</li>
+</ul>
+</li>
+</ol>
+
+<h2>
+<a id="Руководство-пользователя" class="anchor" href="#%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Руководство пользователя</h2>
+
+<h3>
+<a id="Использование-реализации-алгоритма-Дейкстры" class="anchor" href="#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%B0-%D0%94%D0%B5%D0%B9%D0%BA%D1%81%D1%82%D1%80%D1%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Использование реализации алгоритма Дейкстры</h3>
+
+<h4>
+<a id="Запуск-приложения-и-ввод-данных" class="anchor" href="#%D0%97%D0%B0%D0%BF%D1%83%D1%81%D0%BA-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B8-%D0%B2%D0%B2%D0%BE%D0%B4-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Запуск приложения и ввод данных</h4>
+
+<p>Программа предназначена для поиска кратчийших путей во взвешенном неориентированном графе от некоторой вершины, называемой текущей, до всех остальных вершин графа.
+Для запуска приложения нужно открыть исполняемый файл <code>sample_Dijkstra.exe</code>.
+Программа попросит ввести количество вершин графа и ребра с весом. Также будет запрошен номер вершины, являющейся стартовой. Результатом будет вывод вектора, содержащего номера вершин, что предшествуют вершинам, являющимся индексами вектора, для построения дерева, позволяющего восстановить обход и вывод списка расстояний от стартовой вершины до каждой из следующих вершин в порядке возрастания номера.</p>
+
+<h4>
+<a id="Пример" class="anchor" href="#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Пример:</h4>
+
+<p>Рассмотрим граф:</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/graph.png" alt="graph"></p>
+
+<p>Для рассматриваемого графа алгоритм считает расстояния от вершины №1 до всех остальных вершин (ребра, через которые проходит кратчайший путь до вершины, помечены цветом этой вершины):</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/graph_Dijkstra.png" alt="graph_Dijkstra"></p>
+
+<h5>
+<a id="Шаг-1" class="anchor" href="#%D0%A8%D0%B0%D0%B3-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Шаг 1</h5>
+
+<p>Ввод количества вершин графа</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Dijkstra1.png" alt="Dijkstra1"></p>
+
+<h5>
+<a id="Шаг-2" class="anchor" href="#%D0%A8%D0%B0%D0%B3-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Шаг 2</h5>
+
+<p>Ввод ребер и их весов</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Dijkstra2.png" alt="Dijkstra2"></p>
+
+<h5>
+<a id="Шаг-3" class="anchor" href="#%D0%A8%D0%B0%D0%B3-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Шаг 3</h5>
+
+<p>Выбор стартовой вершины</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Dijkstra3.png" alt="Dijkstra3"></p>
+
+<h5>
+<a id="Шаг-4" class="anchor" href="#%D0%A8%D0%B0%D0%B3-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Шаг 4</h5>
+
+<p>Вывод результата и завершение работы программы</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Dijkstra4.png" alt="Dijkstra4"></p>
+
+<h3>
+<a id="Использование-реализации-алгоритма-Крускала" class="anchor" href="#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%B0-%D0%9A%D1%80%D1%83%D1%81%D0%BA%D0%B0%D0%BB%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Использование реализации алгоритма Крускала</h3>
+
+<h4>
+<a id="Запуск-приложения-и-ввод-данных-1" class="anchor" href="#%D0%97%D0%B0%D0%BF%D1%83%D1%81%D0%BA-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B8-%D0%B2%D0%B2%D0%BE%D0%B4-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Запуск приложения и ввод данных</h4>
+
+<p>Программа предназначена для построения минимального остовного дерева для взвешенного неориентированного графа. 
+Для запуска приложения нужно открыть исполняемый файл <code>sample_Kruskal.exe</code>.
+Программа попросит ввести количество вершин графа и ребра с весом. Результатом работы программы будет вывод списка ребер, составляющих минимальное остовное дерево.</p>
+
+<h4>
+<a id="Пример-1" class="anchor" href="#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Пример</h4>
+
+<p>Рассмотрим граф:</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/graph.png" alt="graph"></p>
+
+<p>Для рассматриваемого графа алгоритм строит дерево, выделенное зеленым цветом:</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/graph_Kruskal.png" alt="graph_Kruskal"></p>
+
+<h5>
+<a id="Шаг-1-1" class="anchor" href="#%D0%A8%D0%B0%D0%B3-1-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Шаг 1</h5>
+
+<p>Ввод количества вершин графа</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Kruskal1.png" alt="Kruskal1"></p>
+
+<h5>
+<a id="Шаг-2-1" class="anchor" href="#%D0%A8%D0%B0%D0%B3-2-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Шаг 2</h5>
+
+<p>Ввод ребер и их весов</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Kruskal2.png" alt="Kruskal2"></p>
+
+<h5>
+<a id="Шаг-3-1" class="anchor" href="#%D0%A8%D0%B0%D0%B3-3-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Шаг 3</h5>
+
+<p>Выбор базы для приоритетной очереди</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Kruskal3.png" alt="Kruskal3"></p>
+
+<h5>
+<a id="Шаг-4-1" class="anchor" href="#%D0%A8%D0%B0%D0%B3-4-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Шаг 4</h5>
+
+<p>Вывод результата и завершение работы программы</p>
+
+<p><img src="https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Kruskal4.png" alt="Kruskal4"></p>
+
+<h2>
+<a id="Руководство-программиста" class="anchor" href="#%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE-%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Руководство программиста</h2>
+
+<h3>
+<a id="Используемые-технологии" class="anchor" href="#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D1%83%D0%B5%D0%BC%D1%8B%D0%B5-%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Используемые технологии</h3>
+
+<ul>
+<li>среда разработки Microsoft Visual Studio Community (2015);</li>
+<li>фреймворк для написания автоматических тестов Google Test;</li>
+<li>система контроля версий Git.</li>
+</ul>
+
+<h3>
+<a id="Общая-структура-репозитория" class="anchor" href="#%D0%9E%D0%B1%D1%89%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Общая структура репозитория</h3>
+
+<ul>
+<li>
+<a href="https://github.com/Alexander-Khlybov/lab4/tree/master/gtest"><code>gtest</code></a> - библиотека GoogleTest.</li>
+<li>
+<a href="https://github.com/Alexander-Khlybov/lab4/tree/master/src"><code>src</code></a> - директория для размещения файлов исходноо кода.</li>
+<li>
+<a href="https://github.com/Alexander-Khlybov/lab4/tree/master/include"><code>include</code></a> - директория для размещения заголовочных файлов.</li>
+<li>
+<a href="https://github.com/Alexander-Khlybov/lab4/tree/master/samples"><code>sample</code></a> - директория для размещения исходных кодов приложений.</li>
+<li>
+<a href="https://github.com/Alexander-Khlybov/lab4/tree/master/test"><code>test</code></a> - директория для размещения тестов.</li>
+<li>
+<a href="https://github.com/Alexander-Khlybov/lab4/tree/master/sln/"><code>sln</code></a> - директория с файлими решений (на данный момент Visual Studio 2015).</li>
+<li>
+<a href="https://github.com/Alexander-Khlybov/lab4/tree/master/Rept"><code>Rept</code></a> - директория с материалами для отчета;</li>
+<li>Служебные файлы:
+
+<ul>
+<li>
+<code>.gitignore</code> - перечень расширений файлов, игнорируемых Git при добавлении файлов в репозиторий.</li>
+</ul>
+</li>
+</ul>
+
+<h3>
+<a id="Описание-структуры-решения" class="anchor" href="#%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Описание структуры решения</h3>
+
+<p>Решение состоит из 13 проектов:</p>
+
+<ul>
+<li>
+<code>gtest</code> - фреймворк Google Test;</li>
+<li>
+<code>d-heap_lib</code> - статическая библиотека, содержащая объявление и реализацию шаблонного класса D_HEAP.</li>
+<li>
+<code>disjoint-set_lib</code> - статическая библиотека, содержащая объявление и реализацию шаблонного класса DISJOINT_SET.</li>
+<li>
+<code>binary_search_tree_lib</code> - статическая библиотка, содержащая объявление и реализацию класса <em>BST</em>.</li>
+<li>
+<code>avl-tree_lib</code> - статическая библиотека, содержащая объявление и реализацию шаблонного класса <em>AVL_TREE</em>.</li>
+<li>
+<code>tables_lib</code> - статическая библиотека, содержащая объявление и реализацию шаблонных классов <em>TABLE</em>, <em>SCAN_TABLE</em>, <em>SORT_TABLE</em>.</li>
+<li>
+<code>graph_lib</code> - статическая библиотека, содержащая объявление и реализацию класса <em>GRAPH</em>.</li>
+<li>
+<code>priority_queue_lib</code> - статическая библиотека, содержащая объявление и реализацию шаблонных классов приоритетных очередей, основанных на разных структурах данных.</li>
+<li>
+<code>algorithms</code> - статическая библиотека, содержащая объявление и реализацию алгоритмов для примеров.</li>
+<li>
+<code>sampleDijkstra</code> - консольное приложение для демонстрации работы алгоритма Дейкстры.</li>
+<li>
+<code>sample_Kruskal</code> - консольное приложение для демонстрации работы алгоритма Крускала.</li>
+<li>
+<code>sample_d-heap</code> - консольное приложение для демонстрации работы пирамидальной сортировки.</li>
+<li>
+<code>test</code> - консольно приложение для проверки правильности реализации классов <em>D_HEAP</em>, <em>PRIORITY_QUEUE</em>, <em>DISJOINT_SET</em>.</li>
+</ul>
+
+<h3>
+<a id="Описание-структур-данных" class="anchor" href="#%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Описание структур данных</h3>
+
+<h4>
+<a id="d-куча" class="anchor" href="#d-%D0%BA%D1%83%D1%87%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>D-куча</h4>
+
+<p>D-куча - завершенное d-арное дерево, содержащее набор однотипных элементов, со следующими свойствами:</p>
+
+<ul>
+<li>Каждый узел, не являющийся листом, за исключением, быть может, одного имеет ровно d потомков. Один узел, являющийся исключением, может иметь от 1 до d-1 потомка;</li>
+<li>Если h - глубина дерева, то для любого i = 1, ..., k-1 такое дерево имеет ровно d^i узлов глубины i;</li>
+<li>Количество узлов глубины k в дереве глубины k может варьироваться от 1 до d^k;</li>
+<li>Каждый узел имеет вес. Иначе говоря, каждому узлу дерева присвоен ключ такого типа данных, на котором определен порядок сравнения;</li>
+</ul>
+
+<h2>
+<a id="--Ключ-элемента-приписанного-узлу-i-не-превосходит-ключа-любого-из-своих-потомков" class="anchor" href="#--%D0%9A%D0%BB%D1%8E%D1%87-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D0%B0-%D0%BF%D1%80%D0%B8%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D1%83%D0%B7%D0%BB%D1%83-i-%D0%BD%D0%B5-%D0%BF%D1%80%D0%B5%D0%B2%D0%BE%D1%81%D1%85%D0%BE%D0%B4%D0%B8%D1%82-%D0%BA%D0%BB%D1%8E%D1%87%D0%B0-%D0%BB%D1%8E%D0%B1%D0%BE%D0%B3%D0%BE-%D0%B8%D0%B7-%D1%81%D0%B2%D0%BE%D0%B8%D1%85-%D0%BF%D0%BE%D1%82%D0%BE%D0%BC%D0%BA%D0%BE%D0%B2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>- Ключ элемента, приписанного узлу i, не превосходит ключа любого из своих потомков.</h2>
+
+<h4>
+<a id="Бинарное-дерево" class="anchor" href="#%D0%91%D0%B8%D0%BD%D0%B0%D1%80%D0%BD%D0%BE%D0%B5-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Бинарное дерево</h4>
+
+<h5>
+<a id="Бинарное-поисковое-дерево" class="anchor" href="#%D0%91%D0%B8%D0%BD%D0%B0%D1%80%D0%BD%D0%BE%D0%B5-%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%BE%D0%B5-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Бинарное поисковое дерево</h5>
+
+<p>Бинарное поисковое дерево - это двоичное дерево, обладающее следующими свойствами:</p>
+
+<ul>
+<li>каждый узел имеет не больше двух потомков;</li>
+<li>любое поддерево является бинарным поисковым деревом;</li>
+<li>значение ключа любого узла левого поддерева меньше значения ключа корневого узла;</li>
+<li>значение ключа любого узла правого поддерева больше значения ключа корневого узла.</li>
+</ul>
+
+<h5>
+<a id="АВЛ-дерево" class="anchor" href="#%D0%90%D0%92%D0%9B-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>АВЛ-дерево</h5>
+
+<p>АВЛ-дерево - сбалансированное по высоте бинарное поисковое дерево, обладающее следующим свойством:</p>
+
+<ul>
+<li>для каждой вершины дерева высота её двух поддеревьев различается не больше чем на 1.</li>
+</ul>
+
+<h4>
+<a id="Таблицы" class="anchor" href="#%D0%A2%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Таблицы</h4>
+
+<h5>
+<a id="Просматриваемые-таблицы" class="anchor" href="#%D0%9F%D1%80%D0%BE%D1%81%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC%D1%8B%D0%B5-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Просматриваемые таблицы</h5>
+
+<p>Таблица - динамическая структура данных, хранящая однотипные элементы. Записи хранятся в векторе памяти в порядке добавления (добавление производится в конец таблицы). При удалении записи просиходит перепаковка (сдвиг всех записей ниже текущей на одну позицию вверх).</p>
+
+<h5>
+<a id="Упорядоченные-таблицы" class="anchor" href="#%D0%A3%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D1%87%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Упорядоченные таблицы</h5>
+
+<p>Упорядоченная таблица - это просматриваемая таблица, данные в которой отсортированы по невозрастанию/неубыванию ключей. Причем при вставке и удалении происходят перепаковки.</p>
+
+<h4>
+<a id="Приоритетная-очередь" class="anchor" href="#%D0%9F%D1%80%D0%B8%D0%BE%D1%80%D0%B8%D1%82%D0%B5%D1%82%D0%BD%D0%B0%D1%8F-%D0%BE%D1%87%D0%B5%D1%80%D0%B5%D0%B4%D1%8C" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Приоритетная очередь</h4>
+
+<p>Приоритетная очередь — это динамическая структура данных, содержащая элементы, каждый из которых имеет определенный приоритет. Элемент с более высоким приоритетом находится перед элементом с более низким приоритетом. Если у элементов одинаковые приоритеты, они распологаются в зависимости от своей позиции в очереди. </p>
+
+<h4>
+<a id="Разделенные-множества" class="anchor" href="#%D0%A0%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BC%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Разделенные множества</h4>
+
+<p>Разледенные множества - абстрактный тип данных, предназначенный для представления коллекции k попарно непересекающихся можеств.</p>
+
+<h3>
+<a id="Описание-алгоритмов" class="anchor" href="#%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D0%BE%D0%B2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Описание алгоритмов</h3>
+
+<h4>
+<a id="Пирамидальная-сортировка" class="anchor" href="#%D0%9F%D0%B8%D1%80%D0%B0%D0%BC%D0%B8%D0%B4%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D1%81%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Пирамидальная сортировка</h4>
+
+<ol>
+<li>Вектор значений переписывается в d-кучу.</li>
+<li>Просматривается минимальный элемент кучи и кладется в результирующий вектор.</li>
+<li>Минимальный элемент д-кучи меняется с последним.</li>
+<li>Декрементируется размер д-кучи.</li>
+<li>Погружение нулевого элемента.</li>
+<li>Если размер кучи положителен, переход к п.2, иначе алгоритм завершается.</li>
+</ol>
+
+<p>Таким образом вощвращаемый вектор значений будет отсортирован по неубыванию.</p>
+
+<h4>
+<a id="Алгоритм-Дейкстры" class="anchor" href="#%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC-%D0%94%D0%B5%D0%B9%D0%BA%D1%81%D1%82%D1%80%D1%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Алгоритм Дейкстры</h4>
+
+<ol>
+<li>Задается взвешенный граф из n вершин.</li>
+<li>Задается стартовая вершина CUR.</li>
+<li>Создается вектор для отметки посещения вершины V (все элементы зануляются, V[CUR] = CUR).</li>
+<li>Создается результирующий вектор расстояний DIST (все элементы устремлены в бесконечность, DIST[CUR] = 0).</li>
+<li>Создается приоритетная очередь, в которую кладется расстояние от текущей вершины до неё же.</li>
+<li>Пока очередь не пуста:
+
+<ol>
+<li>Вынимается минимальный элемент.</li>
+<li>Если метка вынутого элемента больше метки, хранящейся в массиве DIST, переход к следующему шагу.</li>
+<li>По всем ребрам от текущей вершины: Если результирующее расстояние от смежной вершины больше, чем результирующее расстояние до вынутой в пункте 6.1 вершины в сумме с меткой ребра, вынутогов пункте 6.3, выполняем:
+
+<ol>
+<li>В вектор V по номеру смежной вершины кладется значение вершины, вынутой на этапе 6.1.</li>
+<li>В вектор DIST по номету смежной вершины пишется новое значение расстояния, равное сумме результирующего расстояния до вынутой в пункте 6.1 вершины и меткои ребра, вынутогов пункте 6.3.</li>
+<li>Обработанное ребро кладется в очередь.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+<p>Результатом работы алгоритма становится вектор расстояний до каждой вершины графа (DIST) и вектор обхода вершин графа для получения указанных значений (V).</p>
+
+<h4>
+<a id="Алгоритм-Крускала" class="anchor" href="#%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC-%D0%9A%D1%80%D1%83%D1%81%D0%BA%D0%B0%D0%BB%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Алгоритм Крускала</h4>
+
+<ol>
+<li>Задается взвешенный неориентированный граф из n вершин.</li>
+<li>Создается приоритетная очередь из ребер графа (приоритет по метке ребра).</li>
+<li>Содрается коллекция из множества вершин.</li>
+<li>Вынимается ребро из приоритетной очереди.</li>
+<li>Если вынутые вершины находятся не в одной коллекции:
+
+<ol>
+<li>Объединяются коллекции, содержащие данные вершины.</li>
+<li>Вынутое ребро добавляется в результирующий набор ребер.</li>
+</ol>
+</li>
+<li>Если количество коллекций вершин больше количества компонент связности графа, переход к пункту 4, иначе алгоритм завершается.</li>
+</ol>
+
+<p>В результате работы алгоритма имеется набор ребер, составляющих минимальное остовное дерево данного графа.</p>
+
+<h3>
+<a id="Программная-реализация-структур-данных" class="anchor" href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Программная реализация структур данных</h3>
+
+<h4>
+<a id="Программная-реализация-d-кучи" class="anchor" href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-d-%D0%BA%D1%83%D1%87%D0%B8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Программная реализация d-кучи</h4>
+
+<p>В лабораторной работе d-куча представлена классом <em>D_HEAP</em>, содержащим нижеизложенные public-методы:</p>
+
+<ul>
+<li>
+<code>D_HEAP(int, int)</code> - конструктор. Принимает на вход стартовый размер вектора памяти для хранения d-кучи и арность.</li>
+<li>
+<code>D_HEAP(const D_HEAP&lt;KeyType&gt;&amp;)</code> - конструктор копирования.</li>
+<li>
+<code>~D_HEAP (void)</code> - деструктор.</li>
+<li>
+<code>operator==(const D_HEAP&lt;KeyType&gt;&amp;)const</code> - перегруженный оператор сравнения на равенство (требуется для проведения тестов).</li>
+<li>
+<code>operator!=(const D_HEAP&lt;KeyType&gt;&amp;)const</code> - перегруженный оператор сравнения на неравенство (требуется для проведения тестов).</li>
+<li>
+<code>getSizeTree(void)const</code> - возвращает количество узлов, содержащихся в d-куче.</li>
+<li>
+<code>getNodeKey(int)const</code> - возврацает ключ узла, номер которого передан в качестве параметра.</li>
+<li>
+<code>getSizeReservedMem(void)const</code> - возвращает размер свободной памяти в выделенном ранее векторе памяти.</li>
+<li>
+<code>getD(void)const</code> - возвращает арность кучи.</li>
+<li>
+<code>swap(int, int)</code> - меняет местами узлы, индексы которых переданы в качестве параметров.</li>
+<li>
+<code>siftDown(int)</code> - выполняет погружение узла с индексом, указанным в качестве аргумента.</li>
+<li>
+<code>siftUp(int)</code> - выполняет всплытие узла с индексом, указанным в качестве аргумента.</li>
+<li>
+<code>insert(const KeyType&amp;, mem_rc flag = ALLOW_MEMORY_REALLOCATION_WCV, int size = 0)</code> - производит вставку узла, переданного первым аргументом в дерево. Вторым параметром указывается правило обработки ситуации, когда вставляется узел в полное дерево:
+
+<ul>
+<li>
+<code>ALLOW_MEMORY_REALLOCATION_WYV</code> - разрешить выделить дополнительную память при вставке узла в полное дерево. Размер добавляемой памяти указывается в качестве третьего параметра.</li>
+<li>
+<code>ALLOW_MEMORY_REALLOCATION_WCV</code> - разрешить выделить дополнительную память при вставке узла в полное дерево, однако третий аргумент метода в этом случае игнорируется, выделение же памяти будет таковым, что появляется место минимум под один узел, максимум под d узлов. Текущее значение выделения памяти будет таковым, чтобы выполнялись указанные условия и одно дополнительное: новый размер вектора памяти делится на арность кучи.</li>
+<li>
+<code>PROHIBIT_MEMORY_REALLOCATION</code> - запретить выделение дополнительной памяти при вставке узла в полное дерево.</li>
+</ul>
+</li>
+<li>
+<code>deleteMinElem(void)</code> - удаление узла с минимальным весом.</li>
+<li>
+<code>deleteElem(int)</code> - удаление узла дерева по индексу хранения в векторе памяти.</li>
+<li>
+<code>heapify(void)</code> - окучивание.</li>
+<li>
+<code>getTree(void)const</code> - возвращает вектор значений, содержащихся в векторе памяти, что хранит исходное дерево (требуется для тестирования).</li>
+<li>
+<code>operator&lt;&lt;(...)</code> - печать массива, хранящего значения узлов.</li>
+</ul>
+
+<p>Класс реализован шаблонным, что позволяет хранить любого рода данные, для которых определен порядок сравнения.</p>
+
+<h4>
+<a id="Программая-реализация-бинарного-поискового-дерева" class="anchor" href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%B1%D0%B8%D0%BD%D0%B0%D1%80%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Программая реализация бинарного поискового дерева</h4>
+
+<p>Узел дерева представляется классом <code>NODE</code>, содержащим следующие поля:</p>
+
+<ul>
+<li>
+<code>KeyType data_</code> - данные.</li>
+<li>
+<code>NODE&lt;KeyType&gt;* left_</code> - указатель на левого потомка.</li>
+<li>
+<code>NODE&lt;KeyType&gt;* right_</code> - указатель на правого потомка.</li>
+<li>
+<code>NODE&lt;KeyType&gt;* parent_</code> - укаазатель на родителя.</li>
+<li>
+<code>short balance_</code> - показатель перевеса правого или левого поддерева (используется в АВЛ-дереве).</li>
+</ul>
+
+<p>Бинарное поисковое дерево представлено классом <em>BST</em>, содержащим нижеизложенные методы:</p>
+
+<ul>
+<li>
+<code>getNodeForErasing(const KeyType&amp;)</code> - вынимает из дерева узел, который требуется удалить.</li>
+<li>
+<code>recursiveErase(NODE&lt;KeyType&gt;*&amp;)</code> - удаляет дерево.</li>
+<li>
+<code>copy(NODE&lt;KeyType&gt;*, NODE&lt;KeyType&gt;*)</code> - копирует дерево.</li>
+<li>
+<code>BST(void)</code> - конструктор.</li>
+<li>
+<code>BST(const BST&lt;KeyType&gt;&amp; tree)</code> - конструктор копирования.</li>
+<li>
+<code>~BST(void)</code> - деструктор.</li>
+<li>
+<code>insert(const KeyType&amp;)</code> - вставка нового элемента в дерево.</li>
+<li>
+<code>erase(const KeyType&amp;)</code> - удаление узла из дерева по заданному ключу.</li>
+<li>
+<code>find(const KeyType&amp;)const</code> - поиск узла дерева, содержащего указанный ключ.</li>
+<li>
+<code>findMin(NODE&lt;KeyType&gt;* node = NULL)const</code> - поиск минимального элемента в дереве, корень которого передан в качестве параметра.</li>
+<li>
+<code>findMax(NODE&lt;KeyType&gt;* node = NULL)const</code> - поиск максимального узла в дереве, корень которого передан в качестве параметра.</li>
+<li>
+<code>findPrev(NODE&lt;KeyType&gt;*)const</code> - поиск узла, являющегося предыдущим по значению для текущего.</li>
+<li>
+<code>findNext(NODE&lt;KeyType&gt;*)const</code> - поиск узла, являющегося следующим по значению для текущего.</li>
+<li>
+<code>getSize(void)const</code> - получение количества узлов в дереве.</li>
+<li>
+<code>recPostOrder(void)const</code> - обратный обход дерева.</li>
+</ul>
+
+<p>Класс реализован шаблонным, что позволяет хранить любого рода данные, для которых определен порядок сравнения.</p>
+
+<h4>
+<a id="Программая-реализация-АВЛ-дерева" class="anchor" href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%90%D0%92%D0%9B-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Программая реализация АВЛ-дерева</h4>
+
+<p>АВЛ-дерево представлено классом <em>AVL_TREE</em>, наследуемым от класса <em>BST</em>, содержащим нижеизложенные методы:</p>
+
+<ul>
+<li>
+<code>getDepth(NODE&lt;KeyType&gt;* node = NULL)const</code> - получает глубину дерева, корень которого передан в качестве параметра.</li>
+<li>
+<code>doSingleLeftRotation(NODE&lt;KeyType&gt;*&amp;)</code> - левый поворот.</li>
+<li>
+<code>doSingleRightRotation(NODE&lt;KeyType&gt;*&amp;)</code> - правый поворот.</li>
+<li>
+<code>doDoubleLeftRotation(NODE&lt;KeyType&gt;*&amp;)</code> - двойной левый поворот.</li>
+<li>
+<code>doDoubleRightRotation(NODE&lt;KeyType&gt;*&amp;)</code> - двойной правый поворот.</li>
+<li>
+<code>updateLeftTree(NODE&lt;KeyType&gt;*&amp;)</code> - преобразование левого поддерева (вызов правых поворотов).</li>
+<li>
+<code>updateRightTree(NODE&lt;KeyType&gt;*&amp;)</code> - преобразование правого поддерева (вызов левых поворотов).</li>
+<li>
+<code>makeBalancing(NODE&lt;KeyType&gt;*&amp;)</code> - балансировка дерева.</li>
+<li>
+<code>doRecursiveInsertion(NODE&lt;KeyType&gt;*&amp;, NODE&lt;KeyType&gt;*)</code> - вставка узла в дерево.</li>
+<li>
+<code>getNodeForErasing(NODE&lt;KeyType&gt;*&amp;, const KeyType&amp;)</code> - вынимание из дерева узла для удаления.</li>
+<li>
+<code>AVL_TREE(void)</code> - конструктор.</li>
+<li>
+<code>AVL_TREE(const AVL_TREE&lt;KeyType&gt;&amp; tree)</code> - сонструктор копирования.</li>
+<li>
+<code>AVL_TREE(const BST&lt;KeyType&gt;&amp;)</code> - конструктор преобразования типа.</li>
+<li>
+<code>~AVL_TREE(void)</code> - деструктор.</li>
+<li>
+<code>erase(const KeyType&amp;)</code> - переопределенный метод вставки узла.</li>
+<li>
+<code>insert(const KeyType&amp;)</code> - переопределенный метод удаления узла.</li>
+</ul>
+
+<p>Класс реализован шаблонным, что позволяет хранить любого рода данные, для которых определен порядок сравнения.</p>
+
+<h4>
+<a id="Программая-реализация-просматриваемых-таблиц" class="anchor" href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D1%81%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC%D1%8B%D1%85-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Программая реализация просматриваемых таблиц</h4>
+
+<p>Запись в таблице представлена классом <code>TAB_RECORD</code>, содержащим в качестве поля ключ с определенным отношением порядка.
+База для всех таблиц представлена классом <em>TABLE</em>, содержащим чисто виртуальные и виртуальные методы. Виртуальные методы с базовой реализацией:</p>
+
+<ul>
+<li>
+<code>isEmpty(void)const</code> - проверка таблицы на пустоту.</li>
+<li>
+<code>isFull(void)const</code> - проверка таблицы на полноту.</li>
+<li>
+<code>getCount(void)const</code> - получение текущего количества записей.</li>
+<li>
+<code>reset(void)</code> - установка индекса навигации в стартовую позицию.</li>
+<li>
+<code>goNext(void)</code> - перевод индекса навигации на следующую позицию.</li>
+<li>
+<code>isTabEnded(void)const</code> - проверка достижения индексом навигации конца таблицы.</li>
+</ul>
+
+<p>Просматриваемые таблицы представлены классом <em>SCAN_TABLE</em>, содержащим нижеизложенные методы:</p>
+
+<ul>
+<li>
+<code>SCAN_TABLE(size_t size)</code> - конструктор (выделяет вектор памяди для хранения данных таблицы).</li>
+<li>
+<code>SCAN_TABLE(const SCAN_TABLE&lt;DataType&gt;&amp; table)</code> - конструктор копирования.</li>
+<li>
+<code>~SCAN_TABLE(void)</code> - деструктор.</li>
+<li>
+<code>find(const DataType&amp;)</code> - поиск записи с суказанным ключом.</li>
+<li>
+<code>insert(const TAB_RECORD&lt;DataType&gt;&amp;)</code> - вставка новой записи.</li>
+<li>
+<code>erase(const DataType&amp;)</code> - удаление записи из даблицы.</li>
+<li>
+<code>getCurrentRecord(void)const</code> - получение записи, закрепленной за индексом навигации.</li>
+<li>
+<code>eraseCurrentRecord(void)</code> - удаление записи, закрепленной за индексом навигации.</li>
+</ul>
+
+<p>Класс реализован шаблонным, что позволяет хранить любого рода данные, для которых определен порядок сравнения.</p>
+
+<h4>
+<a id="Программая-реализация-упорядоченных-таблиц" class="anchor" href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D1%83%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D1%87%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Программая реализация упорядоченных таблиц</h4>
+
+<p>Упорядоченные таблицы наследуются от класса <em>SCAN_TABLE</em> и представлены классом <em>SORT_TABLE</em>, содержащим нижеизложенные методы:</p>
+
+<ul>
+<li>
+<code>sort(void)</code> - сортировка данных (требуется для конструктора преобразования типа).</li>
+<li>
+<code>SORT_TABLE(size_t size)</code> - конструктор.</li>
+<li>
+<code>SORT_TABLE(const SORT_TABLE&lt;DataType&gt;&amp; table)</code> - конструктор копирования.</li>
+<li>
+<code>SORT_TABLE(const SCAN_TABL&lt;DataType&gt;E&amp; table)</code> - конструктор преобразования типа.</li>
+<li>
+<code>~SORT_TABLE(void)</code> - деструктор.</li>
+<li>
+<code>find(const DataType&amp;)</code> - переопределенный метод поиска записи с указанным ключом (используется бинарный поиск).</li>
+<li>
+<code>insert(const TAB_RECORD&lt;DataType&gt;&amp;)</code> - переопределенный метод вставки новой записи в таблицу.</li>
+<li>
+<code>erase(const DataType&amp;)</code> - переопределенный метод удаления записи из таблицы.</li>
+</ul>
+
+<p>Класс реализован шаблонным, что позволяет хранить любого рода данные, для которых определен порядок сравнения.</p>
+
+<h4>
+<a id="Программая-реализация-приоритетной-очереди" class="anchor" href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF%D1%80%D0%B8%D0%BE%D1%80%D0%B8%D1%82%D0%B5%D1%82%D0%BD%D0%BE%D0%B9-%D0%BE%D1%87%D0%B5%D1%80%D0%B5%D0%B4%D0%B8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Программая реализация приоритетной очереди</h4>
+
+<p>Приоритетная очередь представлена базовым абстрактным классом <em>PRIORITY_QUEUE</em>, от которого наследуются классы <em>PRIORITY_QUEUE_ON_D_HEAP</em>, <em>PRIORITY_QUEUE_ON_AVL_TREE</em>, <em>PRIORITY_QUEUE_ON_SORT_TABLE</em>, содержащие идентичные, но переопределенный методы:</p>
+
+<ul>
+<li>
+<code>PRIORITY_QUEUE_ON_*(void)</code> - конструктор (выделяет память под базовую структуру данных).</li>
+<li>
+<code>PRIORITY_QUEUE_ON_*(const PRIORITY_QUEUE_ON_*&lt;KeyType&gt;&amp;)</code> - конструктор копирования.</li>
+<li>
+<code>~PRIORITY_QUEUE_ON_*(void)</code> - деструктор.</li>
+<li>
+<code>getSize(void)const</code> - получение количества элементов в очереди.</li>
+<li>
+<code>isEmpty(void)const</code> - проверка на пустоту.</li>
+<li>
+<code>isFull(void)const</code> - проверка на полноту.</li>
+<li>
+<code>pop(void)</code> - удаление элемента с наивысшим приоритетом.</li>
+<li>
+<code>push(const KeyType&amp;)</code> - вставка элемента.</li>
+<li>
+<code>back(void)const</code> - простотр элемента с наивысшим приоритетом.</li>
+</ul>
+
+<p>Классы реализованы шаблонными, что позволяет хранить любого рода данные, для которых определен порядок сравнения.</p>
+
+<h4>
+<a id="Программая-реализация-разделенных-множеств" class="anchor" href="#%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%8F-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D0%BC%D0%BD%D0%BE%D0%B6%D0%B5%D1%81%D1%82%D0%B2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Программая реализация разделенных множеств</h4>
+
+<p>Разделенные множества представлены классом <em>DISJOINT_SET</em>, содержащим следующие методы:</p>
+
+<ul>
+<li>
+<code>DISJOINT_SET&lt;KeyType&gt;(int)</code> - конструктор; принимает в качестве аргумента максимальное суммарное количество элементов множеств.</li>
+<li>
+<code>DISJOINT_SET&lt;KeyType&gt;(const DISJOINT_SET&lt;KeyType&gt;&amp;)</code> - конструктор копирования.</li>
+<li>
+<code>~DISJOINT_SET&lt;KeyType&gt;(void)</code> - деструктор.</li>
+<li>
+<code>createSet(int)</code> - создает одноэлементное множество с элементом, указанным в качестве аргумента.</li>
+<li>
+<code>uniteSets(int, int)</code> - объединяет два множества (множества передаются номером главного элемента).</li>
+<li>
+<code>findSet(int)</code> - возвращает главный элемент множества, если элемент принадлежит какому-либо множеству, иначе -1.</li>
+<li>
+<code>getNumberOfSets(void)const</code> - возвращает текущее количество множеств (требуется для тестирования).</li>
+<li>
+<code>getUniversalSet(void)const</code> - возвращает вектор, хранящий структуру множеств (требуется для тестирования).</li>
+<li>
+<code>getSet(int)const</code> - возвращает вектор элементов, содержащихся в множестве, которое указано в качестве аргумента (множество задается главным элементом).</li>
+<li>
+<code>operator&lt;&lt;(...)</code> - выводит вектор, содержащий структуру множеств.</li>
+</ul>
+
+<p>Представленный набор методов достаточен для проведения тестирования корректности представления и работы класса, а также использования его в иных алгоритмах.</p>
+
+<h3>
+<a id="Представление-графа" class="anchor" href="#%D0%9F%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B3%D1%80%D0%B0%D1%84%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Представление графа</h3>
+
+<p>Ребро представляется классом-сущностью <em>EDGE</em>. Класс содержит три public-поля:</p>
+
+<ul>
+<li>
+<code>first: size_t</code>.</li>
+<li>
+<code>second: size_t</code>.</li>
+<li>
+<code>distance: double</code>.
+Где first и second содержат связываемые вершины (в порядке неубывания), а distance - вес ребра.</li>
+</ul>
+
+<p>Граф представлен классом <em>GRAPH</em>, содержащим нижеизложенные методы:</p>
+
+<ul>
+<li>
+<code>GRAPH(size_t)</code> - конструктор.</li>
+<li>
+<code>GRAPH(const GRAPH&amp;)</code> - конструктор копирования.</li>
+<li>
+<code>~GRAPH(void)</code> - деструктор.</li>
+<li>
+<code>setDistance(size_t, size_t, double)</code> - устанавливает ребро графа.</li>
+<li>
+<code>getDistance(size_t, size_t)</code> - возвращает вес ребра графа (0, если ребра нет).</li>
+<li>
+<code>getNumOfVertices(void)</code> - возвращает число вершин графа.</li>
+<li>
+<code>eraseEdge(size_t, size_t)</code> - удалает ребро из графа, если оно присутствует.</li>
+<li>
+<code>fillGraph(void)</code> - метод заполнения графа (вручную).</li>
+<li>
+<code>createGraph(size_t, double, double)</code> - создание графа со случайными метками ребер.</li>
+<li>
+<code>getNumOfComponents(void)const</code> - получение количества компонент связности графа.</li>
+<li>
+<code>getAllEdges(void)</code> - возвращает множество всех ребер графа.</li>
+<li>
+<code>getSetOfEdges(size_t)</code> - возвращает множество пар: смежная вершина и расстояние до неё.</li>
+<li>
+<code>graphInfo(void)</code> - вывод информации о графе.
+
+<ul>
+<li>количество вершин;</li>
+<li>количество ребер;</li>
+<li>список ребер.</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="Заключение" class="anchor" href="#%D0%97%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Заключение</h2>
+
+<p>В ходе лабораторной работы были реализованы структуры данных "d-куча", "бинарное поисковое дерево", "АВЛ-сбалансированное дерево", "просматриваемая таблица", "упорядоченная таблицы" "приоритетная очередь" и "разделенные множества" с использованием шаблонных классов. Также написано тестирующее приложение, которое покрывает все методы, используемые в указанных классах (Все тесты успешно пройдены). Написаны консольные приложения:</p>
+
+<ul>
+<li>пирамидальная сортировка массива, заполняемого случайным образом;</li>
+<li>алгоритм Дейкстры для поиска кратчайших путей от некоторой стартовой вершины связного неориентированного взвешенного графа без петель до всех прочих с использованием приоритетной очереди, основанной на d-куче;</li>
+<li>алгоритм Крускала для построения минимального остовного дерева/леса неориентированного взвешенного графа без петель с использованием приоритетных очередей на базе d-кучи, упорядоченных таблиц и АВЛ-сбалансированных деревьев.</li>
+</ul>
+
+<h2>
+<a id="Литература" class="anchor" href="#%D0%9B%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D0%B0" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Литература</h2>
+
+<ol>
+<li>Кормен Т., Лейзерсон Ч., Риверст Р., Штайн К. Алгоритмы. Построение и анализ. - М.: Издательский дом "Вильямс". - 2005. - 1290с.</li>
+<li>Алексеев В.Е., Таланов В.А. Графы. Модели вычислений. Структуры данных: Учебник. – Нижний Новгород: Изд-во ННГУ, 2005. 307 с.</li>
+</ol>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
