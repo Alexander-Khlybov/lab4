@@ -72,31 +72,31 @@
 
 Рассмотрим граф:
 
-![graph](/Rept/graph.png)
+![graph](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/graph.png)
 
 Для рассматриваемого графа алгоритм считает расстояния от вершины №1 до всех остальных вершин (ребра, через которые проходит кратчайший путь до вершины, помечены цветом этой вершины):
 
-![graph_Dijkstra](/Rept/graph_Dijkstra.png)
+![graph_Dijkstra](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/graph_Dijkstra.png)
 
 #####Шаг 1
 Ввод количества вершин графа
 
-![Dijkstra1](/Rept/Dijkstra1.png)
+![Dijkstra1](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Dijkstra1.png)
 
 #####Шаг 2
 Ввод ребер и их весов
 
-![Dijkstra2](/Rept/Dijkstra2.png)
+![Dijkstra2](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Dijkstra2.png)
 
 #####Шаг 3
 Выбор стартовой вершины
 
-![Dijkstra4](/Rept/Dijkstra3.png)
+![Dijkstra3](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Dijkstra3.png)
 
 #####Шаг 4
 Вывод результата и завершение работы программы
 
-![Dijkstra5](/Rept/Dijkstra4.png)
+![Dijkstra4](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Dijkstra4.png)
 
 ###Использование реализации алгоритма Крускала
 
@@ -110,31 +110,31 @@
 
 Рассмотрим граф:
 
-![graph](/Rept/graph.png)
+![graph](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/graph.png)
 
 Для рассматриваемого графа алгоритм строит дерево, выделенное зеленым цветом:
 
-![graph_Kruskal](/Rept/graph_Kruskal.png)
+![graph_Kruskal](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/graph_Kruskal.png)
 
 #####Шаг 1
 Ввод количества вершин графа
 
-![Kruskal1](/Rept/Kruskal1.png)
+![Kruskal1](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Kruskal1.png)
 
 #####Шаг 2
 Ввод ребер и их весов
 
-![Kruskal2](/Rept/Kruskal2.png)
+![Kruskal2](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Kruskal2.png)
 
 #####Шаг 3
 Выбор базы для приоритетной очереди
 
-![Kruskal3](/Rept/Kruskal3.png)
+![Kruskal3](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Kruskal3.png)
 
 #####Шаг 4
 Вывод результата и завершение работы программы
 
-![Kruskal4](/Rept/Kruskal4.png)
+![Kruskal4](https://raw.githubusercontent.com/Alexander-Khlybov/lab4/master/Rept/Kruskal4.png)
 
 ##Руководство программиста
 
