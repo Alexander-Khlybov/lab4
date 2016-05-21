@@ -20,10 +20,10 @@ int main(void) {
 		return 1;
 	}
 
-	cout << "You can use priority queue based on D_HEAP, AVL_TREE, SORT_TABLE.\nWhich algorithm do you want to use ?\n";
+	cout << "You can use priority queue based on D_HEAP, binary search tree (implemented as BST), SORT_TABLE.\nWhich algorithm do you want to use ?\n";
 	string s;
 	cin >> s;
-	if (s != "D_HEAP" && s != "AVL_TREE" && s != "SORT_TABLE") {
+	if (s != "D_HEAP" && s != "BST" && s != "SORT_TABLE") {
 		cout << "Priority queue does not created.\n";
 		return 1;
 	}

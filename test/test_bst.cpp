@@ -1,6 +1,5 @@
 #include <gtest.h>
 #include "bst.hpp"
-#include "avl-tree.hpp"
 
 TEST(BINARY_SEARCH_TREE, can_create_binary_tree) {
 	ASSERT_NO_THROW(BST<int> a);
@@ -238,31 +237,8 @@ TEST(BINARY_SEARCH_TREE, throws_when_next_node_does_not_exist) {
 	ASSERT_ANY_THROW(a.findNext(a.find(25)));
 }
 
-//==========================================================
-
-TEST(AVL_TREE, can_create_tree) {
-	ASSERT_NO_THROW(AVL_TREE<int> a);
-}
-
-TEST(AVL_TREE, created_tree_is_empty) {
-	AVL_TREE<int> a;
-	EXPECT_EQ(0, a.getSize());
-}
-
-TEST(AVL_TREE, can_insert_key_to_tree) {
-	AVL_TREE<int> a;
-	ASSERT_NO_THROW(a.insert(3));
-}
-
-TEST(AVL_TREE, insertion_increases_size_tree) {
-	AVL_TREE<int> a;
-	size_t tmp = a.getSize();
-	a.insert(3);
-	EXPECT_EQ(tmp + 1, a.getSize());
-}
-
-TEST(AVL_TREE, can_erase_node_from_tree) {
-	AVL_TREE<int> a;
+TEST(BINARY_SEARCH_TREE, can_erase_min_node) {
+	BST<int> a;
 	a.insert(7);
 	a.insert(2);
 	a.insert(3);
@@ -271,14 +247,11 @@ TEST(AVL_TREE, can_erase_node_from_tree) {
 	a.insert(15);
 	a.insert(25);
 	a.insert(10);
-	ASSERT_NO_THROW(a.erase(5));
-	ASSERT_NO_THROW(a.erase(7));
-	ASSERT_NO_THROW(a.erase(15));
-	cout << 1;
+	ASSERT_NO_THROW(a.eraseMinNode());
 }
 
-TEST(AVL_TREE, erasing_decreases_size_tree) {
-	AVL_TREE<int> a;
+TEST(BINARY_SEARCH_TREE, erase_min_node_decreases_size_tree) {
+	BST<int> a;
 	a.insert(7);
 	a.insert(2);
 	a.insert(3);
@@ -288,34 +261,11 @@ TEST(AVL_TREE, erasing_decreases_size_tree) {
 	a.insert(25);
 	a.insert(10);
 	size_t tmp = a.getSize();
-	a.erase(7);
+	a.eraseMinNode();
 	EXPECT_EQ(tmp - 1, a.getSize());
 }
 
-TEST(AVL_TREE, can_erase_min_node_from_tree) {
-	AVL_TREE<int> a;
-	a.insert(7);
-	a.insert(2);
-	a.insert(3);
-	a.insert(8);
-	a.insert(5);
-	a.insert(15);
-	a.insert(25);
-	a.insert(10);
-	ASSERT_NO_THROW(a.eraseMin());
-}
-
-TEST(AVL_TREE, erasing_min_node_decreases_size_tree) {
-	AVL_TREE<int> a;
-	a.insert(7);
-	a.insert(2);
-	a.insert(3);
-	a.insert(8);
-	a.insert(5);
-	a.insert(15);
-	a.insert(25);
-	a.insert(10);
-	size_t tmp = a.getSize();
-	a.eraseMin();
-	EXPECT_EQ(tmp - 1, a.getSize());
+TEST(BINATY_SEARCH_TREE, cant_erase_min_node_from_empty_tree) {
+	BST<int> a;
+	ASSERT_ANY_THROW(a.eraseMinNode());
 }

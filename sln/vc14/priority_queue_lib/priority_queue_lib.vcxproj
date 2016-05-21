@@ -129,8 +129,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\avl-tree_lib\avl-tree_lib.vcxproj">
-      <Project>{2ecce033-9a73-48fe-9e81-c1d2806ad625}</Project>
+    <ProjectReference Include="..\binary_search_tree_lib\binary_search_tree_lib.vcxproj">
+      <Project>{b66ff591-f64a-4c47-be45-1e16dde908d7}</Project>
     </ProjectReference>
     <ProjectReference Include="..\d-heap_lib\d-heap_lib.vcxproj">
       <Project>{bbb22511-2569-4ec1-9fbf-93460dc7d215}</Project>

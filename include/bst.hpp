@@ -10,18 +10,18 @@ public:
 	NODE<KeyType>* left_;
 	NODE<KeyType>* right_;
 	NODE<KeyType>* parent_;
-	short balance_;
 
-	NODE() : left_(NULL), right_(NULL), parent(NULL), balance_(0) {}
+	NODE() : left_(NULL), right_(NULL), parent(NULL) {}
 	NODE(const KeyType& data, NODE* parent, NODE* left = NULL, NODE* right = NULL) :
-		data_(data), parent_(parent), left_(left), right_(right), balance_(0) {}
+		data_(data), parent_(parent), left_(left), right_(right) {}
 	NODE(const NODE& node) : data_(node.data_), parent_(node.parent_),
-		left_(node.left_), right_(node.right_), balance_(node.balance_) {}
+		left_(node.left_), right_(node.right_) {}
 };
 
 template<class KeyType>
 class BST {
 	NODE<KeyType>*	getNodeForErasing(const KeyType&);
+	NODE<KeyType>*	getMinNodeForErasing(void);
 protected:
 	NODE<KeyType>* root_;
 	void recursiveErase(NODE<KeyType>*&);
@@ -29,10 +29,11 @@ protected:
 public:
 	BST(void) : root_(NULL) {}
 	BST(const BST<KeyType>& tree) { root_ = copy(tree.root_, NULL); }
-	virtual ~BST(void);
+	~BST(void);
 
-	virtual void 	insert	(const KeyType&);
-	virtual void 	erase	(const KeyType&);
+	void 	insert		(const KeyType&);
+	void 	erase		(const KeyType&);
+	void	eraseMinNode(void);
 
 	NODE<KeyType>* 	find 	(const KeyType&)const;
 	NODE<KeyType>* 	findMin	(NODE<KeyType>* node = NULL)const;
@@ -61,6 +62,29 @@ NODE<KeyType>* BST<KeyType>::getNodeForErasing(const KeyType& data){
 	}
 	tmp2->data_ = tmp1->data_;
 	return tmp1;
+}
+
+template<class KeyType>
+NODE<KeyType>* BST<KeyType>::getMinNodeForErasing(void){
+	if (root_ == NULL)
+		throw exception("You can not erase minimal node from empty tree.");
+
+	NODE<KeyType>* node = findMin();
+
+	if (node->parent_ == NULL) {
+		if (node->right_ == NULL) {
+			root_ = NULL;
+			return node;
+		}
+		root_ = node->right_;
+		root_->parent_ = NULL;
+		node->right_ = NULL;
+		return node;
+	}
+
+	node->parent_->left_ = node->right_;
+	node->right_ = node->parent_ = NULL;
+	return node;
 }
 
 template<class KeyType>
@@ -106,6 +130,11 @@ void BST<KeyType>::insert(const KeyType& data){
 template<class KeyType>
 void BST<KeyType>::erase(const KeyType& data){
 	delete getNodeForErasing(data);
+}
+
+template<class KeyType>
+void BST<KeyType>::eraseMinNode(void){
+	delete getMinNodeForErasing();
 }
 
 template<class KeyType>
