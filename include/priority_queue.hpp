@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include "d-heap.hpp"
-#include "avl-tree.hpp"
+#include "bst.hpp"
 #include "tables.hpp"
 #include <map>
 
@@ -103,33 +103,33 @@ KeyType PRIORITY_QUEUE_ON_D_HEAP<KeyType>::back(void) const {
 }
 
 template<class KeyType>
-class PRIORITY_QUEUE_ON_AVL_TREE : public PRIORITY_QUEUE<KeyType> {
-	AVL_TREE<KeyType>* tree_;
+class PRIORITY_QUEUE_ON_BINARY_SEARCH_TREE : public PRIORITY_QUEUE<KeyType> {
+	BST<KeyType>* tree_;
 public:
-	PRIORITY_QUEUE_ON_AVL_TREE(void) {
-		tree_ = new AVL_TREE<KeyType>();
+	PRIORITY_QUEUE_ON_BINARY_SEARCH_TREE(void) {
+		tree_ = new BST<KeyType>();
 		if (tree_ == NULL)
 			throw exception("Error.");
 	}
-	PRIORITY_QUEUE_ON_AVL_TREE(const PRIORITY_QUEUE_ON_AVL_TREE<KeyType>& tree) {
-		tree_ = new AVL_TREE<KeyType>(*tree.tree_);
+	PRIORITY_QUEUE_ON_BINARY_SEARCH_TREE(const PRIORITY_QUEUE_ON_BINARY_SEARCH_TREE<KeyType>& tree) {
+		tree_ = new BST<KeyType>(*tree.tree_);
 		if (tree_ == NULL)
 			throw exception("Error.");
 	}
-	virtual ~PRIORITY_QUEUE_ON_AVL_TREE(void) { delete tree_; }
+	virtual ~PRIORITY_QUEUE_ON_BINARY_SEARCH_TREE(void) { delete tree_; }
 
 	virtual int getSize(void)const { return tree_->getSize(); }
 	virtual int isEmpty(void) const { return tree_->getSize() == 0; }
 	virtual int isFull(void) const;
-	AVL_TREE<KeyType> getTree(void)const;
+	BST<KeyType> getTree(void)const;
 
-	virtual void pop(void) { tree_->eraseMin(); }
+	virtual void pop(void) { tree_->eraseMinNode(); }
 	virtual void push(const KeyType& key) { tree_->insert(key); }
 	virtual KeyType back(void) const { return tree_->findMin()->data_; }
 };
 
 template<class KeyType>
-int PRIORITY_QUEUE_ON_AVL_TREE<KeyType>::isFull(void) const{
+int PRIORITY_QUEUE_ON_BINARY_SEARCH_TREE<KeyType>::isFull(void) const{
 	KeyType* node = new KeyType();
 	if (node == NULL)
 		return 1;
@@ -138,8 +138,8 @@ int PRIORITY_QUEUE_ON_AVL_TREE<KeyType>::isFull(void) const{
 }
 
 template<class KeyType>
-AVL_TREE<KeyType> PRIORITY_QUEUE_ON_AVL_TREE<KeyType>::getTree(void) const{
-	return AVL_TREE<KeyType>(*tree_);
+BST<KeyType> PRIORITY_QUEUE_ON_BINARY_SEARCH_TREE<KeyType>::getTree(void) const{
+	return BST(*tree_);
 }
 
 template <class KeyType>
@@ -199,8 +199,8 @@ bool MAKE_PRIORITY_QUEUE<DataType>::makeQueueBasedOn(PRIORITY_QUEUE<DataType>*& 
 		q = new PRIORITY_QUEUE_ON_D_HEAP<DataType>(size);
 		return true;
 	}
-	if (s == "AVL_TREE") {
-		q = new PRIORITY_QUEUE_ON_AVL_TREE<DataType>();
+	if (s == "BST") {
+		q = new PRIORITY_QUEUE_ON_BINARY_SEARCH_TREE<DataType>();
 		return true;
 	}
 	if (s == "SORT_TABLE") {
