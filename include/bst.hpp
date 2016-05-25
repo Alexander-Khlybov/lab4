@@ -11,7 +11,7 @@ public:
 	NODE<KeyType>* right_;
 	NODE<KeyType>* parent_;
 
-	NODE() : left_(NULL), right_(NULL), parent(NULL) {}
+	NODE() : left_(NULL), right_(NULL), parent_(NULL) {}
 	NODE(const KeyType& data, NODE* parent, NODE* left = NULL, NODE* right = NULL) :
 		data_(data), parent_(parent), left_(left), right_(right) {}
 	NODE(const NODE& node) : data_(node.data_), parent_(node.parent_),
@@ -116,15 +116,28 @@ void BST<KeyType>::insert(const KeyType& data){
 		root_ = new NODE<KeyType>(data, NULL, NULL, NULL);
 		return;
 	}
+
 	NODE<KeyType>* tmp = root_;
-	NODE<KeyType>* prev;
-	while(tmp != NULL){
+	NODE<KeyType>* prev = new NODE<KeyType>;
+	while (tmp != NULL){
 		prev = tmp;
-		if	(tmp->data_ < data) tmp = tmp->right_;
+		if (tmp->data_ <= data) tmp = tmp->right_;
 		else tmp = tmp->left_;
 	}
-	if	(prev->data_ <= data) prev->right_ = new NODE<KeyType>(data, prev);
+	if (prev->data_ <= data)
+		prev->right_ = new NODE<KeyType>(data, prev);
 	else prev->left_ = new NODE<KeyType>(data, prev);
+
+
+	//NODE<KeyType>* tmp = root_;
+	//NODE<KeyType>* prev;
+	//while(tmp != NULL){
+	//	prev = tmp;
+	//	if	(tmp->data_ < data) tmp = tmp->right_;
+	//	else tmp = tmp->left_;
+	//}
+	//if	(prev->data_ <= data) prev->right_ = new NODE<KeyType>(data, prev);
+	//else prev->left_ = new NODE<KeyType>(data, prev);
 }
 
 template<class KeyType>
