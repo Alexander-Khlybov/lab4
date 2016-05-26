@@ -38,8 +38,8 @@ public:
 	double distance;
 	EDGE(size_t x = 0, size_t y = 0, double d = _INFINITY_) :
 						first(x), second(y), distance(d) {}
-	int operator==  (const EDGE& d)const { return (distance == d.distance) ? 1 : 0; }
-	int operator!=  (const EDGE& d)const { return (distance != d.distance) ? 1 : 0; }
+	int operator==  (const EDGE& d)const { return first == d.first && distance == d.distance && second == d.second; }
+	int operator!=  (const EDGE& d)const { return !(*this == d); }
 	int operator<   (const EDGE& d)const { return (distance < d.distance) ? 1 : 0; }
 	int operator<=  (const EDGE& d)const { return (distance <= d.distance) ? 1 : 0; }
 	int operator>   (const EDGE& d)const { return (distance > d.distance) ? 1 : 0; }
